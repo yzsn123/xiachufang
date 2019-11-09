@@ -14,10 +14,10 @@ export default {
     return {
       tabList: [
         {id: 1, path: '/kitchen', title: '下厨房', icon: 'home-o'},
-        {id: 2, path: '/market', title: '市集', icon: 'orders-o'},
-        {id: 3, path: '/classroom', title: '课堂', icon: 'user-o'},
-        {id: 4, path: '/collect', title: '收藏', icon: 'user-o'},
-        {id: 5, path: '/mine', title: '我', icon: 'user-o'},
+        {id: 2, path: '/market', title: '市集', icon: 'shop-o'},
+        {id: 3, path: '/classroom', title: '课堂', icon: 'newspaper-o'},
+        {id: 4, path: '/collect', title: '收藏', icon: 'like-o'},
+        {id: 5, path: '/mine', title: '我', icon: 'manager-o'},
       ]
     }
   }
