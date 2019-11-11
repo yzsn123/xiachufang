@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-    <router-view></router-view>
+    <router-view class="page"></router-view>
     <tab-bar></tab-bar>
 </div>
 </template>
@@ -15,7 +15,14 @@ export default {
 </script>
 
 <style lang="scss">
-
+html,body,#app{
+    width:100%;
+    height:100%;
+}
+.page{
+    width:100%;
+    height:100%;
+}
 </style>
 
 
