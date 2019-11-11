@@ -40,7 +40,8 @@
           ".header",
           ".tab-bar",
           ".border-bottom",
-          ".content"
+          ".content",
+          ".page"
         ]
       }
     }
