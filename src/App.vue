@@ -1,7 +1,7 @@
 <template>
 <div id="app">
 
-    <router-view></router-view>
+    <router-view class="page"></router-view>
     <tab-bar></tab-bar>
 </div>
 </template>
@@ -17,6 +17,10 @@ export default {
 
 <style lang="scss">
 #app,html,body{
+    width: 100%;
+    height: 100%;
+}
+.page{
     width: 100%;
     height: 100%;
 }
