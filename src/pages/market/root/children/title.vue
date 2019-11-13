@@ -1,7 +1,7 @@
 <template>
   <div class="market-title">
     <ul class="title-list">
-      <li v-for="item in data" :key="item.id">
+      <li v-for="item in data" :key="item.id" @click="GoFoodAction(item.id)">
         <img :src="item.img" alt />
       </li>
     </ul>
@@ -39,6 +39,11 @@ export default {
       ],
       banner: require("../../../../assets/market/index/market-banner-01.jpg")
     };
+  },
+  methods:{
+    GoFoodAction(id){
+      this.$router.push(`/market/foodcategory/${id}`);
+    }
   }
 };
 </script>
@@ -46,14 +51,15 @@ export default {
 <style lang='scss' scoped>
 .market-title {
   width: 100%;
+  padding: 40px 0 0 0;
   .title-list {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 60px 0;
+    margin: 0 0 22px 48px;
     li {
       flex: 1;
-      margin: 0 48px;
+      margin: 0 48px 0 0;
       img {
         width: 100%;
       }

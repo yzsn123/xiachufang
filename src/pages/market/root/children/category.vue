@@ -85,19 +85,18 @@ export default {};
 .category-tabs {
   overflow: hidden;
   box-sizing: border-box;
-  margin-top: 90px;
   .tabs-list {
     li {
       width: 25%;
       float: left;
       text-align: center;
       display: block;
-      margin-bottom: 90px;
+      margin-top: 60px;
       .pic {
-        width: 400px;
+        width: 200px;
         border-radius: 50%;
         overflow: hidden;
-        height: 400px;
+        height: 200px;
         text-align: center;
         display: inline-block;
         img {
@@ -106,8 +105,8 @@ export default {};
         }
       }
       .title {
-        font-size: 90px;
-        padding-top: 50px;
+        font-size: 40px;
+        padding-top: 32px;
         color: #14130f;
       }
     }

@@ -1,7 +1,8 @@
 
 
 // 管理api
-// export const HOST = 'http://localhost:9000';
+export const HOST = 'http://localhost:8080';
+// export const HOST = 'http://10.20.152.3:9000';
 
 
 /* 

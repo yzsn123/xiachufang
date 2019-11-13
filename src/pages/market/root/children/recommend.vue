@@ -42,8 +42,9 @@ export default {
   .cell {
     position: relative;
     overflow: hidden;
-    margin: 40px 30px 0 30px;
-    border-radius: 30px;
+    margin: 20px 15px 0 15px;
+    border-radius: 10px;
+    height:348px ;
     .cell-content {
       position: absolute;
       top: 50%;
@@ -54,17 +55,18 @@ export default {
       display: inline-block;
       width: 80%;
       .name {
-        font-size: 100px;
+        font-size: 56px;
         color: #16180b;
         font-weight: 700;
-        padding-bottom: 30px;
+        padding-bottom: 35px;
       }
       .dec {
         background: #fff;
-        border-radius: 30px;
-        font-size: 70px;
-        padding: 30px 0;
+        border-radius: 50px;
+        font-size: 36px;
         color: #393a34;
+        height: 82px;
+        line-height: 82px;
         .price {
           font-weight: bold;
           color: #fb4128;

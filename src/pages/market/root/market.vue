@@ -1,7 +1,8 @@
 <template>
+<div class="market-container">
   <div class="market">
     <!-- 头部 -->
-    <Header />
+    <Header title="首页" />
     <app-scroll class="content">
       <!-- 标题分类   -->
       <Title />
@@ -16,13 +17,17 @@
      <!-- 好店推荐 -->
       <StoreList />
       
-      <Product />
-
-      
-
+      <Product :GoodList='GoodList' />
 
     </app-scroll>
   </div>
+
+<!-- 渲染详情页面 -->
+  <transition class="" enter-active-class="slideInRight" leave-active-class="slideOutRight">
+  <router-view></router-view>
+  </transition>
+
+</div>
 </template>
 
 <script>
@@ -33,6 +38,7 @@ import Recommend from "./children/Recommend";
 import Category from "./children/Category";
 import StoreList from "./children/StoreList";
 import Product from "./children/Product";
+import marketService from '../../../services/marketService'
 export default {
   components: {
     Header,
@@ -42,11 +48,27 @@ export default {
     Category,
     Product,
     StoreList
+  },
+  data(){
+    return{
+      GoodList:[]
+    }
+  },
+  methods:{
+    async initData(){
+     const result = await marketService.requestMarketGoodListDate();
+     this.GoodList = result.GoodListDate;
+    //  console.log( this.GoodList);
+    }
+  },
+  created(){
+    this.initData();
   }
+  
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 body,html{
   width: 100%;
   height: 100%;
@@ -59,19 +81,19 @@ body,html{
   top: 44px;
   background: #fff;
 }
- 
-</style>
-
-<style lang="scss" >
+body,html{
+  width: 100%;
+  height: 100%;
+}
 .product-title {
     text-align: center;
-    padding: 60px 0;
+    padding: 60px 0 40px 0;
     color: #010101;
     .tit {
       border: 5px solid #010101;
-      padding: 30px;
+      padding: 16px;
       border-radius: 50%;
-      font-size: 80px;
+      font-size: 40px;
       font-weight: bold;
       display: inline-block;
     }

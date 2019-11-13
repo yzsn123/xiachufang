@@ -1,6 +1,6 @@
 <template>
   <div class="product-list">
-       <Item />
+       <Item :GoodList='GoodList' />
 
   </div>
 </template>
@@ -8,6 +8,12 @@
 <script>
 import Item from "./Item";
 export default {
+   props:{
+    GoodList:{
+      type:Array,
+      required:true
+    }
+  },
   components:{
     Item
   }
@@ -16,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 .product-list{
-    margin:120px 0 0 80px;
+    margin:30px 0 0 30px;
     overflow: hidden;
 }
 

@@ -12,7 +12,7 @@
     <!-- 推荐 -->
     <Recommend />
     
-    <ProductList /> 
+    <ProductList :GoodList='GoodList' /> 
     
 
   </div>
@@ -22,6 +22,12 @@
 import Recommend from "./Recommend";
 import ProductList from "./Product-list";
 export default {
+  props:{
+    GoodList:{
+      type:Array,
+      required:true
+    }
+  },
   components: {
     Recommend,
     ProductList
@@ -30,21 +36,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.product-box {
-  margin-top: 50px;
-  // .product-title {
-  //   text-align: center;
-  //   padding: 60px 0;
-  //   color: #010101;
-  //   .tit {
-  //     border: 5px solid #010101;
-  //     padding: 30px;
-  //     border-radius: 50%;
-  //     font-size: 80px;
-  //     font-weight: bold;
-  //     display: inline-block;
-  //   }
-  // }
-  
-}
+
 </style>

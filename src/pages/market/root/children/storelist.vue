@@ -46,12 +46,12 @@ export default {
 
 <style lang="scss" scoped>
 .store-list{
-   margin:60px 0 0 80px;
+   margin:35px 0 0 10px;
     overflow: hidden;
     .cell{
       width:50%;
-      padding-right: 60px;
-      padding-bottom: 60px;
+      padding-right: 10px;
+      padding-bottom: 20px;
       box-sizing: border-box;
       overflow: hidden;
       text-align: center;
@@ -60,8 +60,8 @@ export default {
         position: relative;
         img{
           width: 100%;
-          border-top-left-radius: 60px;
-          border-top-right-radius: 60px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
         }
         .tips{
           top: 10%;
@@ -73,15 +73,20 @@ export default {
           .tit{
             font-weight: bold;
             padding-bottom: 10px;
+            font-size: 40px;
+          }
+          .name{
+           font-size: 30px;
           }
         }
       }
       .price{
         background: #ffef42;
         color: #191917;
-        padding: 44px 0;
-        border-bottom-left-radius: 60px;
-          border-bottom-right-radius: 60px;
+        height: 80px;
+        line-height: 80px;
+        border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
         b{
           font-weight: 700;
         }

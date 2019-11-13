@@ -1,8 +1,8 @@
 <template>
 <div class="item-list">
-  <div class="item" v-for="item in GoodList" :key="item.id" @click="goDetail(item.id,item.title)">
+  <div class="item" v-for="item in GoodList" :key="item.id" @click="goDetail(item.id)">
     <div class="pic-box">
-      <img :src="item.picUrl"  :alt='item.title' />
+      <img :src="item.picUrl"  :alt='item.name' />
       <p class="tips">限时特价</p>
     </div>
     <div class="item-content">
@@ -112,17 +112,19 @@ export default {
     };
   },
   methods:{
-    goDetail(id,title){
-      // console.log(title);
-      // console.log(id);
+    goDetail(id,name){
       // this.$router.push(`/market/detail/${id}?title=${this.itemList.name}`);
-      this.$router.push(`/market/detail/${id}?title=${title}`);
+      this.$router.push(`/market/detail/${id}?title=${name}`);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+//要清除浮动，不要滚动条没有高度不会滚动
+.item-list{
+  overflow: hidden;
+  padding:0 0 0 30px;
 .item {
   width: 50%;
   float: left;
@@ -182,4 +184,6 @@ export default {
     }
   }
 }
+}
+
 </style>

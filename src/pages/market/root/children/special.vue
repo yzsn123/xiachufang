@@ -70,44 +70,43 @@ export default {
 <style lang="scss" scoped>
 
 .special-container {
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
   ul {
-    margin: 0 0 0 50px;
+    margin: 0 0 0 20px;
     box-sizing: border-box;
     li {
       float: left;
       width: 48%;
       box-sizing: border-box;
-      margin: 0 40px 30px 0;
+      margin: 0 20px 20px 0;
       background: #f3f3f3;
       border-right: 6px;
-      padding: 40px 0 40px 40px;
-      border-radius: 60px;
-      // display: flex;
+      padding: 20px 0 20px 20px;
+      border-radius: 10px;
       overflow: hidden;
       position: relative;
       height: 100%;
       box-sizing: border-box;
+      height: 285px;
       .left {
         .title {
-          font-size: 70px;
-          height: 350px;
+          font-size: 40px;
+          height: 180px;
           font-weight: bold;
           color: #1a1a1a;
         }
         .txt {
-          font-size: 34px;
-          padding-bottom: 20px;
+          font-size: 32px;
+          padding-bottom: 16px;
         }
         .price {
-          font-size: 40px;
+          font-size: 30px;
           color: #fc4027;
           font-weight: bold;
           .origin {
-            font-size: 28px;
             color: #919191;
             font-weight: normal;
             text-decoration: line-through;

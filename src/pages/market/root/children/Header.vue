@@ -1,13 +1,23 @@
 <template>
   <header class="header">
-    <span class="header-btn header-btn-left">
+    <span class="header-btn header-btn-left" v-if="hasLocation"  >
       <van-icon name="location-o" />
       <p class="name">深圳市</p>
     </span>
-    <div class="header-center search-box">
+
+    <span class="header-btn header-btn-left" v-else @click="backAction" >
+      <van-icon name="arrow-left" />
+    </span>
+
+    <div class="header-center search-box" v-if="hasLocation">
       <van-icon name="search" />
       <input type="text" class="search" placeholder="请输入要搜索的内容" />
     </div>
+
+   <div class="header-title" v-else>
+      <h1>{{title}}</h1>
+   </div>
+
     <span class="header-btn header-btn-right">
       <van-icon name="shopping-cart-o" />
     </span>
@@ -15,7 +25,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:{
+    hasLocation:{
+      type:Boolean,
+      default:true
+    },
+    title:{
+      type:String,
+      required:true
+    }
+  },
+  methods:{
+    backAction(){
+      this.$router.back();
+    }
+  }
+};
 </script>
 <style lang='scss' scoped>
 .header {
