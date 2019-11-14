@@ -1,7 +1,7 @@
 
 
 // 管理api
-// export const HOST = 'http://localhost:9000';
+export const HOST = 'http://localhost:8080';
 
 
 /* 
@@ -71,13 +71,18 @@ const KITCHEN_ATTENTION_API = '/api/kitchen/attention';
 const KITCHEN_STORY_API = '/api/kitchen/story';
 
 //下厨房搜索接口
-const KITCHEN_SEARCH_API = 'api/kitchen/search'
+const KITCHEN_SEARCH_API = '/api/kitchen/search'
+
+//下厨房关注感兴趣接口
+const KITCHEN_ATTENTION_INTEREST_APi = '/api/kitchen/attention/interest';
 
 /*
 课堂接口
 */
-
-
+//课堂所有内容的接口
+const CLASS_ALL_API = '/api/class/all'
+//猜你喜欢接口
+const CLASS_GUESS_API = 'api/class/all/guess'
 /*
 收藏接口
 */
@@ -121,5 +126,8 @@ export default {
   COLLECT_CLASS_API,
   COLLECT_STORY_API,
   COLLECT_HISTORY_API,
-  ORDER_API
+  ORDER_API,
+  CLASS_ALL_API,
+  CLASS_GUESS_API,
+  KITCHEN_ATTENTION_INTEREST_APi
 }

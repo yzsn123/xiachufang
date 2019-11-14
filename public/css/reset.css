@@ -68,6 +68,9 @@ img{
 	border-top: 1px solid #ccc;
 	transform: scaleY(0.5);
 }
+input,button{
+	border: none;
+}
 .border-bottom{
 	position: relative;
 }
