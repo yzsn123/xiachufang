@@ -14,7 +14,7 @@
               <!-- <span class="origin">￥165</span> -->
             </div>
             <!-- 因为是数组需要用join来拼接 有规格才显示-->
-            <div class="num" v-if="this.data.sku.tree.length>0">已选择 : {{tip.join(',')}}</div>
+            <div class="num text-overflow" v-if="this.data.sku.tree.length>0">已选择 : {{tip.join(',')}}</div>
           </div>
           <div @click="hideAction">
             <van-icon name="clear" />
@@ -115,7 +115,18 @@ export default {
         //  没有选择完整
         Toast('请选择规格数量');
       } else {
-        this.$router.push('/home/detail');
+        this.$router.push('/market/order');
+        let id = 0;
+        const info ={
+          selectId:id++,
+          selectPic:this.selectImg,
+          selectTit:this.data.title,
+          selectNum:this.count,
+          selectInfo:this.tip,
+          currentPrice:this.data.currentPrice
+        }   
+        this.$store.commit('marketOrder/selectProduct',info);  
+
       }
     }
   }
@@ -156,6 +167,7 @@ export default {
         align-items: flex-start;
         border-bottom: 1px #eee solid;
         padding: 0 0 24px 0;
+        width: 100%;
         .pic {
           width: 200px;
           height: 200px;

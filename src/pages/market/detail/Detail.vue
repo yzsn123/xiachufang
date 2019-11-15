@@ -100,8 +100,6 @@ export default {
   },
   created() {
     this.initData();
-    // console.log(this.detailBanner);
-    
   }
 };
 </script>

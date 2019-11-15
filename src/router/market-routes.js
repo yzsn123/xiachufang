@@ -11,6 +11,10 @@ export default{
          path:'foodcategory/:id',
          props:true,
          component:()=>import('../pages/market/food-category/Food'),
+       },
+       {
+         path:'order',
+         component:()=>import('../pages/market/order/Order'),
        }
     ]
 }

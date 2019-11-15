@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="product-box">
     <div class="type" >
       <h3 class="title">{{data.spec}}</h3>
       <div class="select" ref="option">
@@ -41,8 +41,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-box{
+  width: 100%;
+}
 .type {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px #eee solid;
   width: 100%;
   .title {
@@ -55,7 +58,7 @@ export default {
   .select {
     span {
       padding: 4px 10px;
-      border: 1px #e7e9de solid;
+      border: 1px #eee solid;
       font-size: 30px;
       color: #3f3f3d;
       line-height: 65px;
@@ -63,8 +66,9 @@ export default {
       display: inline-block;
     }
     .active {
-      border: 1px red solid;
-      color: red;
+      border: 1px #fb6650 solid;
+      color: #fff;
+      background: #fb6650;
     }
   }
 }

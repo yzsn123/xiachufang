@@ -26,12 +26,16 @@
 </template>
 
 <script>
+import { Lazyload } from 'vant';
 export default {
    props:{
     GoodList:{
       type:Array,
       required:true
     }
+  },
+  components:{
+     [Lazyload.name]:Lazyload
   },
   data() {
     return {
@@ -119,15 +123,7 @@ export default {
       this.$router.push(`/market/detail/${id}?title=${title}`);
     }
   },
-  created(){
-    // console.log(this.GoodList);
-  },
-  computed:{
-    originPrice(){
-      // return 
-      
-    }
-  }
+
 };
 </script>
 

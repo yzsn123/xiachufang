@@ -14,8 +14,8 @@
       <input type="text" class="search" placeholder="请输入要搜索的内容" />
     </div>
 
-   <div class="header-title" v-else>
-      <h1>{{title}}</h1>
+   <div class="header-title text-overflow" v-else>
+      <h1 class="">{{title}}</h1>
    </div>
 
     <span class="header-btn header-btn-right">
