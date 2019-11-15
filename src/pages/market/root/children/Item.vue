@@ -118,6 +118,15 @@ export default {
       // this.$router.push(`/market/detail/${id}?title=${this.itemList.name}`);
       this.$router.push(`/market/detail/${id}?title=${title}`);
     }
+  },
+  created(){
+    // console.log(this.GoodList);
+  },
+  computed:{
+    originPrice(){
+      // return 
+      
+    }
   }
 };
 </script>

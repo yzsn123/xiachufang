@@ -26,7 +26,7 @@ export default {
     async initData() {
       const result = await marketService.requestMarketGoodListDate();
       this.GoodList = result.GoodListDate;
-      console.log( this.GoodList);
+      // console.log( this.GoodList);
     }
   },
   created() {

@@ -5,76 +5,117 @@
       <div class="product-box">
         <div class="product">
           <div class="pic">
-            <img
-              :src="data.bannerList[0].picUrl"
-              alt
-              ref="goodspic"
-            />
+            <img :src="selectImg" alt ref="goodspic" />
           </div>
           <div class="contect-box">
-            <h3 class="title">
-              {{data.title}}
-            </h3>
+            <h3 class="title">{{data.title}}</h3>
             <div class="price-box">
               <span>价格:￥{{data.currentPrice}}</span>
               <!-- <span class="origin">￥165</span> -->
             </div>
-            <!-- <div class="num">已选择:{{value}}</div> -->
+            <!-- 因为是数组需要用join来拼接 有规格才显示-->
+            <div class="num" v-if="this.data.sku.tree.length>0">已选择 : {{tip.join(',')}}</div>
           </div>
           <div @click="hideAction">
             <van-icon name="clear" />
           </div>
         </div>
-        <div class="type" v-for="(item,index) in data.sku.tree"  :key="index">
-          <h3 class="title">{{item.spec}}</h3>
-          <div class="select" ref="option">
-            <span v-for="item in item.kind" :key="item.id">
-              {{item.kindName}}
-            </span>
-           
-          </div>
-        </div>
+        <!-- 规格选择 -->
+        <selectItem
+          :data="data"
+          @select="handleSelect"
+          v-for="(data,index) in data.sku.tree"
+          :key="index"
+        />
       </div>
       <div class="skuSpec">
         <h3 class="title">数量</h3>
         <div class="step">
-          <span :class="{disabled:count<=1}" @click="handleCount(-1)" >-</span>
+          <span :class="{disabled:count<=1}" @click="handleCount(-1)">-</span>
           <span>{{count}}</span>
-          <span @click="handleCount(+1)"> + </span>
+          <span @click="handleCount(+1)">+</span>
         </div>
       </div>
-      <div class="detailBtn">确定</div>
+      <div class="detailBtn" @click="buyAction">确定</div>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast } from 'vant';
+import selectItem from "./select-item";
+import { Toast } from "vant";
 export default {
-  props:{
-    data:{
-      type:Object,
-      required:true
-    },
-    
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
   },
   components: {
-    [Toast.name]:Toast
+    [Toast.name]: Toast,
+    selectItem
   },
   data() {
     return {
-      count:1
+      count: 1,
+      selectMap: {},
+      selectImg: this.data.bannerList[0].picUrl
     };
+  },
+  computed: {
+    tip() {
+      //把对象转成数组的格式
+      let mapArr = Object.entries(this.selectMap);
+      //没有选择的时候
+      if (mapArr.length <= 0) {
+        return ["请选择规格数量"];
+      } else {
+        // 选择了
+        let tmp = [];
+        //遍历原数组里面的分类
+        this.data.sku.tree.forEach(({ spec }) => {
+          //判断是否有值
+          if (this.selectMap[spec]) {
+            //把里面的规格添加到数组里面
+            tmp.push(this.selectMap[spec].kindName);
+          }
+        });
+        // 返回数组
+        return tmp;
+      }
+    }
   },
   methods: {
     hideAction() {
       this.$emit("input", false);
     },
-    handleCount(num){
-      if ((this.count + num)<1) {
-          Toast('不能再减少了，只有一件了');
-      }else{
-      this.count += num;
+    handleCount(num) {
+      if (this.count + num < 1) {
+        Toast("不能再减少了，只有一件了");
+      } else {
+        this.count += num;
+      }
+    },
+    handleSelect(name, item) {
+      //动态添加属性需要添加setter和getter函数
+      this.selectMap = {
+        ...this.selectMap,
+        [name]: item
+      };
+      // 判断产品是否为真，修改选择的图片
+      if (item.picUrl) {
+        // 把当前规格的产品图片赋值
+        this.selectImg = item.picUrl;
+      }
+    },
+    buyAction() {
+      // 取数组的长度
+      console.log(Object.entries(this.selectMap).length);
+      if (this.data.sku.tree.length > Object.entries(this.selectMap).length) {
+        //  没有选择完整
+        Toast('请选择规格数量');
+      } else {
+        this.$router.push('/home/detail');
       }
     }
   }
@@ -116,8 +157,8 @@ export default {
         border-bottom: 1px #eee solid;
         padding: 0 0 24px 0;
         .pic {
-          width: 140px;
-          height: 140px;
+          width: 200px;
+          height: 200px;
           margin-right: 30px;
           border: 1px #eee solid;
           img {
@@ -153,39 +194,13 @@ export default {
           .num {
             font-size: 30px;
             color: #666;
+            margin-top: 20px;
           }
         }
         .van-icon {
           color: #92938b;
           font-size: 40px;
           padding: 0 10px;
-        }
-      }
-      .type {
-        padding-bottom: 20px;
-        border-bottom: 1px #eee solid;
-        width: 100%;
-        .title {
-          font-size: 34px;
-          color: #353630;
-          font-weight: normal;
-          display: block;
-          line-height: 90px;
-        }
-        .select {
-          span {
-            padding: 4px 10px;
-            border: 1px #e7e9de solid;
-            font-size: 30px;
-            color: #3f3f3d;
-            line-height: 65px;
-            margin: 0 10px 6px 0;
-            display: inline-block;
-          }
-          .active {
-            border: 1px red solid;
-            color: red;
-          }
         }
       }
     }
@@ -207,12 +222,11 @@ export default {
           border: 1px #dedede solid;
           text-align: center;
           display: inline-block;
-          &.disabled{
+          &.disabled {
             color: #dedede;
             border: 1px #dedede solid;
           }
         }
-       
       }
     }
   }

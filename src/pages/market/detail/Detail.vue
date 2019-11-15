@@ -54,7 +54,7 @@
 
     <!-- 加入购物车 -->
     <SelectPanel v-if="showAddCart" v-model="showAddCart" :skuPic='detailBanner[0]' 
-     :skuDetail='detailData.sku' :data='detailData' />
+     :skuDetail='detailData.sku' :data='detailData' @send='handleAction' />
 
 
   </div>
@@ -81,21 +81,21 @@ export default {
   computed: {
     //计算原价的价格
     originPrice: function() {
-      return this.detailData.currentPrice + this.detailData.originPrice;
+      return (this.detailData.currentPrice + this.detailData.originPrice).toFixed(2);
     }
   },
   methods: {
     async initData() {
       const result = await marketService.requestDetailDate();
-      console.log(result);
+      // console.log(result);
       this.detailData = result.detailData;
       this.detailBanner= result.detailData.bannerList;
-
-      // console.log(this.detailData.bannerList);
-      console.log(this.detailBanner);
     },
     showAddCartAction() {
       this.showAddCart = true;
+    },
+    handleAction(item){
+      
     }
   },
   created() {
