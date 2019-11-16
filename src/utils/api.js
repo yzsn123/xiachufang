@@ -83,6 +83,12 @@ const KITCHEN_ATTENTION_INTEREST_APi = '/api/kitchen/attention/interest';
 const CLASS_ALL_API = '/api/class/all'
 //猜你喜欢接口
 const CLASS_GUESS_API = 'api/class/all/guess'
+//课程分类点开的列表
+const CLASS_KIND_API = '/api/class/kind'
+//课程分类刷新重新加载的列表
+const CLASS_KIND_GOODLIST_API = '/api/class/kind/goodList'
+
+
 /*
 收藏接口
 */
@@ -130,5 +136,7 @@ export default {
   CLASS_ALL_API,
   CLASS_GUESS_API,
   KITCHEN_ATTENTION_INTEREST_APi,
-  MARKET_SUGGEST_GUESS_API
+  MARKET_SUGGEST_GUESS_API,
+  CLASS_KIND_API,
+  CLASS_KIND_GOODLIST_API
 }

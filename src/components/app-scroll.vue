@@ -52,8 +52,8 @@ export default {
     }
   },
   mounted(){
-    console.log(this.$children);
-    console.log(this.$parent)
+    // console.log(this.$children);
+    // console.log(this.$parent)
     this.$nextTick(()=>{
       this.scroll = new IScroll(this.$refs.scroll, {
         probeType: 3,
