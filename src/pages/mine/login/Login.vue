@@ -35,7 +35,7 @@ export default {
       this.path = "collect";
       this.title = '收藏'
     }
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
   }
 };
 </script>

@@ -38,7 +38,7 @@ export default {
         },
         recommendAction(index){
             // 关注未关注的切换
-            console.log(1);
+            // console.log(1);
             if(this.recommendActive[index]){
                 this.recommendContext[index] = '关注';
                 this.recommendActive[index] = false;

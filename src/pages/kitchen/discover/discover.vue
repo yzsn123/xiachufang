@@ -96,14 +96,14 @@ export default {
       }
     },
     Console(){
-        console.log(1);
+        // console.log(1);
     }
   },
   created() {
     this.GetDiscoverData();
   },
   mounted(){
-      console.log(this.$parent);
+      // console.log(this.$parent);
   }
 };
 </script>

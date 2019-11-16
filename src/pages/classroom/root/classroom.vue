@@ -16,7 +16,11 @@
       </div>
 
       <GoodLsit :allList="allList"></GoodLsit>
+
     </app-scroll>
+
+    <router-view></router-view>
+
   </div>
 </template>
 
@@ -52,13 +56,29 @@ export default {
           'index':parseInt(k)
           });
       }
-      console.log(this.allList);
+      
+    },
+    async getGuess(){
+      await this.$store.dispatch('Class/getGuessList');
+      this.guessList = this.$store.state.Class.guessList.data.goodList;
+      let i = this.allList.length - 1;
+      for(var j in this.guessList){
+        this.allList[i].goodList.push(this.guessList[j]);
+      }
+      // console.log(this.allList);
+    },
+    async GetMoreGuessData(){
+      console.log('执行了')
+      this.getGuess();
     }
+    
   },
   created() {
     this.getAll();
+    this.getGuess();
   }
 };
+
 </script>
 
 <style lang="scss" scoped>

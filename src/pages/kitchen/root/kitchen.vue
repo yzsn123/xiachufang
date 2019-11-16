@@ -71,7 +71,7 @@ export default {
   },
   computed:{
     GetWidth(){
-        console.log(document.body.getBoundingClientRect());
+        // console.log(document.body.getBoundingClientRect());
         return document.body.getBoundingClientRect().width;
     }
   },
@@ -104,7 +104,7 @@ export default {
       this.$router.push('/kitchen/message');
     },
     InputClick(){
-      console.log(1);
+      // console.log(1);
       this.$router.push('/kitchen/search');
     }
   },

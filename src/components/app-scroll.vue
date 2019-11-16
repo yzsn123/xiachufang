@@ -46,10 +46,14 @@ export default {
       if(this.$children[0].GetMoreStoryData){
         this.$children[0].GetMoreStoryData();
       }
+      if(this.$parent.GetMoreGuessData){
+        this.$parent.GetMoreGuessData();
+      }
     }
   },
   mounted(){
     console.log(this.$children);
+    console.log(this.$parent)
     this.$nextTick(()=>{
       this.scroll = new IScroll(this.$refs.scroll, {
         probeType: 3,

@@ -52,6 +52,8 @@ const MARKET_GOODLIST_API = '/api/market/goodList';
 //市集商品详情接口
 const MARKET_DETAIL_API = 'api/market/detail';
 
+//市集猜你喜欢的接口
+const MARKET_SUGGEST_GUESS_API = '/api/market/suggest/guess'
 
 /**
  * 下厨房接口
@@ -127,5 +129,6 @@ export default {
   ORDER_API,
   CLASS_ALL_API,
   CLASS_GUESS_API,
-  KITCHEN_ATTENTION_INTEREST_APi
+  KITCHEN_ATTENTION_INTEREST_APi,
+  MARKET_SUGGEST_GUESS_API
 }

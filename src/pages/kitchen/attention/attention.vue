@@ -64,18 +64,18 @@ export default {
     methods:{
         imgAction(index){
             if(!isNaN(index)){
-                console.log(this.$refs.userimg);
+                // console.log(this.$refs.userimg);
                 var imgSrc = this.$refs.userimg[index].getAttribute('src');
                 this.$refs.userimg[index].style.opacity = 0;
             } else{
-                console.log(this.$refs.userimg);
+                // console.log(this.$refs.userimg);
                 var imgSrc = this.$refs.userimg.getAttribute('src');
                 this.$refs.userimg.style.opacity = 0;
             }
             this.$center.$emit('ChangeMarkshow',true,imgSrc);
         },
         ShowImgAction(){
-            console.log('执行了');
+            // console.log('执行了');
             if(this.$refs.userimg.length>0){
                 this.$refs.userimg.forEach((item,index)=>{
                     item.style.opacity = '';

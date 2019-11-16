@@ -8,7 +8,7 @@ export const requestClass = async()=>{
 }
 
 export const requestClassGuess = async()=>{
-    let result = await Http.get(CLASS_GUESS_API);
+    let result = await Http.get(api.CLASS_GUESS_API);
     return result;
 }
 

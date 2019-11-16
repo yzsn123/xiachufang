@@ -29,6 +29,7 @@
         </li>
       </ul>
     </div>
+
   </div>
 </template>
 
@@ -43,7 +44,6 @@ export default {
     };
   },
   methods: {
-    
     getTime() {
       setInterval(
         function() {
