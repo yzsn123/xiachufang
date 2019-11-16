@@ -4,15 +4,19 @@
     <!-- 头部 -->
     <Header title="首页" />
     <app-scroll class="content">
+      <!-- 菜单分类 -->
+      <Category />
+
       <!-- 标题分类   -->
       <Title />
+
       <!-- 精选特色美食 -->
       <Special />
       
       <!-- 推荐 -->
       <Recommend />
       
-      <Category />
+      
 
      <!-- 好店推荐 -->
       <StoreList />

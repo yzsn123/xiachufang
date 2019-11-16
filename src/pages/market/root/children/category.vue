@@ -43,10 +43,10 @@ export default {
       display: block;
       margin-top: 60px;
       .pic {
-        width: 200px;
+        width: 102px;
         border-radius: 50%;
         overflow: hidden;
-        height: 200px;
+        height: 91px;
         text-align: center;
         display: inline-block;
         img {

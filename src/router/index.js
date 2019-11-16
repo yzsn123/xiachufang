@@ -12,22 +12,22 @@ const routes = [
     path: '/',
     redirect: '/market'
   },
-  kitchenRouter,
-  collectRouter,
+  // kitchenRouter,
+  // collectRouter,
   marketRouter,
-  classroomRouter,
-  mineRouter,
+  // classroomRouter,
+  // mineRouter,
   {
     path: '/login',
-    component: ()=>import('../pages/mine/login/Login')
+    // component: ()=>import('../pages/mine/login/Login')
   },
   {
     path: '/regiester',
-    component: ()=>import('../pages/mine/regiester/Regiester')
+    // component: ()=>import('../pages/mine/regiester/Regiester')
   },
   {
     path: '/404',
-    component: ()=>import('../pages/common/not-find/NotFind')
+    // component: ()=>import('../pages/common/not-find/NotFind')
   },
   {
     path: '**',
