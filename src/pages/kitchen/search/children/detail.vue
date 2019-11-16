@@ -6,7 +6,9 @@
         <p class="input-icon"></p>
         <span class="ring-Icon"><van-icon name="filter-o" size="27px"  /></span>
     </header>
-    
+    <div class="content">
+        
+    </div>
 </div>
 </template>
 

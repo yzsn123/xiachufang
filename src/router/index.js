@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import kitchenRouter from './kitchen-routes'
-import collectRouter from './collect-routes'
-import marketRouter from './market-routes'
-import classroomRouter from './classroom-routes'
-import mineRouter from './mine-routes'
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,10 +9,6 @@ const routes = [
     redirect: '/market'
   },
   kitchenRouter,
-  collectRouter,
-  marketRouter,
-  classroomRouter,
-  mineRouter,
   {
     path: '/login',
     component: ()=>import('../pages/mine/login/Login')
