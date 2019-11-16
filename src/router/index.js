@@ -10,14 +10,6 @@ const routes = [
   },
   kitchenRouter,
   {
-    path: '/login',
-    component: ()=>import('../pages/mine/login/Login')
-  },
-  {
-    path: '/regiester',
-    component: ()=>import('../pages/mine/regiester/Regiester')
-  },
-  {
     path: '/404',
     component: ()=>import('../pages/common/not-find/NotFind')
   },
