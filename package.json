@@ -40,7 +40,14 @@
           ".header",
           ".tab-bar",
           ".border-bottom",
-          ".content"
+          ".content",
+          ".navitem",
+          "#app",
+          ".pages",
+          ".swiper-container",
+          ".van-swipe",
+          ".loading",
+          ".loadmore"
         ]
       }
     }
