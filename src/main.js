@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import 'lib-flexible/flexible'
 
+Vue.$center = Vue.prototype.$center = new Vue();
 
 Vue.config.productionTip = false
 

@@ -41,7 +41,13 @@
           ".tab-bar",
           ".border-bottom",
           ".content",
-          ".page"
+          ".navitem",
+          "#app",
+          ".pages",
+          ".swiper-container",
+          ".van-swipe",
+          ".loading",
+          ".loadmore"
         ]
       }
     }

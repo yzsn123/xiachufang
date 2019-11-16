@@ -68,7 +68,7 @@ export default {
     position: absolute;
     left: 0;
     top: 45px;
-    bottom: 50px;
+    bottom: 0;
   }
   .myclass {
     width: 100%;

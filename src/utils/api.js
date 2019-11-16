@@ -1,5 +1,3 @@
-
-
 // 管理api
 export const HOST = 'http://localhost:8080';
 

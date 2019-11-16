@@ -24,6 +24,7 @@ export default {};
     width: 100%;
     height: 580px;
     overflow: hidden;
+    position:relative;
     .banImg {
       width: 200%;
       animation: bannerMove 6s linear infinite both;
@@ -39,7 +40,8 @@ export default {};
       height: 25px;
       position: absolute;
       left: 0;
-      top: 510px;
+      // top: 510px;
+      bottom:50px;
       text-align: center;
       span {
         width: 40%;
