@@ -1,84 +1,34 @@
 <template>
   <div class="category-tabs">
     <ul class="tabs-list">
-      <li>
+      <li v-for="item in data" :key="item.id">
         <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
+          <img :src="item.img" alt />
         </div>
-        <p class="title">秋冬暖饮</p>
+        <p class="title">{{item.title}}</p>
       </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
-      <li>
-        <div class="pic">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1085446177,1382949253&fm=26&gp=0.jpg"
-            alt
-          />
-        </div>
-        <p class="title">秋冬暖饮</p>
-      </li>
+
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      data:[
+        {id:1,title:'秋冬暖饮',img: require("../../../../assets/market/category_01.jpg")},
+        {id:2,title:'销魂素食',img: require("../../../../assets/market/category_02.jpg")},
+        {id:3,title:'肉肉肉',img: require("../../../../assets/market/category_03.jpg")},
+        {id:4,title:'日系餐具',img: require("../../../../assets/market/category_04.jpg")},
+        {id:5,title:'减肥必备',img: require("../../../../assets/market/category_05.jpg")},
+        {id:6,title:'快手早餐',img: require("../../../../assets/market/category_06.jpg")},
+        {id:7,title:'人气零时',img: require("../../../../assets/market/category_07.jpg")},
+        {id:8,title:'厨房小工具',img: require("../../../../assets/market/category_08.jpg")}
+      ]
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
