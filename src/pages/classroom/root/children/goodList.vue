@@ -1,5 +1,7 @@
 <template>
   <div class="goodList">
+
+    
     <div class="list" v-for="(item,index) in allList" :key="index">
       <div class="listTitle">
         <h3>{{item.kind}}</h3>
@@ -10,11 +12,20 @@
       <ul class="good">
         <li v-for="(ite,ind) in item.goodList" :key="ind">
           <div class="img">
-            <img :src="ite.picUrl" alt />
+            <img :src="ite.picUrl" alt v-lazy="ite.picUrl" />
           </div>
           <p>{{ite.userName}}</p>
           <h4>{{ite.title}}</h4>
-          <!-- div. -->
+          <div class="price">
+            <span v-if="!ite.moneyFlag">
+              <em>￥{{ite.currentPrice}}</em>
+              <i>￥{{ite.originPrice}}</i>
+            </span>
+            <span v-if="ite.moneyFlag">
+              <i>{{ite.num}}人参与</i>
+            </span>
+            <p @click="collectAction">收藏</p>
+          </div>
         </li>
       </ul>
     </div>
@@ -23,38 +34,37 @@
 
 <script>
 export default {
+  props:{
+    allList:Array
+  },
   data() {
     return {
-      allList: null,
-      guessList: null,
       time: null
     };
   },
   methods: {
-    async getAll() {
-      await this.$store.dispatch("Class/getAllList");
-      this.allList = this.$store.state.Class.allList;
-      // console.log(this.allList);
-    },
+    
     getTime() {
-      console.log(this.$refs);
-      setInterval(function() {
-        var date = new Date();
-        var h = 24 - date.getHours();
-        var m = 60 - date.getMinutes();
-        var s = 60 - date.getSeconds();
-        if (h < 10) h = "0" + h;
-        if (m < 10) m = "0" + m;
-        if (s < 10) s = "0" + s;
+      setInterval(
+        function() {
+          var date = new Date();
+          var h = 23 - date.getHours();
+          var m = 59 - date.getMinutes();
+          var s = 60 - date.getSeconds();
+          if (h < 10) h = "0" + h;
+          if (m < 10) m = "0" + m;
+          if (s < 10) s = "0" + s;
 
-        this.time = `${h}:${m}:${s} `;
-      }.bind(this), 1000);
-    }
+          this.time = `${h}:${m}:${s} `;
+        }.bind(this),
+        1000
+      );
+    },
+    collectAction() {}
   },
   watch: {},
   computed: {},
   created() {
-    this.getAll();
     this.getTime();
   }
 };
@@ -115,7 +125,26 @@ export default {
         font-weight: 550;
         color: #333;
       }
+      .price {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        line-height: 34px;
+        span {
+          font-size: 32px;
+          em {
+            color: #f56854;
+          }
+          i {
+            color: #999;
+          }
+        }
+        p {
+          color: #f56854;
+        }
+      }
     }
   }
+  
 }
 </style>

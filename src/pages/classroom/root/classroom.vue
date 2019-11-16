@@ -1,6 +1,9 @@
 <template>
   <div id="classrom">
     <Header></Header>
+ 
+    
+    <!-- <HorizontalScroll :kindList="kindList" ></HorizontalScroll> -->
 
     <app-scroll class="content">
       <Banner></Banner>
@@ -12,8 +15,7 @@
         <router-link to="/class/allMyclass">查看全部</router-link>
       </div>
 
-      <GoodLsit></GoodLsit>
-      
+      <GoodLsit :allList="allList"></GoodLsit>
     </app-scroll>
   </div>
 </template>
@@ -23,12 +25,38 @@ import Banner from "./children/banner";
 import Header from "./children/header";
 import Kind from "./children/kind";
 import GoodLsit from "./children/goodList";
+import HorizontalScroll from '../../../components/Horizontal-scroll'
 export default {
   components: {
     Header,
     Banner,
     Kind,
-    GoodLsit
+    GoodLsit,
+    HorizontalScroll
+  },
+  data() {
+    return {
+      kindList:[],
+      allList: null,
+      guessList: null,
+    };
+  },
+  methods: {
+    async getAll() {
+      await this.$store.dispatch("Class/getAllList");
+      this.allList = this.$store.state.Class.allList;
+      for(var k in this.allList){
+        this.kindList.push({
+          'kind':this.allList[k].kind,
+          'id':this.allList[k].id,
+          'index':parseInt(k)
+          });
+      }
+      console.log(this.allList);
+    }
+  },
+  created() {
+    this.getAll();
   }
 };
 </script>
@@ -42,7 +70,7 @@ export default {
     top: 45px;
     bottom: 50px;
   }
-  .myclass{
+  .myclass {
     width: 100%;
     box-sizing: border-box;
     padding: 0 56px;
@@ -50,15 +78,16 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    h3{
+    h3 {
       font-size: 64px;
       line-height: 64px;
       font-weight: 550;
     }
-    a{
+    a {
       font-size: 48px;
       color: #fb664e;
     }
   }
+ 
 }
 </style>

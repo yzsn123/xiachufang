@@ -84,3 +84,7 @@ input,button{
 	border-bottom: 1px solid #ccc;
 	transform: scaleY(0.5);
 }
+
+li{
+	list-style: none;
+}
