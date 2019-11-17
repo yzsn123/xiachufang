@@ -18,7 +18,7 @@
       <h1 class="text-overflow">{{title}}</h1>
    </div>
 
-    <span class="header-btn header-btn-right"  >
+    <span class="header-btn header-btn-right" @click="cartAction"  >
       <van-icon name="shopping-cart-o" />
     </span>
   </header>
@@ -42,6 +42,9 @@ export default {
     },
     goSearch(){
       this.$router.push('/market/search');
+    },
+    cartAction(){
+      this.$router.push('/market/cart');
     }
   }
 };

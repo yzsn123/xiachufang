@@ -115,7 +115,7 @@ export default {
         //  没有选择完整
         Toast('请选择规格数量');
       } else {
-        this.$router.push('/market/order');
+        this.$router.push({name:'order'});
         let id = 0;
         const info ={
           selectId:id++,
@@ -126,7 +126,7 @@ export default {
           currentPrice:this.data.currentPrice
         }   
         this.$store.commit('marketOrder/selectProduct',info);  
-
+        this.$emit('input',false);
       }
     }
   }

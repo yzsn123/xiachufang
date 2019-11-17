@@ -2,10 +2,9 @@
 <div class="detail-wrap">
 
   <div class="detail-container">
-    <Header :hasLocation="false" :title="$route.query.title" />
+    <Header :hasLocation="false" :title="title" />
     <app-scroll class="content">
       <DetailBanner :detailBanner="detailBanner" />
-
       <div class="score-box">
         <ul>
           <p>评分</p>
@@ -66,11 +65,9 @@
    </div>
 
    <!-- 渲染订单页面 -->
- 
- 
-  <!-- <transition class="" enter-active-class="slideInRight" leave-active-class="slideOutRight">
+  <transition class="" enter-active-class="slideInRight" leave-active-class="slideOutRight">
     <router-view></router-view>
-  </transition> -->
+  </transition>
 
   </div>
 </template>
@@ -80,6 +77,7 @@ import Header from "../root/children/Header";
 import DetailBanner from "./children/Banner";
 import SelectPanel from "./children/selectPanel";
 import marketService from "../../../services/marketService";
+import { mapState } from 'vuex';
 export default {
   components: {
     Header,
@@ -90,12 +88,21 @@ export default {
     return {
       showAddCart: false,
       detailData: {},
-      detailBanner: []
+      detailBanner: [],
     };
   },
   computed: {
+    ...mapState({
+      title:state=>state.marketOrder.title
+    }),
+    count(){
+      console.log(this.$store.state.marketOrder.title);
+      
+    },
+
     //计算原价的价格
     originPrice: function() {
+      
       return (
         this.detailData.currentPrice + this.detailData.originPrice
       ).toFixed(2);
@@ -104,12 +111,13 @@ export default {
   methods: {
     async initData() {
       const result = await marketService.requestDetailDate();
-      // console.log(result);
       this.detailData = result.detailData;
       this.detailBanner = result.detailData.bannerList;
     },
     showAddCartAction() {
       this.showAddCart = true;
+      console.log(this.title);
+      
     },
     handleAction(item) {}
   },

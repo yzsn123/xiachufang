@@ -113,7 +113,6 @@ export default {
   },
   methods:{
     goDetail(id,name){
-      // this.$router.push(`/market/detail/${id}?title=${this.itemList.name}`);
       this.$router.push(`/market/detail/${id}?title=${name}`);
     }
   }

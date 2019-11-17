@@ -10,7 +10,7 @@
     <div class="swiper-container" ref="swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(data,index) in showList" :key="index">
-          <li v-for="(item,index) in data" :key="index" @click='goDetailAction(data.item,data.title)'>
+          <li v-for="(item,index) in data" :key="index" @click='goDetailAction(item.id,item.title)'>
             <div class="right">
               <img :src="item.picUrl" alt />
             </div>
@@ -67,9 +67,9 @@ export default {
       });
     },
     goDetailAction(id,name){
-      this.$router.push(`/market/detail/${id}?title=${name}`);
+      this.$store.commit('marketOrder/titleInfo',name)
+      this.$router.push(`/market/detail/${id}`);
     }
-
   },
   mounted() {
     this.SwiperInit();

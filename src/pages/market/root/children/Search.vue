@@ -51,7 +51,6 @@ export default {
     goDetailAction(id,name){
       // this.$router.push(`/market/detail${id}?title=${name}`);
       // this.$router.push(`/market/foodcategory/${id}?title=${name}`);
-
     }
   }
 };

@@ -5,6 +5,7 @@ import marketOrder from './marketOrder'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  namespaced:true,
   state: {
     name:'张三2'
   },

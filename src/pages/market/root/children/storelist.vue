@@ -11,7 +11,7 @@
       <!-- Swiper -->
       <div class="swiper-container" ref="swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item,index) in data.goodList"  :key="index" @click="goDetailAction" >
+          <div class="swiper-slide" v-for="(item,index) in data.goodList"  :key="index" @click="goDetailAction(item.id,item.title)" >
             <div class="cell" >
               <div class="pic">
                 <img :src="item.picUrl" />
@@ -42,6 +42,7 @@
 
 <script>
 import marketService from "../../../../services/marketService";
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
@@ -61,6 +62,7 @@ export default {
     this.initData();
   },
   methods: {
+    
     SwiperInit(){
       this.$swiper = new Swiper(this.$refs.swiper, {
             pagination: ".swiper-pagination",
@@ -72,8 +74,10 @@ export default {
             observeParents:true
           });
     },
-    goDetailAction(id,name){
-      this.$router.push(`/market/detail/${id}?title=${name}`);
+    goDetailAction(id,title){
+      this.$store.commit('marketOrder/titleInfo',title);
+      this.$router.push(`/market/detail/${id}`);
+      console.log(id);  
     },
     async initData() {
       const { MarketNewData: result } = await marketService.requestMarketNewData();

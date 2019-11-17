@@ -88,10 +88,8 @@ export default {
   },
   methods:{
     goDetail(id,title){
-      // console.log(title);
-      // console.log(id);
-      // this.$router.push(`/market/detail/${id}?title=${this.itemList.name}`);
-      this.$router.push(`/market/detail/${id}?title=${title}`);
+      this.$store.commit('marketOrder/titleInfo',title);
+      this.$router.push(`/market/detail/${id}`);
     }
   },
 

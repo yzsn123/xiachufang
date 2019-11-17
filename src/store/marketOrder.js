@@ -6,7 +6,8 @@ export default {
     selectTit:String,
     selectNum:Number,
     selectInfo:{},
-    currentPrice:Number
+    currentPrice:Number,
+    title:null
   },
   mutations: {
     selectProduct(state,value){
@@ -17,6 +18,10 @@ export default {
       state.selectInfo=value.selectInfo,
       state.currentPrice=value.currentPrice,
       console.log(state.currentPrice);
+    },
+    titleInfo(state,value){
+      state.title = value;
+      console.log(value);
     }
   },
   actions: {
