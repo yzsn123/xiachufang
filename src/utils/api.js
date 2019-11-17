@@ -87,7 +87,8 @@ const CLASS_GUESS_API = 'api/class/all/guess'
 const CLASS_KIND_API = '/api/class/kind'
 //课程分类刷新重新加载的列表
 const CLASS_KIND_GOODLIST_API = '/api/class/kind/goodList'
-
+//课程商品详情
+const CLASS_DETAIL_API = '/api/class/detail'
 
 /*
 收藏接口
@@ -138,5 +139,6 @@ export default {
   KITCHEN_ATTENTION_INTEREST_APi,
   MARKET_SUGGEST_GUESS_API,
   CLASS_KIND_API,
-  CLASS_KIND_GOODLIST_API
+  CLASS_KIND_GOODLIST_API,
+  CLASS_DETAIL_API
 }

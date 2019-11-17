@@ -3,12 +3,17 @@ import VueRouter from 'vue-router'
 import kitchenRouter from './kitchen-routes'
 import classRouter from './class-router'
 import mineRouter from './mine-routes'
+import collectRouter from './collect-routes'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     redirect: '/kitchen'
+  },
+  {
+    path:'/login',
+    component:()=>import('../pages/mine/login/login')
   },
   kitchenRouter,
   classRouter,
@@ -20,7 +25,8 @@ const routes = [
   {
     path: '**',
     redirect: '/404'
-  }
+  },
+  
 ]
 
 const router = new VueRouter({

@@ -6,14 +6,14 @@
     </div>
 
     <div class="kindcontent">
-      <!-- <myScroll :onload="loadHandle" :name="myScroll" :canLoad="canLoad"> -->
-        <van-tabs v-model="active" :sticky="true" :offset-top="44">
-          <van-tab title="全部">
-             <myScroll :onload="loadHandle" :name="myScroll" :canLoad="canLoad">
+      <van-tabs v-model="active" :sticky="true" :offset-top="44">
+        <van-tab title="全部">
+          <div class="kindWrap">
+            <myScroll :onload="loadHandle" :name="myScroll" :canLoad="canLoad">
               <ul>
-                <li v-for="(item,index) in allList" :key="index">
+                <li v-for="(item,index) in allList" :key="index" @click="detailAction(item)">
                   <div class="img">
-                    <img :src="item.picUrl" alt />
+                    <img :src="item.picUrl" alt v-lazy="item.picUrl" />
                     <span>{{item.method}}</span>
                   </div>
                   <h2>{{item.username}}</h2>
@@ -24,44 +24,45 @@
                   </p>
                 </li>
               </ul>
-             </myScroll>
-          </van-tab>
-
-          <van-tab v-for="(item,index) in kindList" :key="index" :title="item.type">
-            <myScroll :onload="loadHandle" :name="myScroll" :canLoad="canLoad">
-            <ul>
-              <li v-for="(ite,ind) in item.list" :key="ind">
-                <div class="img">
-                  <img :src="ite.picUrl" alt />
-                  <span>{{ite.method}}</span>
-                </div>
-                <h2>{{ite.username}}</h2>
-                <h3>{{ite.title}}</h3>
-                <p>
-                  <span>{{ite.num}}人参与</span>
-                  <em>收藏</em>
-                </p>
-              </li>
-            </ul>
             </myScroll>
-          </van-tab>
-        </van-tabs>
-      <!-- </myScroll> -->
+          </div>
+        </van-tab>
+
+        <van-tab v-for="(item,index) in kindList" :key="index" :title="item.type">
+          <div class="kindWrap">
+            <myScroll :onload="loadHandle" :name="myScroll" :canLoad="canLoad">
+              <ul>
+                <li v-for="(ite,ind) in item.list" :key="ind" @click="detailAction(ite)">
+                  <div class="img">
+                    <img :src="ite.picUrl" alt v-lazy="ite.picUrl" />
+                    <span>{{ite.method}}</span>
+                  </div>
+                  <h2>{{ite.username}}</h2>
+                  <h3>{{ite.title}}</h3>
+                  <p>
+                    <span>{{ite.num}}人参与</span>
+                    <em>收藏</em>
+                  </p>
+                </li>
+              </ul>
+            </myScroll>
+          </div>
+        </van-tab>
+      </van-tabs>
     </div>
   </div>
 </template>
 
 <script>
 import { Tab, Tabs } from "vant";
-import myScroll from "../../../components/my-scroll";
+
 export default {
   props: {
     id: String
   },
   components: {
     [Tab.name]: Tab,
-    [Tabs.name]: Tabs,
-    myScroll
+    [Tabs.name]: Tabs
   },
   data() {
     return {
@@ -92,40 +93,45 @@ export default {
       this.kindListMore = this.$store.state.Class.kindListMore.data.list;
       // console.log(this.kindListMore);
     },
-    clone(array){
+    clone(array) {
       let arr = [];
-      for(var i in array){
+      for (var i in array) {
         arr.push(array[i]);
       }
       return arr;
     },
     async loadHandle(val) {
+      //防抖
       this.canLoad = false;
-      // console.log("执行加载", val);
+
       await this.getKindMore();
       //判断active的值来加载不同的
       if (this.active == 0) {
+        //拷贝
         let arr = this.clone(this.allList);
         for (var i in this.kindListMore) {
           arr.push(this.kindListMore[i]);
         }
+        //全部数据同时改变
         this.allList = arr;
-        console.log(this.allList);
+        //加载完成可以继续加载
         this.$nextTick(() => {
-
-         this.canLoad = true;
+          this.canLoad = true;
         });
-        
       } else {
-        // let arr = this.clone(this.allList);
+        let arr = this.clone(this.kindList[this.active - 1]);
         for (var i in this.kindListMore) {
-          this.kindList[this.active - 1].list.push(this.kindListMore[i]);
+          arr.list.push(this.kindListMore[i]);
         }
-        // console.log(this.kindList[this.active - 1]);
+        this.kindList[this.active - 1] = arr;
+
         this.$nextTick(() => {
           this.canLoad = true;
         });
       }
+    },
+    detailAction(item){
+      this.$router.push(`/classroom/detail/${item.id}`);
     }
   },
   created() {
@@ -188,12 +194,12 @@ export default {
       color: #f96b55;
     }
   }
-  .van-tabs{
-    position: absolute;
+  .van-tabs {
+    // position: absolute;
     height: 100%;
     width: 100%;
   }
-  .van-tabs__content{
+  .kindWrap {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -215,9 +221,20 @@ export default {
         height: 680px;
         overflow: hidden;
         border-radius: 10px;
+        position: relative;
         img {
           display: block;
           width: 100%;
+        }
+        span{
+          position: absolute;
+          padding: 15px;
+          left: 28px;
+          bottom: 28px;
+          border-radius: 5px;
+          font-weight: bold;
+          font-size: 32px;
+          background: #f8e71d;
         }
       }
       h2 {

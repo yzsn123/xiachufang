@@ -1,6 +1,7 @@
 
 import classService from '../../services/classService'
 import { all } from 'q';
+import { stat } from 'fs';
 
 
 const state = {
@@ -11,14 +12,15 @@ const state = {
   //分类点开的列表
   kindList:null,
   //分类点开的加载更多的列表
-  kindListMore:null
+  kindListMore:null,
+  //课程详情
+  detailInfo:null
 };
 
 const mutations = {
   //设置所有内容列表
   setAllList(state,value){
     state.allList = value;
-    // console.log(state.allList,value);
   },
   //设置猜你喜欢的列表
   setGuessList(state,value){
@@ -29,6 +31,9 @@ const mutations = {
   },
   setKindListMore(state,value){
     state.kindListMore = value;
+  },
+  setDetail(state,value){
+    state.detailInfo = value;
   }
 };
 
@@ -54,6 +59,11 @@ const actions = {
   async getKindListMore(context){
     let kindListMore = await classService.requestKindMore();
     context.commit('setKindListMore',kindListMore);
+  },
+  //获取课程详情
+  async getDetail(context,id){
+    let detailInfo = await classService.requestDetail(id);
+    context.commit('setDetail',detailInfo);
   }
 }
 export default {

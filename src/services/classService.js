@@ -22,9 +22,16 @@ export const requestKindMore = async()=>{
     let result = await Http.get(api.CLASS_KIND_GOODLIST_API);
     return result;
 }
+//课程详情
+export const requestDetail = async(id)=>{
+    let result = await Http.get(api.CLASS_DETAIL_API,id);
+    // console.log(id);
+    return result;
+}
 export default {
     requestClass,
     requestClassGuess,
     requestKind,
-    requestKindMore
+    requestKindMore,
+    requestDetail
 }

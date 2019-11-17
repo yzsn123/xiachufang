@@ -4,6 +4,7 @@ import {HOST} from './api'
 export default class Http{
 
   static async request(method, url, data){
+    // console.log(data);
     const response = await axios.request({
       method,
       url,
