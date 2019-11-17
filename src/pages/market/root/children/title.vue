@@ -5,9 +5,9 @@
         <img :src="item.img" alt />
       </li>
     </ul>
-    <div class="market-banner">
+    <!-- <div class="market-banner">
       <img :src="banner" alt />
-    </div>
+    </div> -->
   </div>
 </template>
 

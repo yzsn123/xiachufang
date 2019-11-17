@@ -8,17 +8,15 @@
       <Category />
 
       <!-- 标题分类   -->
-      <Title />
+      <!-- <Title /> -->
 
       <!-- 精选特色美食 -->
       <Special />
       
       <!-- 推荐 -->
-      <Recommend />
+      <!-- <Recommend /> -->
       
-      
-
-     <!-- 好店推荐 -->
+     <!-- 市集上新 -->
       <StoreList />
       
       <Product :GoodList='GoodList' />
@@ -28,7 +26,7 @@
 
 <!-- 渲染详情页面 -->
   <transition class="" enter-active-class="slideInRight" leave-active-class="slideOutRight">
-  <router-view></router-view>
+    <router-view></router-view>
   </transition>
 
 </div>
@@ -102,5 +100,27 @@ body,html{
       display: inline-block;
     }
   }
-
+.title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin-bottom: 40px;
+  .title-box {
+    h1{
+      font-size: 63px;
+      color: #313131;
+      font-weight: 700;
+      padding-bottom: 20px;
+    }
+    .tips{
+      color: #959595;
+      font-size: 36px;
+    }
+  }
+  .all{
+    font-size: 48px;
+    color: #fb6650;
+  }
+}
 </style>

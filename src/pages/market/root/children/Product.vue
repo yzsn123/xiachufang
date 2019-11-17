@@ -1,20 +1,12 @@
 <template>
   <div class="product-box">
     <!-- 精选餐厨好物 -->
-    <div class="product-title">
-      <span class="tit">精</span>
-      <span class="tit">选</span>
-      <span class="tit">餐</span>
-      <span class="tit">厨</span>
-      <span class="tit">好</span>
-      <span class="tit">物</span>
+     <div class="title-wrap">
+        <div class="title-box">
+          <h1>猜你喜欢</h1>
+        </div>
     </div>
-    <!-- 推荐 -->
-    <Recommend />
-    
     <ProductList :GoodList='GoodList' /> 
-    
-
   </div>
 </template>
 
@@ -36,5 +28,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-box{
+  margin-top: 50px;
+}
 
 </style>

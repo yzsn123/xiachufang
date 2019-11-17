@@ -1,4 +1,6 @@
 <template>
+<div class="detail-wrap">
+
   <div class="detail-container">
     <Header :hasLocation="false" :title="$route.query.title" />
     <app-scroll class="content">
@@ -53,9 +55,22 @@
     </div>
 
     <!-- 加入购物车 -->
-    <SelectPanel v-if="showAddCart" v-model="showAddCart" :skuPic='detailBanner[0]' 
-     :skuDetail='detailData.sku' :data='detailData' @send='handleAction' />
+    <SelectPanel
+      v-if="showAddCart"
+      v-model="showAddCart"
+      :skuPic="detailBanner[0]"
+      :skuDetail="detailData.sku"
+      :data="detailData"
+      @send="handleAction"
+    />
+   </div>
 
+   <!-- 渲染订单页面 -->
+ 
+ 
+  <!-- <transition class="" enter-active-class="slideInRight" leave-active-class="slideOutRight">
+    <router-view></router-view>
+  </transition> -->
 
   </div>
 </template>
@@ -75,13 +90,15 @@ export default {
     return {
       showAddCart: false,
       detailData: {},
-      detailBanner:[]
+      detailBanner: []
     };
   },
   computed: {
     //计算原价的价格
     originPrice: function() {
-      return (this.detailData.currentPrice + this.detailData.originPrice).toFixed(2);
+      return (
+        this.detailData.currentPrice + this.detailData.originPrice
+      ).toFixed(2);
     }
   },
   methods: {
@@ -89,14 +106,12 @@ export default {
       const result = await marketService.requestDetailDate();
       // console.log(result);
       this.detailData = result.detailData;
-      this.detailBanner= result.detailData.bannerList;
+      this.detailBanner = result.detailData.bannerList;
     },
     showAddCartAction() {
       this.showAddCart = true;
     },
-    handleAction(item){
-      
-    }
+    handleAction(item) {}
   },
   created() {
     this.initData();
@@ -105,12 +120,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.detail-container {
+.detail-wrap {
   position: absolute;
   top: 0;
   left: 0;
   background: #fff;
-  z-index: 110;
+  z-index: 200;
   width: 100%;
   height: 100%;
   .score-box {
@@ -156,22 +171,23 @@ export default {
       justify-content: space-between;
       padding: 0 0 20px 0;
       font-size: 50px;
-    }
-    .price-box {
-      display: flex;
-      color: #df7164;
-      align-items: flex-end;
-      font-family: "Arial";
-      .originPrice {
+      .price-box {
+        display: flex;
+        color: #df7164;
+        align-items: flex-end;
+        font-family: "Arial";
+        .originPrice {
+          font-size: 40px;
+          color: #94958f;
+          text-decoration: line-through;
+          padding: 0 0 0 10px;
+        }
+      }
+      .mail {
         font-size: 40px;
-        color: #94958f;
-        text-decoration: line-through;
-        padding: 0 0 0 10px;
       }
     }
-    .mail {
-      font-size: 40px;
-    }
+
     .tag {
       background: #fb6650;
       border-radius: 10px;

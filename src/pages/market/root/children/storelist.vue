@@ -1,97 +1,199 @@
 <template>
   <div class="store-box">
-     <!-- 精选餐厨好物 -->
-    <div class="product-title">
-      <span class="tit">好</span>
-      <span class="tit">店</span>
-      <span class="tit">推</span>
-      <span class="tit">荐</span>
-   
-    </div>
-  <div class="store-list">
-    <div class="cell" v-for="item in storeList" :key="item.id">
-      <div class="pic">
-        <img src="http://i2.chuimg.com/85f1fe9597eb4f83aa152c3ac074bbb8_756w_756h.jpg?imageView2/1/w/560/h/340/q/90/format/jpg" alt="">
-        <div class="tips">
-          <h3 class="tit">{{item.title}}</h3>
-          <p class="name"> {{item.name}} </p>
+    <div class="store-list" v-for="(data,index) in data" :key="index">
+      <div class="title-wrap">
+        <div class="title-box">
+          <h1>{{data.kind}}</h1>
+          <span class="tips">{{data.tag}}</span>
         </div>
+        <div class="all">查看全部</div>
       </div>
-      <div class="price">
-        <b>199</b>
-        减
-        <b>30</b>·
-        <b>299</b>减
-        <b>60</b>
+      <!-- Swiper -->
+      <div class="swiper-container" ref="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item,index) in data.goodList"  :key="index" @click="goDetailAction" >
+            <div class="cell" >
+              <div class="pic">
+                <img :src="item.picUrl" />
+                <div class="tips">
+                  <p class="name">包邮</p>
+                </div>
+              </div>
+              <div class="price">
+                <h2 class="title">{{item.title}}</h2>
+                <p class="tips">{{item.desc}}</p>
+              </div>
+              <div class="info">
+                <div class="price-box">
+                  <div class="currentPrice">￥{{item.currentPrie}}</div>
+                  <div class="originPrice">￥ {{item.originPrice}}</div>
+                </div>
+                <span class="mail">包邮</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add Pagination -->
+        <!-- <div class="swiper-pagination"></div> -->
       </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
+import marketService from "../../../../services/marketService";
 export default {
- data(){
-   return{
-     storeList:[
-       {id:1,title:'手工吐司1',name:'吐司1'},
-       {id:2,title:'手工吐司2',name:'吐司2'},
-       {id:3,title:'手工吐司3',name:'吐司3'},
-       {id:4,title:'手工吐司4',name:'吐司4'}
-     ]
-   }
- }
-}
+  data() {
+    return {
+      storeList: [
+        { id: 1, title: "手工吐司1", name: "吐司1" },
+        { id: 2, title: "手工吐司2", name: "吐司2" },
+        { id: 3, title: "手工吐司3", name: "吐司3" },
+        { id: 4, title: "手工吐司4", name: "吐司4" }
+      ],
+      data: []
+    };
+  },
+  mounted() {
+    this.SwiperInit();
+  },
+  created() {
+    this.initData();
+  },
+  methods: {
+    SwiperInit(){
+      this.$swiper = new Swiper(this.$refs.swiper, {
+            pagination: ".swiper-pagination",
+            slidesPerView: "auto",
+            paginationClickable: true,
+            spaceBetween: 10,
+            direction : 'horizontal',
+            observer:true,
+            observeParents:true
+          });
+    },
+    goDetailAction(id,name){
+      this.$router.push(`/market/detail/${id}?title=${name}`);
+    },
+    async initData() {
+      const { MarketNewData: result } = await marketService.requestMarketNewData();
+      this.data = result;
+      this.$nextTick(()=>{
+         this.SwiperInit();
+      })
+    }
+  },
+  // 监听data数据
+  watch:{
+    data(){
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-.store-list{
-   margin:35px 0 0 10px;
+.store-list {
+  margin: 35px 0 0 10px;
+  overflow: hidden;
+  .cell {
+    width: 100%;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
     overflow: hidden;
-    .cell{
-      width:50%;
-      padding-right: 10px;
-      padding-bottom: 20px;
-      box-sizing: border-box;
-      overflow: hidden;
-      text-align: center;
-      float: left;
-      .pic{
-        position: relative;
-        img{
-          width: 100%;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-        }
-        .tips{
-          top: 10%;
-          left: 50%;
-          transform:translate(-50%,-10%);
-          position: absolute;
-          text-align: center;
-          color: #fff;
-          .tit{
-            font-weight: bold;
-            padding-bottom: 10px;
-            font-size: 40px;
-          }
-          .name{
-           font-size: 30px;
-          }
-        }
+    width: 415px;
+
+    .pic {
+      position: relative;
+      width: 415px;
+      height: 415px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
       }
-      .price{
-        background: #ffef42;
-        color: #191917;
-        height: 80px;
-        line-height: 80px;
-        border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-        b{
-          font-weight: 700;
+      .tips {
+        top: 6%;
+        left: 6%;
+        transform: translate(-6%, -6%);
+        position: absolute;
+        text-align: center;
+        color: #000000;
+        background: #f8e71d;
+        border-radius: 10px;
+       
+        .tit {
+          font-weight: bold;
+          padding-bottom: 10px;
+          font-size: 40px;
+        }
+        .name {
+          font-size: 32px;
+          padding: 10px;
+          height: 50px;
+          line-height: 50px;
         }
       }
     }
+    .price {
+      .title {
+        font-size: 42px;
+        height: 82px;
+        line-height: 82px;
+        color: #313131;
+      }
+      .tips {
+        color: #959595;
+        font-size: 36px;
+        padding-bottom: 20px;
+      }
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0 20px 0;
+      font-size: 32px;
+      .price-box {
+        display: flex;
+        color: #fb6650;
+        align-items: flex-end;
+        font-family: "Arial";
+        .originPrice {
+          color: #959595;
+          text-decoration: line-through;
+          padding: 0 0 0 10px;
+        }
+      }
+      .mail {
+        font-size: 35px;
+        color: #959595;
+      }
+    }
+  }
 }
 
+.swiper-container {
+  width: 100%;
+  margin: 20px 0 20px 20px;
+}
+.swiper-slide {
+  font-size: 18px;
+  background: #fff;
+  width: 40%;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
 </style>

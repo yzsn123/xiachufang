@@ -1,5 +1,26 @@
 <template>
 <div class="item-list">
+  <!-- <div class="item" v-for="item in itemList" :key="item.id" @click="goDetail(item.id,item.title)">
+    <div class="pic-box">
+      <img :src="item.picUrl"  :alt='item.title' />
+      <p class="tips">限时特价</p>
+    </div>
+    <div class="item-content">
+      <h3 class="name multiline">{{item.title}}</h3>
+      <p class="des text-overflow">{{item.desc}}</p>
+      <div class="info">
+        <span class="status">
+          已售:
+          <span class="sale">{{item.num}}</span>
+        </span>
+        <span class="mail">包邮</span>
+      </div>
+      <div class="price-box">
+        <div class="currentPrice">￥{{item.currentPrice}}</div>
+        <div class="originPrice">￥{{item.prePrice}}</div>
+      </div>
+    </div>
+  </div> -->
   <div class="item" v-for="item in GoodList" :key="item.id" @click="goDetail(item.id,item.title)">
     <div class="pic-box">
       <img :src="item.picUrl"  :alt='item.title' />
@@ -25,6 +46,7 @@
 
 </template>
 
+
 <script>
 import { Lazyload } from 'vant';
 export default {
@@ -41,77 +63,26 @@ export default {
     return {
       itemList: [
         {
-          id: 1,
-          name:
+          id: '1',
+          title:
             "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
+          desc: "详情介绍",
           status: "22222",
           currentPrice: "80",
-          originPrice: "88.8"
+          originPrice: "88.8",
+          picUrl:'http://i2.chuimg.com/f86560582bac408189254c221440cf55_2883w_2883h.jpg?imageView2/1/w/640/h/520/q/90/format/jpg'
         },
         {
-          id: 2,
-          name:
+          id: '2',
+          title:
             "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
+          desc: "详情介绍",
           status: "22222",
           currentPrice: "56.5",
-          originPrice: "88.8"
+          originPrice: "88.8",
+          picUrl:'http://i2.chuimg.com/f86560582bac408189254c221440cf55_2883w_2883h.jpg?imageView2/1/w/640/h/520/q/90/format/jpg'
+
         },
-        {
-          id: 3,
-          name:
-            "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
-          status: "22222",
-          currentPrice: "56.5",
-          originPrice: "88.8"
-        },
-        {
-          id: 4,
-          name:
-            "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
-          status: "22222",
-          currentPrice: "56.5",
-          originPrice: "88.8"
-        },
-        {
-          id: 5,
-          name:
-            "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
-          status: "22222",
-          currentPrice: "80",
-          originPrice: "88.8"
-        },
-        {
-          id: 6,
-          name:
-            "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
-          status: "22222",
-          currentPrice: "56.5",
-          originPrice: "88.8"
-        },
-        {
-          id: 7,
-          name:
-            "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
-          status: "22222",
-          currentPrice: "56.5",
-          originPrice: "88.8"
-        },
-        {
-          id: 8,
-          name:
-            "老丁的私房菜-干锅花菜老花菜老丁的丁的私房菜-私房菜-干锅花菜干锅花菜",
-          des: "详情介绍",
-          status: "22222",
-          currentPrice: "56.5",
-          originPrice: "88.8"
-        }
       ]
     };
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="product-box">
-    <Header :hasLocation='false' title="分类" />
+    <Header :hasLocation='false' :title="$route.query.title" />
     <app-scroll class="content">
         <FoodItem :GoodList ='GoodList'  />
     </app-scroll>

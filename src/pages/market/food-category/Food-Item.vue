@@ -1,6 +1,6 @@
 <template>
 <div class="item-list">
-  <div class="item" v-for="item in GoodList" :key="item.id" @click="goDetail(item.id)">
+  <div class="item" v-for="item in GoodList" :key="item.id" @click="goDetail(item.id,item.title)">
     <div class="pic-box">
       <img :src="item.picUrl"  :alt='item.name' />
       <p class="tips">限时特价</p>

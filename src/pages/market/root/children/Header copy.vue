@@ -11,11 +11,11 @@
 
     <div class="header-center search-box" v-if="hasLocation">
       <van-icon name="search" />
-      <input type="text" class="search" @click.prevent="goSearch" placeholder="请输入要搜索的内容" />
+      <input type="text" class="search" @click="goSearch" placeholder="请输入要搜索的内容" />
     </div>
 
    <div class="header-title text-overflow" v-else>
-      <h1 class="text-overflow">{{title}}</h1>
+      <h1 class="">{{title}}</h1>
    </div>
 
     <span class="header-btn header-btn-right"  >
@@ -59,6 +59,7 @@ export default {
   padding: 0 20px;
 
   .header-btn {
+    padding: 0 15px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -75,12 +76,6 @@ export default {
       color: #505044;
       padding-top: 5px;
     }
-  }
-  .header-btn-left{
-    padding: 0 15px 0 0;
-  }
-  .header-btn-right{  
-    padding: 0 0 0 15px;
   }
   .header-center {
     flex: 1;
@@ -102,10 +97,6 @@ export default {
       width: 100%;
       font-size: 15px;
     }
-  }
-  .header-title{
-    flex: 1;
-    text-align: center;
   }
 }
 </style>
