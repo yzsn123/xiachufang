@@ -18,21 +18,21 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                   <keep-alive>
-                    <app-scroll v-if="selectIndex===0">
+                    <app-scroll v-if="selectIndex===0" ref="Iscroll">
                       <attention/>
                     </app-scroll>
                   </keep-alive>
                 </div>
                 <div class="swiper-slide">
                   <keep-alive>
-                    <app-scroll v-if="selectIndex===1">
+                    <app-scroll v-if="selectIndex===1" ref="Iscroll">
                        <discover/>
                     </app-scroll>
                   </keep-alive>
                 </div>
                 <div class="swiper-slide">
                   <keep-alive>
-                    <app-scroll v-if="selectIndex===2">
+                    <app-scroll v-if="selectIndex===2" ref="Iscroll">
                       <story/>
                     </app-scroll>
                   </keep-alive>
@@ -65,7 +65,7 @@ export default {
         { title: "发现", id: 2 },
         { title: "故事", id: 3 }
       ],
-      selectIndex: 2,
+      selectIndex: 1,
       Swipershow:false,
     };
   },
@@ -89,8 +89,9 @@ export default {
     SwiperMove(){
       this.$refs.swiper.ontouchstart = (ev)=>{
         document.ontouchend = (ev)=>{
-            this.Swipershow = false;
+            // this.Swipershow = false;
             this.selectIndex = this.$mySwiper.activeIndex;
+            this.Swipershow = false;
         }
       }
     },
@@ -106,7 +107,8 @@ export default {
     InputClick(){
       console.log(1);
       this.$router.push('/kitchen/search');
-    }
+    },
+
   },
   created(){
     this.$center.$on('ChangeSwipershow',this.ChangeSwipershow);

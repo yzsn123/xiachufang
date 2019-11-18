@@ -44,6 +44,10 @@ export default{
                     component:()=>import('../pages/kitchen/search/children/detail.vue'),
                 },
             ]
+        },
+        {
+            path:'classify',
+            component:()=>import('../pages/kitchen/discover/children/classify.vue')
         }
     ]
 }

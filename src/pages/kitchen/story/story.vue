@@ -119,15 +119,6 @@ export default {
     },
     mounted(){
         this.SwiperInit();
-        this.$refs.container.ontouchmove=(ev)=>{
-            if(this.$refs.swipers.$el.getBoundingClientRect().top<=93){
-                this.$refs.swipers.$el.style.opacity = 0;
-                this.$center.$emit('ChangeSwipershow');
-            } else{
-                this.$refs.swipers.$el.style.opacity = 1;
-                this.$center.$emit('NoneSwipershow');
-            }
-        }
     }
 }
 </script>
@@ -192,7 +183,6 @@ export default {
       width: 100%;
       margin-top: 30px;
       .userinfo {
-        width: 252px;
         height: 100%;
         display: flex;
         .userimg {

@@ -6,7 +6,7 @@
         <div class="title">
             {{title}}
         </div>
-        <div class="setting" v-show="IconShow" @click="SettingAction">
+        <div class="setting" v-show="iconShow" @click="SettingAction">
             <van-icon name="setting-o" size="20px" />
         </div>
     </div>
@@ -21,7 +21,7 @@ export default {
     data(){
         return{
             title:this.data,
-            IconShow:this.IconShow
+            iconShow:this.IconShow
         }
     },
     methods:{
