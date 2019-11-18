@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import kitchenRouter from './kitchen-routes'
-import classRouter from './class-router'
-import mineRouter from './mine-routes'
 Vue.use(VueRouter)
 
 const routes = [
@@ -11,8 +9,6 @@ const routes = [
     redirect: '/kitchen'
   },
   kitchenRouter,
-  classRouter,
-  mineRouter,
   {
     path: '/404',
     component: ()=>import('../pages/common/not-find/NotFind')
