@@ -11,12 +11,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin:false
+    isLogin:false,
+    path:'/mine'
   },
   mutations: {
     setIsLogin(state,flag){
       state.isLogin = flag;
-    }
+    },
+    setPath(state,val){
+      state.path = val;
+  }
   },
   actions: {
   },

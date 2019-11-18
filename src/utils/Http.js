@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {HOST} from './api'
-
+import qs from 'qs';
 export default class Http{
 
   static async request(method, url, data){
@@ -9,7 +9,7 @@ export default class Http{
       method,
       url,
       baseURL: HOST,
-      params: method === 'GET' ? data : null,
+      params: method === 'GET' ?  data : null,
       data: method === 'POST' ? data : null
     });
     return this.isSuccess(response);

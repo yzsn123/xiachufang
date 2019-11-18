@@ -41,7 +41,7 @@ export default {
     return {
       kindList: [],
       allList: [],
-      guessList: null,
+      guessList: [],
       myScroll: "myScroll",
       canLoad: null
     };

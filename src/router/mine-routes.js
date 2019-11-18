@@ -1,16 +1,17 @@
 import store from '../store'
 export default {
     path: '/mine',
-
-
-    component:()=>{
-        if(!store.state.isLogin){
-            // console.log('未登录')
-            return import('../pages/mine/root/children/Login')
+    beforeEnter(to,from,next){
+        
+        if(!localStorage.getItem('user')){
+            store.commit('setPath',to.fullPath);
+            next({
+                path:'/mine/login'
+            })
         }else{
-            return import('../pages/mine/root/mine')
+            next();
         }
-
     },
-    
+    component:()=>import('../pages/mine/root/mine'),
+  
 }

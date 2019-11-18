@@ -3,11 +3,11 @@ import Http from '../../utils/Http'
 import { request } from 'http'
 
 const state = {
-
+    
 }
 
 const mutations = {
-
+   
 }
 
 const actions = {
@@ -24,9 +24,10 @@ const actions = {
     },
     //验证码登录
     async requestLogin(state,tel){
-        let result = await Http.post(api.LOGIN_AP,tel);
+        console.log(tel);
+        let result = await Http.get(api.LOGIN_API,{tel});
         if(result.data.code == 0){
-            return null;
+            return result.data;
         }else{
             return result.data.message;
         }

@@ -12,8 +12,8 @@
       </label>
       <label class="psd">
         验证码
-        <input type="text" />
-        <button @click="codeAction">获取验证码</button>
+        <input type="text" v-model="code" />
+        <button @click="codeAction" ref="code" :class="{red:codeFlag}">{{codeText}}</button>
       </label>
     </div>
 
@@ -33,24 +33,80 @@
 export default {
   data() {
     return {
-      tel: null
+      tel: null,
+      code: null,
+      codeText: "获取验证码",
+      codeFlag: true,
+      CODE: null
     };
   },
   methods: {
     backAction() {
       this.$router.back();
     },
-    loginAction() {},
-    async codeAction() {
-    //   console.log("发送验证码");
-      if(this.tel){
-        //   console.log(this.tel)
-          let result = await this.$store.dispatch('mine/sendCode',this.tel);
-          console.log(result);
-      }else{
-          console.log('请输入手机号');
+    //手机号码验证
+    checkPhone(tel) {
+      if (!/^1[3456789]\d{9}$/.test(tel)) {
+        this.$toast("请输入正确的手机号码");
+        return false;
       }
-      
+    },
+    //登录
+    async loginAction() {
+      //如果手机号码不为空
+      if (this.tel) {
+        //判断是否是正确的手机号码
+        this.checkPhone(this.tel);
+        //如果输入了验证码并且验证码正确
+        if (this.code && this.code == this.CODE) {
+          //登录(注册)
+          let result = await this.$store.dispatch('mine/requestLogin',this.tel);
+          if(result.code == 0){
+            // console.log(this.$store.state.path);
+            
+            await localStorage.setItem('user',true);
+            // this.$router.push('/mine');
+            this.$router.push(`${this.$store.state.path}`)
+          }
+          // console.log(result);
+        } else {
+          this.$toast("请输入正确的验证码");
+        }
+      } else {
+        this.$toast("请输入手机号");
+        return false;
+      }
+    },
+    //发送验证码
+    async codeAction() {
+      //如果发送验证码可以点击
+      if (this.codeFlag) {
+        //如果输入了电话号码
+        if (this.tel) {
+          this.codeFlag = false;
+          //改变按钮样式
+          // this.$refs.code.style.backgroundColor = "#aaa";
+          let i = 10;
+          this.codeText = i-- + "s";
+          let time = setInterval(
+            function() {
+              this.codeText = i-- + "s";
+              if (i < 0) {
+                clearInterval(time);
+                this.codeText = "重新获取验证码";
+                // this.$refs.code.style.backgroundColor = "#f8664f";
+                this.codeFlag = true;
+              }
+            }.bind(this),
+            1000
+          );
+          //获取code验证码
+          this.CODE = await this.$store.dispatch("mine/sendCode", this.tel);
+          console.log(this.CODE);
+        } else {
+          this.$toast("请输入手机号");
+        }
+      }
     }
   }
 };
@@ -106,14 +162,20 @@ export default {
 
       input {
         margin-left: 50px;
-        height: 100px;
+        height: 90%;
         flex: 1;
       }
       button {
         padding: 20px 20px;
-        background: #f8664f;
+        background: #aaa;
         border-radius: 5px;
+        width: 300px;
+        height: 100px;
+        text-align: center;
         color: white;
+      }
+      .red{
+        background: #f8664f;
       }
     }
   }
@@ -133,7 +195,7 @@ export default {
     text-align: center;
     font-size: 48px;
     color: white;
-    background: #c6c6bc;
+    background: #f8664f;
     letter-spacing: 5px;
   }
   .no {

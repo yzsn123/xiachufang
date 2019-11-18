@@ -105,6 +105,12 @@ export default {
    bottom: 49px;
    width: 100%;
 }
+.Toast{
+    padding: 50px;
+    font-size: 45px;
+    border-radius: 10px;
+    color: white;
+}
 .mark{
     opacity: 0;
     z-index: -1;
