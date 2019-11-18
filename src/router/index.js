@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import kitchenRouter from './kitchen-routes'
 import classRouter from './class-router'
 import mineRouter from './mine-routes'
+import marketRouter from './market-routes'
 import collectRouter from './collect-routes'
 Vue.use(VueRouter)
 
@@ -17,6 +18,7 @@ const routes = [{
   kitchenRouter,
   classRouter,
   mineRouter,
+  marketRouter,
   {
     path: '/mine/login',
     component: () => import('../pages/mine/root/children/Login.vue'),

@@ -7,9 +7,11 @@ import story from './story/story'
 import search from './search/searchDetail'
 import Class from './class/index'
 import mine from './mine/index'
+import marketOrder from './marketOrder'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  namespaced:true,
   state: {
     isLogin:false,
     path:'/mine'
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     interest,
     story,
     search,
-    mine
+    mine,
+    marketOrder
   }
 })
