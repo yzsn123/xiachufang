@@ -56,7 +56,7 @@ export default {
       this.$nextTick(() => {
         this.SwiperInit();
       });
-      console.log(this.data);
+      // console.log(this.data);
     },
     SwiperInit() {
       var swiper = new Swiper(this.$refs.swiper, {
@@ -84,8 +84,7 @@ export default {
       while (itemList.length > 0) {
         tmp = [...tmp, itemList.splice(0, 3)];
       }
-      console.log(tmp);
-
+      // console.log(tmp);
       //处理好的数组给组件使用
       return tmp;
     }

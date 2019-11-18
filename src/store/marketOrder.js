@@ -16,12 +16,10 @@ export default {
       state.selectTit=value.selectTit,
       state.selectNum=value.selectNum,
       state.selectInfo=value.selectInfo,
-      state.currentPrice=value.currentPrice,
-      console.log(state.currentPrice);
+      state.currentPrice=value.currentPrice
     },
     titleInfo(state,value){
       state.title = value;
-      console.log(value);
     }
   },
   actions: {

@@ -110,7 +110,7 @@ export default {
     },
     buyAction() {
       // 取数组的长度
-      console.log(Object.entries(this.selectMap).length);
+      // console.log(Object.entries(this.selectMap).length);
       if (this.data.sku.tree.length > Object.entries(this.selectMap).length) {
         //  没有选择完整
         Toast('请选择规格数量');

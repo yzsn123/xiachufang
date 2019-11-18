@@ -45,10 +45,10 @@
         <van-icon name="smile-comment-o" />
         <span>联系卖家</span>
       </div>
-      <div class="group bg" @click="showAddCartAction">
+      <div class="group bg"  @click="showAddCartAction('add')">
         <span>加入购物车</span>
       </div>
-      <div class="group bg" @click="showAddCartAction">
+      <div class="group bg"  @click="showAddCartAction('buy')">
         <span>立即购买</span>
       </div>
     </div>
@@ -89,17 +89,14 @@ export default {
       showAddCart: false,
       detailData: {},
       detailBanner: [],
+      // flag:null
+     
     };
   },
   computed: {
     ...mapState({
       title:state=>state.marketOrder.title
     }),
-    count(){
-      console.log(this.$store.state.marketOrder.title);
-      
-    },
-
     //计算原价的价格
     originPrice: function() {
       
@@ -114,12 +111,12 @@ export default {
       this.detailData = result.detailData;
       this.detailBanner = result.detailData.bannerList;
     },
-    showAddCartAction() {
-      this.showAddCart = true;
-      console.log(this.title);
-      
+    showAddCartAction(ev,type) {
+      // this.flag='add';
+      this.showAddCart = true;     
+      console.log(type);
+
     },
-    handleAction(item) {}
   },
   created() {
     this.initData();

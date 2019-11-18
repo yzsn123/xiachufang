@@ -77,7 +77,7 @@ export default {
     goDetailAction(id,title){
       this.$store.commit('marketOrder/titleInfo',title);
       this.$router.push(`/market/detail/${id}`);
-      console.log(id);  
+      // console.log(id);  
     },
     async initData() {
       const { MarketNewData: result } = await marketService.requestMarketNewData();
