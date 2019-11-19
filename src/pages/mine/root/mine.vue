@@ -2,7 +2,7 @@
   <div id="mine">
     <Header></Header>
 
-    <app-scroll class="content">
+    <myScroll class="content" :name="myScroll">
       <div class="userImg box-size">
         <h3>手机用户{{phone}}</h3>
         <img src="http://img2.imgtn.bdimg.com/it/u=1858160002,4087061516&fm=26&gp=0.jpg" alt />
@@ -42,8 +42,7 @@
       </div>
 
       <myContent></myContent>
-      
-    </app-scroll>
+    </myScroll>
   </div>
 </template>
 
@@ -58,7 +57,8 @@ export default {
   data() {
     return {
       phone: null,
-      active:0
+      active: 0,
+      myScroll: "myScroll"
     };
   }
 };
@@ -72,7 +72,7 @@ export default {
     position: absolute;
     left: 0;
     top: 45px;
-    bottom: 50px;
+    bottom: 0;
   }
   .box-size {
     box-sizing: border-box;

@@ -31,12 +31,12 @@ const mutations = {
 const actions = {
     async requestStoryData(context,value){
         const {data:result} = await Http.get(api.KITCHEN_STORY_API);
-        console.log(result);
+        // console.log(result);
         // const StoryData = result.data[0].data;
         const StoryData = result.data.content;
         const BannerList = result.data.bannerList;
-        console.log(BannerList);
-        console.log(StoryData);
+        // console.log(BannerList);
+        // console.log(StoryData);
         if(value == 0){
             var leftStoryData = [];
             var rightStoryData = [];

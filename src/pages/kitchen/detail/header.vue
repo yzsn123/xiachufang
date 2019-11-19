@@ -34,6 +34,7 @@ export default {
     top: 0;
     z-index: 200;
     display: flex;
+    background: white;
     .icon{
         height: 100%;
         width: 42px;

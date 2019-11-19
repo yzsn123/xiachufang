@@ -71,7 +71,7 @@ export default {
   },
   computed:{
     GetWidth(){
-        console.log(document.body.getBoundingClientRect());
+        // console.log(document.body.getBoundingClientRect());
         return document.body.getBoundingClientRect().width;
     }
   },
@@ -89,9 +89,7 @@ export default {
     SwiperMove(){
       this.$refs.swiper.ontouchstart = (ev)=>{
         document.ontouchend = (ev)=>{
-            // this.Swipershow = false;
             this.selectIndex = this.$mySwiper.activeIndex;
-            this.Swipershow = false;
         }
       }
     },
@@ -105,7 +103,7 @@ export default {
       this.$router.push('/kitchen/message');
     },
     InputClick(){
-      console.log(1);
+      // console.log(1);
       this.$router.push('/kitchen/search');
     },
 

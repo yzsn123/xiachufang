@@ -6,16 +6,24 @@ import interest from './attention/interest'
 import story from './story/story'
 import search from './search/searchDetail'
 import detail from './detail/detail'
+import Class from './class/index'
+import mine from './mine/index'
+import marketOrder from './marketOrder'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  namespaced:true,
   state: {
-    isLogin:false
+    isLogin:false,
+    path:'/mine'
   },
   mutations: {
     setIsLogin(state,flag){
       state.isLogin = flag;
-    }
+    },
+    setPath(state,val){
+      state.path = val;
+  }
   },
   actions: {
   },
@@ -25,6 +33,9 @@ export default new Vuex.Store({
     interest,
     story,
     search,
-    detail
+    detail,
+    mine,
+    marketOrder,
+    Class
   }
 })

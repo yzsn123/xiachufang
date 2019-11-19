@@ -10,7 +10,7 @@
         <dinner ref="swipers" />
         <div class="imgwall">
             <ul ref="leftData" class="left-ul">
-                <li v-for="(item,index) in LeftStoryData" :key="index">
+                <li v-for="(item,index) in LeftStoryData" :key="index" @click="MenuDetail(index)">
                     <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}">
                         <img :src="item.picUrl" alt="" v-lazy="item.picUrl">
                     </div>
@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <ul ref="rightData" class="right-ul">
-                <li v-for="(item,index) in RightStoryData" :key="index">
+                <li v-for="(item,index) in RightStoryData" :key="index" @click="MenuDetail(index)">
                     <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}">
                         <img :src="item.picUrl" alt="" v-lazy="item.picUrl">
                     </div>
@@ -84,6 +84,14 @@ export default {
             return this.$store.state.story.BannerList;
         }
     },  
+    watch:{
+        LeftStoryData:function(newVal,oldVal){
+            this.$nextTick(()=>{
+                this.$center.$emit('ChangeLoading');
+                this.$center.$emit('ChangeLoadmore');
+            })
+        }
+    },
     methods:{
         SwiperInit(){
             this.$mySwiper = new Swiper(this.$refs.swiper, {
@@ -113,6 +121,9 @@ export default {
                 return item;
             }
         },
+        MenuDetail(index){
+            this.$router.push(`/kitchen/detail/${index}`);
+        }
     },
     created(){
         this.GetStoryData();

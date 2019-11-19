@@ -1,7 +1,5 @@
 <template>
   <div class="goodList">
-
-    
     <div class="list" v-for="(item,index) in allList" :key="index">
       <div class="listTitle">
         <h3>{{item.kind}}</h3>
@@ -10,7 +8,7 @@
         </span>
       </div>
       <ul class="good">
-        <li v-for="(ite,ind) in item.goodList" :key="ind">
+        <li v-for="(ite,ind) in item.goodList" :key="ind" @click="detailAction(ite)">
           <div class="img">
             <img :src="ite.picUrl" alt v-lazy="ite.picUrl" />
           </div>
@@ -34,8 +32,8 @@
 
 <script>
 export default {
-  props:{
-    allList:Array
+  props: {
+    allList: Array
   },
   data() {
     return {
@@ -43,7 +41,6 @@ export default {
     };
   },
   methods: {
-    
     getTime() {
       setInterval(
         function() {
@@ -60,7 +57,10 @@ export default {
         1000
       );
     },
-    collectAction() {}
+    collectAction() {},
+    detailAction(item) {
+      this.$router.push(`/classroom/detail/${item.id}`);
+    }
   },
   watch: {},
   computed: {},
@@ -145,6 +145,5 @@ export default {
       }
     }
   }
-  
 }
 </style>

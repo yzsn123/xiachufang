@@ -1,5 +1,5 @@
 // 管理api
-export const HOST = 'http://localhost:8083';
+export const HOST = 'http://localhost:8080';
 
 
 /* 
@@ -52,6 +52,8 @@ const MARKET_GOODLIST_API = '/api/market/goodList';
 //市集商品详情接口
 const MARKET_DETAIL_API = 'api/market/detail';
 
+//市集猜你喜欢的接口
+const MARKET_SUGGEST_GUESS_API = '/api/market/suggest/guess'
 
 /**
  * 下厨房接口
@@ -81,6 +83,13 @@ const KITCHEN_ATTENTION_INTEREST_APi = '/api/kitchen/attention/interest';
 const CLASS_ALL_API = '/api/class/all'
 //猜你喜欢接口
 const CLASS_GUESS_API = 'api/class/all/guess'
+//课程分类点开的列表
+const CLASS_KIND_API = '/api/class/kind'
+//课程分类刷新重新加载的列表
+const CLASS_KIND_GOODLIST_API = '/api/class/kind/goodList'
+//课程商品详情
+const CLASS_DETAIL_API = '/api/class/detail'
+
 /*
 收藏接口
 */
@@ -127,5 +136,9 @@ export default {
   ORDER_API,
   CLASS_ALL_API,
   CLASS_GUESS_API,
-  KITCHEN_ATTENTION_INTEREST_APi
+  KITCHEN_ATTENTION_INTEREST_APi,
+  MARKET_SUGGEST_GUESS_API,
+  CLASS_KIND_API,
+  CLASS_KIND_GOODLIST_API,
+  CLASS_DETAIL_API
 }

@@ -1,6 +1,7 @@
 <template>
 <div id="app">
     <router-view class="pages"></router-view>
+   
     <tab-bar></tab-bar>
     <keep-alive>
         <div class="mark" :style="{width:Width,height:Height}" :class="{changeMark:Markshow}" @click="Mark" ref="mark">
@@ -102,6 +103,12 @@ export default {
    top: 0px;
    bottom: 49px;
    width: 100%;
+}
+.Toast{
+    padding: 50px;
+    font-size: 45px;
+    border-radius: 10px;
+    color: white;
 }
 .mark{
     opacity: 0;

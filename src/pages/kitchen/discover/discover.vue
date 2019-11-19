@@ -7,7 +7,7 @@
     </div>
     <div class="imgwall">
         <ul ref="leftData" class="left-ul">
-            <li v-for="(item,index) in LeftDiscoverData" :key="index">
+            <li v-for="(item,index) in LeftDiscoverData" :key="index" @click="MenuDetail(index)">
                 <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}">
                     <img :src="item.picUrl" alt="" v-lazy="item.picUrl">
                 </div>
@@ -31,7 +31,7 @@
             </li>
         </ul>
         <ul ref="rightData" class="right-ul">
-            <li v-for="(item,index) in RightDiscoverData" :key="index">
+            <li v-for="(item,index) in RightDiscoverData" :key="index" @click="MenuDetail(index)">
                 <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}">
                     <img :src="item.picUrl" alt="" v-lazy="item.picUrl">
                 </div>
@@ -74,6 +74,14 @@ export default {
       index: 0
     };
   },
+  watch:{
+      LeftDiscoverData:function(newVal,oldVal){
+          this.$nextTick(()=>{
+              this.$center.$emit('ChangeLoading');
+              this.$center.$emit('ChangeLoadmore');
+          })
+      }
+  },
   methods: {
     async GetDiscoverData() {
       await this.$store.dispatch("kitchen/requestDiscoverData", 0);
@@ -97,14 +105,14 @@ export default {
     },
     MenuClassify(){
       this.$router.push('/kitchen/classify')
+    },
+    MenuDetail(index){
+        this.$router.push(`/kitchen/detail/${index}`);
     }
   },
   created() {
     this.GetDiscoverData();
   },
-  mounted(){
-      console.log(this.$parent);
-  }
 };
 </script>
 
@@ -191,13 +199,14 @@ export default {
         }
       }
       .thumbs {
-        width: 146px;
+        width: 160px;
         height: 100%;
         box-sizing: border-box;
         .thumbs-num {
           width: 100%;
           height: 100%;
           display: flex;
+          align-items: center;
           .van-icon {
             font-size: 36px;
             line-height: 50px;

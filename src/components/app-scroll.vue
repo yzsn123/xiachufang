@@ -35,7 +35,6 @@ export default {
       if(this.$children[0].GetStoryData){
         await this.$children[0].GetStoryData();
       }
-      this.loading = true;
     },
     async loadMoreData(){
       if(this.$children[0].GetMoreDiscoverData){
@@ -47,25 +46,16 @@ export default {
       if(this.$children[0].GetMoreStoryData){
         await this.$children[0].GetMoreStoryData();
       }
+    },
+    ChangeLoading(){
+      console.log(1);
+      this.loading = true;
+    },
+    ChangeLoadmore(){
+      console.log(2);
       this.loadmore = true;
-    }
-  },
-  mounted(){
-    this.$nextTick(()=>{
-      this.scroll = new IScroll(this.$refs.scroll, {
-        probeType: 3,
-      })
-
-      this.scroll.scrollTo(0,-90,0);
-      
-      this.scroll.on('beforeScrollStart', ()=>{
-        this.scroll.refresh();
-      });
-      
-     this.scroll.on('scroll',()=>{
-        if(this.scroll.y>-10){
-            this.$parent.$mySwiper.lockSwipes();
-        }
+    },
+    ChangeSwiper(){
         // 当滑动到某个位置时，设置粘性定位
         if(this.$children[0].$refs.swipers){
           let Swipers = this.$children[0].$refs.swipers.$refs.swipers;
@@ -77,15 +67,41 @@ export default {
             this.$center.$emit('NoneSwipershow');
           }
         }
+    }
+  },
+  created(){
+      this.$center.$on('ChangeLoading',this.ChangeLoading);
+      this.$center.$on('ChangeLoadmore',this.ChangeLoadmore);
+  },
+  mounted(){
+    this.$nextTick(()=>{
+      this.scroll = new IScroll(this.$refs.scroll, {
+        probeType: 3,
+      })
+
+      this.scroll.scrollTo(0,-90,0);
+      
+      this.scroll.on('beforeScrollStart', ()=>{
+        this.scroll.refresh();
+        this.ChangeSwiper();
+      });
+      
+     this.scroll.on('scroll',()=>{
+        if(this.scroll.y>-10){
+            this.$parent.$mySwiper.lockSwipes();
+        }
+        this.ChangeSwiper();
      })
 
       this.scroll.on('scrollEnd',()=>{
         this.$parent.$mySwiper.unlockSwipes();
+        this.ChangeSwiper();
         let y = this.scroll.y;
         let maxY = this.scroll.maxScrollY;
         let minY = maxY + 90;
         if(y>=0){
           if(this.loading){
+            console.log(this.loading);
             this.loading = false;
             this.refreshData();
             this.scroll.refresh();
@@ -116,6 +132,10 @@ export default {
       })
     })
   },
+  beforeDestroy(){
+      this.$center.$off('ChangeLoading',this.ChangeLoading);
+      this.$center.$off('ChangeLoadmore',this.ChangeLoadmore);
+  }
 };
 </script>
 

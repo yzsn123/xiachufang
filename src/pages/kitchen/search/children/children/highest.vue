@@ -1,7 +1,7 @@
 <template>
 <div class="MenuList" title="highest">
     <ul class="list">
-        <li class="item" v-for="(item,index) in ScoreDetailList" :key="index">
+        <li class="item" v-for="(item,index) in ScoreDetailList" :key="index" @click="MenuDetail(index)">
             <img :src="item.picUrl" alt="">
             <div class="menu-content">
                 <div class="desc-title ellipse">
@@ -28,6 +28,11 @@ export default {
             return this.$store.state.search.ScoreDetailList;
         },
     },
+    methods:{
+        MenuDetail(index){
+            this.$router.push(`/kitchen/detail/${index}`);
+        }
+    }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
 <div class="MenuList" title="intelligent">
     <ul class="list">
-        <li class="item" v-for="(item,index) in searchDetailList" :key="index">
+        <li class="item" v-for="(item,index) in searchDetailList" @click="MenuDetail(index)" :key="index">
             <img :src="item.picUrl" alt="">
             <div class="menu-content">
                 <div class="desc-title ellipse">
@@ -26,8 +26,13 @@ export default {
     computed:{
         searchDetailList(){
             return this.$store.state.search.searchDetailList;
-        },
+        }
     },
+    methods:{
+        MenuDetail(index){
+            this.$router.push(`/kitchen/detail/${index}`);
+        }
+    }
 }
 </script>
 

@@ -56,6 +56,14 @@ export default {
             }
         }
     },
+    watch:{
+        attentionList:function(newVal,oldVal){
+            this.$nextTick(()=>{
+                this.$center.$emit('ChangeLoading');
+                this.$center.$emit('ChangeLoadmore');
+            })
+        }
+    },
     computed:{
         attentionList(){
             return this.$store.state.attention.attentionList;
@@ -64,7 +72,7 @@ export default {
     methods:{
         imgAction(index){
             if(!isNaN(index)){
-                console.log(this.$refs.userimg);
+                // console.log(this.$refs.userimg);
                 var imgSrc = this.$refs.userimg[index].getAttribute('src');
                 this.$refs.userimg[index].style.opacity = 0;
             } else{
@@ -92,6 +100,12 @@ export default {
     },
     created(){
         this.$center.$on('showAction',this.ShowImgAction);
+    },
+    mounted(){
+        this.$nextTick(()=>{
+            this.$center.$emit('ChangeLoading');
+            this.$center.$emit('ChangeLoadmore');
+        })
     }
 }
 </script>
