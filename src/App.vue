@@ -9,7 +9,6 @@
     </keep-alive>
     <van-popup v-model="show" position="bottom">
         <Dialog>
-            
         </Dialog>
     </van-popup>
     

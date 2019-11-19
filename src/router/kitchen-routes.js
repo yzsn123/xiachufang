@@ -48,6 +48,10 @@ export default{
         {
             path:'classify',
             component:()=>import('../pages/kitchen/discover/children/classify.vue')
+        },
+        {
+            path:'detail/:id',
+            component:()=>import('../pages/kitchen/detail/detail.vue')
         }
     ]
 }

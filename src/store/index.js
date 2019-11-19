@@ -5,6 +5,7 @@ import attention from './attention/attention'
 import interest from './attention/interest'
 import story from './story/story'
 import search from './search/searchDetail'
+import detail from './detail/detail'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     attention,
     interest,
     story,
-    search
+    search,
+    detail
   }
 })
