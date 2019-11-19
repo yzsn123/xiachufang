@@ -4,7 +4,7 @@
             <span class="add-Icon"><van-icon name="plus" size="27px" /></span>
             <input type="text" class="input" placeholder="搜索菜谱、食材" ref="input">
             <p class="input-icon"></p>
-            <div class="Searchbtn" @click="SearchAction(name)">搜索</div>
+            <div class="Searchbtn" @click="SearchAction()">搜索</div>
         </header>
         <div class="content">
             <div class="recent">
@@ -45,10 +45,12 @@ export default {
                 this.$router.push(`/kitchen/search/detail/${name}`);
             } else{
                 var name = this.$refs.input.value;
-                if(name){
+                console.log(name);
+                if(!name){
                     return;
                 } else{
                     this.$store.dispatch('search/requestSearchData',name);
+                    this.$router.push(`/kitchen/search/detail/${name}`);
                 }
             }
         }
@@ -139,11 +141,12 @@ export default {
         font-weight: 600;
     }
     .empty{
-        width: 64px;
+        width: 90px;
         height: 90px;
         line-height: 90px;
         font-size: 32px;
         color: #3e3e3c;
+        text-align: center;
     }
 }
 .popular{

@@ -3,7 +3,7 @@
     <img src="../../../assets/kitchen/banner.jpg" class="bannerimg" alt="">
     <div class="story">
         <div class="recommend">为你推荐</div>
-        <div class="classify">菜谱分类</div>
+        <div class="classify" @click="MenuClassify">菜谱分类</div>
     </div>
     <div class="imgwall">
         <ul ref="leftData" class="left-ul">
@@ -95,8 +95,8 @@ export default {
         return item;
       }
     },
-    Console(){
-        // console.log(1);
+    MenuClassify(){
+      this.$router.push('/kitchen/classify')
     }
   },
   created() {

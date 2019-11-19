@@ -25,35 +25,32 @@ export default {
     }
   },
   methods:{
-    refreshData(){
+    async refreshData(){
       if(this.$children[0].GetDiscoverData){
-        this.$children[0].GetDiscoverData();
+        await this.$children[0].GetDiscoverData();
       }
       if(this.$children[0].GetAttentionData){
-        this.$children[0].GetAttentionData();
+        await this.$children[0].GetAttentionData();
       }
       if(this.$children[0].GetStoryData){
-        this.$children[0].GetStoryData();
+        await this.$children[0].GetStoryData();
       }
+      this.loading = true;
     },
-    loadMoreData(){
+    async loadMoreData(){
       if(this.$children[0].GetMoreDiscoverData){
-        this.$children[0].GetMoreDiscoverData();
+        await this.$children[0].GetMoreDiscoverData();
       }
       if(this.$children[0].GetMoreAttentionData){
-        this.$children[0].GetMoreAttentionData();
+        await this.$children[0].GetMoreAttentionData();
       }
       if(this.$children[0].GetMoreStoryData){
-        this.$children[0].GetMoreStoryData();
+        await this.$children[0].GetMoreStoryData();
       }
-      if(this.$parent.GetMoreGuessData){
-        this.$parent.GetMoreGuessData();
-      }
+      this.loadmore = true;
     }
   },
   mounted(){
-    // console.log(this.$children);
-    // console.log(this.$parent)
     this.$nextTick(()=>{
       this.scroll = new IScroll(this.$refs.scroll, {
         probeType: 3,
@@ -64,18 +61,34 @@ export default {
       this.scroll.on('beforeScrollStart', ()=>{
         this.scroll.refresh();
       });
+      
+     this.scroll.on('scroll',()=>{
+        if(this.scroll.y>-10){
+            this.$parent.$mySwiper.lockSwipes();
+        }
+        // 当滑动到某个位置时，设置粘性定位
+        if(this.$children[0].$refs.swipers){
+          let Swipers = this.$children[0].$refs.swipers.$refs.swipers;
+          if(Swipers.getBoundingClientRect().top<=93){
+            Swipers.style.opacity = 0;
+            this.$center.$emit('ChangeSwipershow');
+          } else{
+            Swipers.style.opacity = 1;
+            this.$center.$emit('NoneSwipershow');
+          }
+        }
+     })
 
       this.scroll.on('scrollEnd',()=>{
+        this.$parent.$mySwiper.unlockSwipes();
         let y = this.scroll.y;
         let maxY = this.scroll.maxScrollY;
         let minY = maxY + 90;
         if(y>=0){
-          console.log('触发刷新');
           if(this.loading){
             this.loading = false;
             this.refreshData();
             this.scroll.refresh();
-            this.loading = true;
             this.scroll.scrollTo(0,-90,300);
           } else{
             this.scroll.scrollTo(0,-90,300);
@@ -93,7 +106,6 @@ export default {
              this.loadMoreData();
              this.scroll.refresh();
              this.scroll.scrollTo(0,minY,300);
-             this.loadmore = true;
           } else{
             this.scroll.scrollTo(0,minY,300);
           }

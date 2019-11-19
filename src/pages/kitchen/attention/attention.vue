@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="userimg">
-            <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3750211471,3151515749&fm=26&gp=0.jpg" alt="" @click="imgAction" ref="userimg">
+            <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3750211471,3151515749&fm=26&gp=0.jpg" alt="" @click="imgAction" ref="userimgs">
         </div>
     </div>
     <thumbs :data="indexList"/>
@@ -68,21 +68,20 @@ export default {
                 var imgSrc = this.$refs.userimg[index].getAttribute('src');
                 this.$refs.userimg[index].style.opacity = 0;
             } else{
-                // console.log(this.$refs.userimg);
-                var imgSrc = this.$refs.userimg.getAttribute('src');
-                this.$refs.userimg.style.opacity = 0;
+                console.log(this.$refs.userimgs);
+                var imgSrc = this.$refs.userimgs.getAttribute('src');
+                this.$refs.userimgs.style.opacity = 0;
             }
             this.$center.$emit('ChangeMarkshow',true,imgSrc);
         },
         ShowImgAction(){
-            // console.log('执行了');
-            if(this.$refs.userimg.length>0){
+            console.log('执行了');
+            if(this.$refs.userimg){
                 this.$refs.userimg.forEach((item,index)=>{
                     item.style.opacity = '';
                 })
-            } else{
-                this.$refs.userimg.style.opacity = '';
             }
+            this.$refs.userimgs.style.opacity = '';
         },
         async GetAttentionData(){
             await this.$store.dispatch("attention/requestAttentionData",0);

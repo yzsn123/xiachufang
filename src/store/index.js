@@ -27,13 +27,13 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    Class,
     kitchen,
     attention,
     interest,
     story,
     search,
     mine,
-    marketOrder
+    marketOrder,
+    Class
   }
 })

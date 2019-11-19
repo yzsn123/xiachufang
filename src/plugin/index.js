@@ -2,6 +2,7 @@
 
 import { Icon ,Toast,Lazyload } from 'vant'
 import AppScroll from '../components/app-scroll'
+import IScroll from '../components/Iscroll.vue'
 
 import myScroll from '../components/my-scroll.vue'
 
@@ -14,5 +15,6 @@ export default {
     // 使用自定义的滚动组件
     Vue.component(AppScroll.name, AppScroll);
     Vue.component(myScroll.name,myScroll);
+    Vue.component(IScroll.name,IScroll);
   }
 }
