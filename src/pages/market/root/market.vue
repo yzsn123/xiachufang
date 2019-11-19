@@ -28,9 +28,9 @@
 
 <script>
 import Header from "./children/Header";
-import Special from "./children/Special";
-import Category from "./children/Category";
-import StoreList from "./children/Storelist";
+import Special from "./children/special";
+import Category from "./children/category";
+import StoreList from "./children/storelist";
 import Product from "./children/Product";
 import marketService from "../../../services/marketService";
 export default {
