@@ -6,7 +6,9 @@
       <div class="shopping-wrap">
         <div class="group" v-for="(item, index) in addCartList" :key="index">
           <div class="title-box">
-            <span class="checkbox" ></span>
+            <div class='left' @click='selectProduct(item)'>
+              <span class="checkbox checked " ></span>
+            </div>
             <h3 class="name">下厨房精选</h3>
           </div>
           <div class="product">
@@ -129,28 +131,29 @@ export default {
   .group {
     background: #fff;
     margin-bottom: 12px;
-    .checkbox {
-      width: 48px;
-      height: 48px;
-      margin-right: 40px;
-      border:2px #eee solid;
-    }
     .title-box {
       display: flex;
       justify-content: flex-start;
-      align-items: center;
       border-bottom: 1px #eae9e4 solid;
       height: 110px;
       line-height: 110px;
       font-size: 34px;
       color: #383934;
-      padding: 0 34px;
+      padding: 0 45px;
+     .left{
+       width:50px;
+       position:relative;
+
+     }
     }
     .product {
       display: flex;
       justify-content: flex-start;
-      padding: 25px 36px;
-
+      padding: 25px 45px;
+      .left{
+        position:relative;
+        width:50px;
+      }
       .center {
         width: 236px;
         height: 236px;
@@ -244,5 +247,16 @@ export default {
     color: #fff;
   }
 }
+.checkbox {
+      width: 48px;
+      height: 48px;
+      border:2px #eee solid;
+      border-radius:50%;
+      display: inline-block;
+      position:absolute;
+      top:32%;
+      left:0;
+      transform:translate(-32%,0);
+    }
 </style>
 
