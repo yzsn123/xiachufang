@@ -28,7 +28,7 @@
                   <span class="origin">￥{{item.currentPrice+50}}</span>
                 </span>
 
-                <input type="text" value="5" class="ipt" />
+                <input type="text" :value="item.selectNum" class="ipt" />
               </p>
             </div>
           </div>
@@ -44,7 +44,7 @@
         <label for='all'>全选</label>
       </div>
       <div>
-        <span class="money">实付款:￥0</span>
+        <span class="money">实付款:￥{{totalPrice}}</span>
         <button class="payBtn">结算</button>
       </div>
     </div>
@@ -67,6 +67,15 @@ export default {
     ...mapState({
       addCartList:state =>state.marketOrder.addCartList
     }),
+    totalPrice(){
+      let total;
+      this.addCartList.forEach(item =>{
+        if (item.selectInput == true) {
+          console.log(total += item.currentPrice * item.selectNum);
+         return total += item.currentPrice * item.selectNum;
+        }
+      })
+    }
     
   },
   methods:{
@@ -74,13 +83,7 @@ export default {
       this.addCartList[index].selectInput = true;
       console.log(this.addCartList[index].selectInput);
     },
-    eachShop(){
-      const index = this.addCartList.findIndex(item =>{
-        item.selectInput = true;
-      })
-      console.log(index);
-      
-    }
+    
   }
   
 };
