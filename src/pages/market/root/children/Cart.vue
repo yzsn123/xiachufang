@@ -44,7 +44,7 @@
         <label for='all'>全选</label>
       </div>
       <div>
-        <span class="money">实付款:￥{{totalPrice}}</span>
+        <span class="money">实付款:￥{{totalMoney}}</span>
         <button class="payBtn">结算</button>
       </div>
     </div>
@@ -60,7 +60,8 @@ export default {
   },
   data(){
     return{
-      myScroll:'myScroll'
+      myScroll:'myScroll',
+      totalMoney:this.totalPrice
     }
   },
   computed:{
@@ -68,11 +69,11 @@ export default {
       addCartList:state =>state.marketOrder.addCartList
     }),
     totalPrice(){
-      let total;
-      this.addCartList.forEach(item =>{
+      let total = 0;
+      let res = this.addCartList.map(item =>{
         if (item.selectInput == true) {
-          console.log(total += item.currentPrice * item.selectNum);
-         return total += item.currentPrice * item.selectNum;
+           total += item.currentPrice * item.selectNum;
+         return total;
         }
       })
     }
