@@ -37,9 +37,9 @@ export default {
   }
 }
 .van-swipe__indicator {
-  width: 15px !important;
-  height: 15px !important;
-  margin: 0 10px 0 0;
+  // width: 15px !important;
+  // height: 15px !important;
+  // margin: 0 10px 0 0;
 }
 
 </style>

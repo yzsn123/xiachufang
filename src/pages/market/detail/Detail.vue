@@ -1,75 +1,72 @@
 <template>
-<div class="detail-wrap">
-
-  <div class="detail-container">
-    <Header :hasLocation="false" :title="title" />
-    <div class="content">
-    <myScroll :name="myScroll">
-      <DetailBanner :detailBanner="detailBanner" />
-      <div class="score-box">
-        <ul>
-          <p>评分</p>
-          <span>4.9</span>
-        </ul>
-        <ul>
-          <p>月销</p>
-          <span>850件</span>
-        </ul>
-        <ul>
-          <p>总销量</p>
-          <span>10000件</span>
-        </ul>
-      </div>
-
-      <!-- 商品详情 -->
-      <div class="item-content">
-        <p class="des text-overflow">{{detailData.desc}}</p>
-        <h3 class="name multiline">{{detailData.title}}</h3>
-        <div class="info">
-          <div class="price-box">
-            <div class="currentPrice">￥{{detailData.currentPrice}}</div>
-            <div class="originPrice">￥ {{originPrice}}</div>
+  <div class="detail-wrap">
+    <div class="detail-container">
+      <Header :hasLocation="false" :title="title" />
+      <div class="content">
+        <myScroll :name="myScroll">
+          <DetailBanner :detailBanner="detailBanner" />
+          <div class="score-box">
+            <ul>
+              <p>评分</p>
+              <span>4.9</span>
+            </ul>
+            <ul>
+              <p>月销</p>
+              <span>850件</span>
+            </ul>
+            <ul>
+              <p>总销量</p>
+              <span>10000件</span>
+            </ul>
           </div>
-          <span class="mail">包邮</span>
+
+          <!-- 商品详情 -->
+          <div class="item-content">
+            <p class="des text-overflow">{{detailData.desc}}</p>
+            <h3 class="name multiline">{{detailData.title}}</h3>
+            <div class="info">
+              <div class="price-box">
+                <div class="currentPrice">￥{{detailData.currentPrice}}</div>
+                <div class="originPrice">￥ {{originPrice}}</div>
+              </div>
+              <span class="mail">包邮</span>
+            </div>
+            <div class="tag">{{detailData.tag}}</div>
+          </div>
+        </myScroll>
+      </div>
+      <!-- 加入购物车 -->
+      <div class="tab-bar border-top">
+        <div class="group one">
+          <van-icon name="shop-o" />
+          <span>店铺</span>
         </div>
-        <div class="tag">{{detailData.tag}}</div>
+        <div class="group one">
+          <van-icon name="smile-comment-o" />
+          <span>联系卖家</span>
+        </div>
+        <div class="group bg" @click="showAddCartAction('add')">
+          <span>加入购物车</span>
+        </div>
+        <div class="group bg" @click="showAddCartAction('buy')">
+          <span>立即购买</span>
+        </div>
       </div>
-    </myScroll>
-  </div>
-    <!-- 加入购物车 -->
-    <div class="tab-bar border-top">
-      <div class="group one">
-        <van-icon name="shop-o" />
-        <span>店铺</span>
-      </div>
-      <div class="group one">
-        <van-icon name="smile-comment-o" />
-        <span>联系卖家</span>
-      </div>
-      <div class="group bg"  @click="showAddCartAction('add')">
-        <span>加入购物车</span>
-      </div>
-      <div class="group bg"  @click="showAddCartAction('buy')">
-        <span>立即购买</span>
-      </div>
+
+      <!-- 加入购物车 -->
+      <SelectPanel
+        v-if="showAddCart"
+        v-model="showAddCart"
+        :skuPic="detailBanner[0]"
+        :skuDetail="detailData.sku"
+        :data="detailData"
+      />
+
     </div>
-
-    <!-- 加入购物车 -->
-    <SelectPanel
-      v-if="showAddCart"
-      v-model="showAddCart"
-      :skuPic="detailBanner[0]"
-      :skuDetail="detailData.sku"
-      :data="detailData"
-      @send="handleAction"
-    />
-   </div>
-
-   <!-- 渲染订单页面 -->
-  <transition class="" enter-active-class="slideInRight" leave-active-class="slideOutRight">
-    <router-view></router-view>
-  </transition>
-
+    <!-- 渲染订单页面 -->
+    <transition class enter-active-class="slideInRight" leave-active-class="slideOutRight">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -78,7 +75,7 @@ import Header from "../root/children/Header";
 import DetailBanner from "./children/Banner";
 import SelectPanel from "./children/selectPanel";
 import marketService from "../../../services/marketService";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   components: {
     Header,
@@ -90,18 +87,15 @@ export default {
       showAddCart: false,
       detailData: {},
       detailBanner: [],
-      // flag:null
-      myScroll:'myScroll'
-     
+      myScroll: "myScroll"
     };
   },
   computed: {
     ...mapState({
-      title:state=>state.marketOrder.title
+      title: state => state.marketOrder.title
     }),
     //计算原价的价格
     originPrice: function() {
-      
       return (
         this.detailData.currentPrice + this.detailData.originPrice
       ).toFixed(2);
@@ -113,12 +107,11 @@ export default {
       this.detailData = result.detailData;
       this.detailBanner = result.detailData.bannerList;
     },
-    showAddCartAction(ev,type) {
-      // this.flag='add';
-      this.showAddCart = true;     
-      console.log(type);
-
-    },
+    //存储是添加到购物车还是立即购买
+    showAddCartAction(ev, type) {
+      this.showAddCart = true;
+      this.$store.commit('marketOrder/addCartStatus',ev);
+    }
   },
   created() {
     this.initData();
@@ -131,10 +124,12 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
   background: #fff;
   z-index: 200;
   width: 100%;
   height: 100%;
+
   .score-box {
     display: flex;
     margin: 0 20px;

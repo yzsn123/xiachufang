@@ -14,7 +14,10 @@
               <!-- <span class="origin">￥165</span> -->
             </div>
             <!-- 因为是数组需要用join来拼接 有规格才显示-->
-            <div class="num text-overflow" v-if="this.data.sku.tree.length>0">已选择 : {{tip.join(',')}}</div>
+            <div
+              class="num text-overflow"
+              v-if="this.data.sku.tree.length>0"
+            >已选择 : {{tip.join(',')}}</div>
           </div>
           <div @click="hideAction">
             <van-icon name="clear" />
@@ -44,6 +47,7 @@
 <script>
 import selectItem from "./select-item";
 import { Toast } from "vant";
+import {mapState} from 'vuex';
 export default {
   props: {
     data: {
@@ -59,7 +63,7 @@ export default {
     return {
       count: 1,
       selectMap: {},
-      selectImg: this.data.bannerList[0].picUrl
+      selectImg: this.data.bannerList[0].picUrl,
     };
   },
   computed: {
@@ -83,9 +87,18 @@ export default {
         // 返回数组
         return tmp;
       }
-    }
+    },
+    ...mapState({
+         addCartStatus:state =>state.marketOrder.status
+    })
   },
   methods: {
+    // 监听购物车的状态
+    // listenerAddCart(data) {
+    //   this.addCart = data;
+    //   console.log(this.addCart);
+
+    // },
     hideAction() {
       this.$emit("input", false);
     },
@@ -108,28 +121,62 @@ export default {
         this.selectImg = item.picUrl;
       }
     },
+    
     buyAction() {
       // 取数组的长度
-      // console.log(Object.entries(this.selectMap).length);
       if (this.data.sku.tree.length > Object.entries(this.selectMap).length) {
         //  没有选择完整
-        Toast('请选择规格数量');
+        Toast("请选择规格数量");
       } else {
-        this.$router.push({name:'order'});
         let id = 0;
-        const info ={
-          selectId:id++,
-          selectPic:this.selectImg,
-          selectTit:this.data.title,
-          selectNum:this.count,
-          selectInfo:this.tip,
-          currentPrice:this.data.currentPrice
-        }   
-        this.$store.commit('marketOrder/selectProduct',info);  
-        this.$emit('input',false);
+        const info = {
+          selectId: id++,
+          selectPic: this.selectImg,
+          selectTit: this.data.title,
+          selectNum: this.count,
+          selectInfo: this.tip,
+          currentPrice: this.data.currentPrice,
+          selectInput:false
+        };     
+        //  const Info = {
+        //    selectId: id++,
+        //   selectPic: info.selectImg,
+        //   selectTit: info.data.title,
+        //   selectNum: info.count,
+        //   selectInfo: info.tip,
+        //   currentPrice: info.data.currentPrice
+        //  }
+        // console.log(Info);
+        if (this.addCartStatus == 'add') {
+            //添加到购物车
+            this.$emit("input", false);
+            //添加购物车数据到仓库
+            this.$store.commit('marketOrder/addCartList',info);
+           
+        }else{
+         //立即购买
+         this.$router.push({ name: "order" });
+         this.$store.commit("marketOrder/selectProduct", info);
+         this.$emit("input", false);
+        
+        }
       }
     }
-  }
+  },  
+
+  // created(){
+  //   //订阅购物车的状态
+  //   console.log(111);
+  //   console.log(this.listenerAddCart);
+  // },
+  // beforeDestroy(){
+  //   //移除购物车的状态
+  //   this.$center.$off('addCart',this.listenerAddCart);
+  // },
+  // mounted(){
+  //   this.$center.$on('addCart',this.listenerAddCart);
+  // }
+  
 };
 </script>
 

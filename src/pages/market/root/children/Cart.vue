@@ -4,7 +4,7 @@
     <div class="content">
     <myScroll :name="myScroll">
       <div class="shopping-wrap">
-        <div class="group">
+        <div class="group" v-for="(item, index) in addCartList" :key="index">
           <div class="title-box">
             <input type="checkbox" class="checkbox" />
             <h3 class="name">下厨房精选</h3>
@@ -15,17 +15,17 @@
             </div>
             <div class="center">
               <img
-                src="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=1745834138,3604086340&fm=85&s=599C679E5C43EAC25AAAC06B0300B06B"
+                :src="item.selectPic"
                 alt
               />
             </div>
             <div class="right">
-              <h1 class="name multiline">标题标题标题标题标题标标题标题标题标标题标题标题标题标题标题标题标题标题标题标题标题标题标题</h1>
-              <p class="desc">选的规格</p>
+              <h1 class="name multiline">{{item.selectTit}}</h1>
+              <p class="desc">{{item.selectInfo}}</p>
               <p class="price-box">
                 <span class="price">
-                  ￥256
-                  <span class="origin">￥300</span>
+                  ￥{{item.currentPrice}}
+                  <span class="origin">￥{{item.currentPrice+50}}</span>
                 </span>
 
                 <input type="text" value="5" class="ipt" />
@@ -34,35 +34,7 @@
           </div>
           <div class="free">已享包邮</div>
         </div>
-        <div class="group">
-          <div class="title-box">
-            <input type="checkbox" class="checkbox" />
-            <h3 class="name">下厨房精选</h3>
-          </div>
-          <div class="product">
-            <div class="left">
-              <input type="checkbox" class="checkbox" />
-            </div>
-            <div class="center">
-              <img
-                src="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=1745834138,3604086340&fm=85&s=599C679E5C43EAC25AAAC06B0300B06B"
-                alt
-              />
-            </div>
-            <div class="right">
-              <h1 class="name multiline">标题标题标题标题标题标标题标题标题标标题标题标题标题标题标题标题标题标题标题标题标题标题标题</h1>
-              <p class="desc">选的规格</p>
-              <p class="price-box">
-                <span class="price">
-                  ￥256
-                  <span class="origin">￥300</span>
-                </span>
-                <input type="text" value="5" class="ipt" />
-              </p>
-            </div>
-          </div>
-          <div class="free">已享包邮</div>
-        </div>
+
       </div>
     </myScroll>
     </div>
@@ -72,7 +44,7 @@
         <label for='all'>全选</label>
       </div>
       <div>
-        <span class="money">实付款:￥621.8</span>
+        <span class="money">实付款:￥0</span>
         <button class="payBtn">结算</button>
       </div>
     </div>
@@ -81,6 +53,7 @@
 
 <script>
 import Header from "./Header";
+import {mapState} from 'vuex'
 export default {
   components: {
     Header
@@ -89,6 +62,11 @@ export default {
     return{
       myScroll:'myScroll'
     }
+  },
+  computed:{
+    ...mapState({
+      addCartList:state =>state.marketOrder.addCartList
+    })
   }
 };
 </script>

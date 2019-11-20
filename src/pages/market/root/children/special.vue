@@ -44,7 +44,9 @@ export default {
   data() {
     return {
       banner: require("../../../../assets/market/index/market-banner-01.jpg"),
-      data: []
+      data: {
+          goodList: []
+      }
     };
   },
   methods: {
@@ -56,7 +58,6 @@ export default {
       this.$nextTick(() => {
         this.SwiperInit();
       });
-      // console.log(this.data);
     },
     SwiperInit() {
       var swiper = new Swiper(this.$refs.swiper, {
@@ -80,7 +81,7 @@ export default {
       let itemList = [...this.data.goodList];
       //创建空数组装临时数组
       let tmp = [];
-      //切割数组，2组为一个
+      //切割数组，3组为一个
       while (itemList.length > 0) {
         tmp = [...tmp, itemList.splice(0, 3)];
       }
@@ -170,7 +171,7 @@ export default {
   }
 }
 .swiper-container {
-  margin: 0 0 0 30px;
+  margin: 0 0 0 20px;
 }
 
 .swiper-slide {
@@ -192,10 +193,5 @@ export default {
   -webkit-align-items: center;
   align-items: center;
 }
-// .swiper-slide:nth-child(2n) {
-//     width: 40%;
-// }
-// .swiper-slide:nth-child(3n) {
-//     width: 20%;
-// }
+
 </style>

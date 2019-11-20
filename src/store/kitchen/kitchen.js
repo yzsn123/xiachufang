@@ -28,7 +28,7 @@ const actions = {
     async requestDiscoverData(context,value){
         const {data:result} = await Http.get(api.KITCHEN_DISCOVER_API);
         const DiscoverData = result.data[0].data;
-        console.log(DiscoverData);
+        // console.log(DiscoverData);
         if(value == 0){
             var leftDiscoverData = [];
             var rightDiscoverData = [];

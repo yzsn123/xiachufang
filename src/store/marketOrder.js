@@ -7,7 +7,9 @@ export default {
     selectNum:Number,
     selectInfo:{},
     currentPrice:Number,
-    title:null
+    title:null,
+    status:null,
+    addCartList:[]
   },
   mutations: {
     selectProduct(state,value){
@@ -20,6 +22,14 @@ export default {
     },
     titleInfo(state,value){
       state.title = value;
+    },
+    addCartStatus(state,value){
+      state.status = value;
+    },
+    addCartList(state,value){
+      state.addCartList.push(value);
+      console.log(state.addCartList);
+      
     }
   },
   actions: {

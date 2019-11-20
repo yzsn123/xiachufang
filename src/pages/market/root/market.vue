@@ -4,18 +4,18 @@
       <!-- 头部 -->
       <Header title="首页" />
       <div class="content">
-        <myScroll :name="myScroll">
-        <!-- 菜单分类 -->
-        <Category />
+        <myScroll :name="myScroll" :onload="loadMore" :canLoad="canLoad">
+          <!-- 菜单分类 -->
+          <Category />
 
-        <!-- 精选特色美食 -->
-        <Special />
+          <!-- 精选特色美食 -->
+          <Special />
 
-        <!-- 市集上新 -->
-        <StoreList />
+          <!-- 市集上新 -->
+          <StoreList />
 
-        <Product :GoodList="GoodList" />
-      </myScroll>
+          <Product :GoodList="GoodList" />
+        </myScroll>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
 import Header from "./children/Header";
 import Special from "./children/Special";
 import Category from "./children/Category";
-import StoreList from "./children/Storelist";
+import StoreList from "./children/storelist";
 import Product from "./children/Product";
 import marketService from "../../../services/marketService";
 export default {
@@ -44,14 +44,26 @@ export default {
   data() {
     return {
       GoodList: [],
-      myScroll: "myScroll"
+      myScroll: "myScroll",
+      canLoad: true
     };
   },
   methods: {
     async initData() {
       const result = await marketService.requestMarketGoodListDate();
       this.GoodList = result.GoodListDate;
-      //  console.log( this.GoodList);
+    },
+    //加载更多
+    async loadMore() {
+      this.canLoad = false;
+      const result = await marketService.requestMarketGoodListDate();
+      const GoodListDate = result.GoodListDate;
+      GoodListDate.forEach(item =>{
+        this.GoodList.push(item);
+      })
+      this.$nextTick(() => {
+        this.canLoad = true;
+      });
     }
   },
   created() {
@@ -61,58 +73,51 @@ export default {
 </script>
 
 <style lang="scss" >
-body,
-html {
-  width: 100%;
-  height: 100%;
-}
-.content {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 49px;
-  top: 44px;
-  background: #fff;
-}
-body,
-html {
-  width: 100%;
-  height: 100%;
-}
-.product-title {
-  text-align: center;
-  padding: 60px 0 40px 0;
-  color: #010101;
-  .tit {
-    border: 5px solid #010101;
-    padding: 16px;
-    border-radius: 50%;
-    font-size: 40px;
-    font-weight: bold;
-    display: inline-block;
+.market-container {
+  bottom: 0;
+  .content {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 44px;
+    background: #fff;
   }
-}
-.title-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  margin-bottom: 40px;
-  .title-box {
-    h1 {
-      font-size: 63px;
-      color: #313131;
-      font-weight: 700;
-      padding-bottom: 20px;
-    }
-    .tips {
-      color: #959595;
-      font-size: 36px;
+  .product-title {
+    text-align: center;
+    padding: 60px 0 40px 0;
+    color: #010101;
+    .tit {
+      border: 5px solid #010101;
+      padding: 16px;
+      border-radius: 50%;
+      font-size: 40px;
+      font-weight: bold;
+      display: inline-block;
     }
   }
-  .all {
-    font-size: 48px;
-    color: #fb6650;
+  .title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-bottom: 40px;
+    .title-box {
+      h1 {
+        font-size: 63px;
+        color: #313131;
+        font-weight: 700;
+        padding-bottom: 20px;
+      }
+      .tips {
+        color: #959595;
+        font-size: 36px;
+      }
+    }
+    .all {
+      font-size: 48px;
+      color: #fb6650;
+    }
   }
 }
 </style>
