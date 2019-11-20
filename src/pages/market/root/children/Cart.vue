@@ -7,13 +7,13 @@
         <div class="group" v-for="(item, index) in addCartList" :key="index">
           <div class="title-box">
             <div class='left' @click='selectProduct(item)'>
-              <span class="checkbox checked " ></span>
+              <span class="checkbox  " :class='{checked:item.checked}' ></span>
             </div>
             <h3 class="name">下厨房精选</h3>
           </div>
           <div class="product">
             <div class="left" @click='selectProduct(item)'>
-              <span class="checkbox" ></span>
+              <span class="checkbox" :class='{checked:item.checked}' ></span>
             </div>
             <div class="center">
               <img
@@ -42,10 +42,12 @@
     </div>
     <div class="settlement border-top">
       <div class="all-box" @click='checkAllAction' >
-        <span  class="all" id="all"></span>
+         <div class='left'>
+              <span class="checkbox" :class='{checked}' ></span>
+         </div>
         <label >全选</label>
       </div>
-      <div>
+      <div class="right-box">
         <span class="money" >实付款:￥{{totalMoney}}</span>
         <button class="payBtn">结算</button>
       </div>
@@ -217,15 +219,18 @@ export default {
   width: 100%;
   height: 160px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   color: #f8664f;
   background: #fff;
-  padding: 0 26px 0 35px;
+  padding: 0 26px 0 45px;
   box-sizing: border-box;
   .all-box {
-    align-items: center;
     display: flex;
+    line-height:160px;
+    .left{
+      width:50px;
+      position:relative;
+    }
     .all {
       width: 48px;
       height: 48px;
@@ -234,6 +239,10 @@ export default {
       color: #333;
       font-size:50px;
     }
+  }
+  .right-box{
+    display:flex;
+    align-items:center;
   }
   .payBtn {
     width: 214px;
@@ -258,5 +267,20 @@ export default {
       left:0;
       transform:translate(-32%,0);
     }
+.checked{
+  background:#f8664f;
+     &::before {
+          width: 24px;
+          height: 10px;
+          border: 4px #fff solid;
+          border-left: none;
+          border-bottom: none;
+          transform: rotate(130deg) translate(-50%, 0);
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+        }
+}
 </style>
 
