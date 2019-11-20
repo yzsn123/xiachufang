@@ -43,7 +43,7 @@
     <div class="settlement border-top">
       <div class="all-box" @click='checkAllAction' >
          <div class='left'>
-              <span class="checkbox" :class='{checked}' ></span>
+              <span class="checkbox" :class='{checked:this.checkAllFlag}' ></span>
          </div>
         <label >全选</label>
       </div>
@@ -90,28 +90,29 @@ export default {
       //点击选中
       if (typeof item.checked == 'undefined') {
         this.$set(item,'checked',true);
-        console.log(this.addCartList);
       // 再点击取消
       }else {
         item.checked = !item.checked;
-        console.log(this.addCartList);
       }
       //计算价格
       this.calcTotalPrice();
     },
     // 全选
     checkAllAction(){
+       this.checkAllFlag = !this.checkAllFlag;
        this.addCartList.forEach(item=>{
          //筛选没有选中的全部选中
          if (typeof item.checked == 'undefined' ) {
-           this.$set(item,'checked',true)
+           this.$set(item,'checked', this.checkAllFlag)
          }else{
           //  取消全选就反选
-           item.checked = !item.checked;
+           item.checked = this.checkAllFlag;
          }
        })
       this.calcTotalPrice();
-    }
+    },  
+    //单个商品全部选中，在选所有的
+   
   }
   
 };
