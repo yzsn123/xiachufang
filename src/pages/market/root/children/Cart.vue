@@ -10,7 +10,7 @@
             <h3 class="name">下厨房精选</h3>
           </div>
           <div class="product">
-            <div class="left" @click='selectInputAction(index)'>
+            <div class="left" @click='selectProduct(item)'>
               <input type="checkbox" class="checkbox" />
             </div>
             <div class="center">
@@ -39,12 +39,12 @@
     </myScroll>
     </div>
     <div class="settlement border-top">
-      <div class="all-box">
+      <div class="all-box" >
         <input type="checkbox" class="all" id="all" />
         <label for='all'>全选</label>
       </div>
       <div>
-        <span class="money">实付款:￥{{totalMoney}}</span>
+        <span class="money" >实付款:￥{{totalMoney}}</span>
         <button class="payBtn">结算</button>
       </div>
     </div>
@@ -61,30 +61,40 @@ export default {
   data(){
     return{
       myScroll:'myScroll',
-      totalMoney:this.totalPrice
+      totalMoney:0
+
     }
   },
   computed:{
     ...mapState({
       addCartList:state =>state.marketOrder.addCartList
     }),
-    totalPrice(){
-      let total = 0;
-      let res = this.addCartList.map(item =>{
-        if (item.selectInput == true) {
-           total += item.currentPrice * item.selectNum;
-         return total;
-        }
-      })
-    }
     
   },
   methods:{
-    selectInputAction(index){
-      this.addCartList[index].selectInput = true;
-      console.log(this.addCartList[index].selectInput);
+    calcTotalPrice(){
+      var _this = this;
+      this.totalMoney = 0;
+      this.addCartList.forEach(item =>{
+        if (item.checked) {
+           _this.totalMoney += item.currentPrice * item.selectNum; 
+        }
+      })
     },
-    
+    selectProduct(item){
+      //点击选中
+      if (typeof item.checked == 'undefined') {
+        this.$set(item,'checked',true);
+        console.log(this.addCartList);
+      // 再点击取消
+      }else {
+        item.checked = !item.checked;
+        console.log(this.addCartList);
+      }
+      //计算价格
+      this.calcTotalPrice();
+    },
+  
   }
   
 };
