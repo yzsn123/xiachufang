@@ -10,7 +10,7 @@
             <h3 class="name">下厨房精选</h3>
           </div>
           <div class="product">
-            <div class="left">
+            <div class="left" @click='selectInputAction(index)'>
               <input type="checkbox" class="checkbox" />
             </div>
             <div class="center">
@@ -66,8 +66,23 @@ export default {
   computed:{
     ...mapState({
       addCartList:state =>state.marketOrder.addCartList
-    })
+    }),
+    
+  },
+  methods:{
+    selectInputAction(index){
+      this.addCartList[index].selectInput = true;
+      console.log(this.addCartList[index].selectInput);
+    },
+    eachShop(){
+      const index = this.addCartList.findIndex(item =>{
+        item.selectInput = true;
+      })
+      console.log(index);
+      
+    }
   }
+  
 };
 </script>
 
