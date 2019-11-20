@@ -6,12 +6,12 @@
       <div class="shopping-wrap">
         <div class="group" v-for="(item, index) in addCartList" :key="index">
           <div class="title-box">
-            <input type="checkbox" class="checkbox" />
+            <span class="checkbox" ></span>
             <h3 class="name">下厨房精选</h3>
           </div>
           <div class="product">
             <div class="left" @click='selectProduct(item)'>
-              <input type="checkbox" class="checkbox" />
+              <span class="checkbox" ></span>
             </div>
             <div class="center">
               <img
@@ -39,9 +39,9 @@
     </myScroll>
     </div>
     <div class="settlement border-top">
-      <div class="all-box" >
-        <input type="checkbox" class="all" id="all" />
-        <label for='all'>全选</label>
+      <div class="all-box" @click='checkAllAction' >
+        <span  class="all" id="all"></span>
+        <label >全选</label>
       </div>
       <div>
         <span class="money" >实付款:￥{{totalMoney}}</span>
@@ -61,7 +61,8 @@ export default {
   data(){
     return{
       myScroll:'myScroll',
-      totalMoney:0
+      totalMoney:0,
+      checkAllFlag:false
 
     }
   },
@@ -94,7 +95,19 @@ export default {
       //计算价格
       this.calcTotalPrice();
     },
-  
+    // 全选
+    checkAllAction(){
+       this.addCartList.forEach(item=>{
+         //筛选没有选中的全部选中
+         if (typeof item.checked == 'undefined' ) {
+           this.$set(item,'checked',true)
+         }else{
+          //  取消全选就反选
+           item.checked = !item.checked;
+         }
+       })
+      this.calcTotalPrice();
+    }
   }
   
 };
@@ -120,6 +133,7 @@ export default {
       width: 48px;
       height: 48px;
       margin-right: 40px;
+      border:2px #eee solid;
     }
     .title-box {
       display: flex;
