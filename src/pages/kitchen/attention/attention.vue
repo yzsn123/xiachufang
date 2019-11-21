@@ -56,6 +56,14 @@ export default {
             }
         }
     },
+    watch:{
+        attentionList:function(newVal,oldVal){
+            this.$nextTick(()=>{
+                this.$center.$emit('ChangeLoading');
+                this.$center.$emit('ChangeLoadmore');
+            })
+        }
+    },
     computed:{
         attentionList(){
             return this.$store.state.attention.attentionList;
@@ -68,14 +76,12 @@ export default {
                 var imgSrc = this.$refs.userimg[index].getAttribute('src');
                 this.$refs.userimg[index].style.opacity = 0;
             } else{
-                console.log(this.$refs.userimgs);
                 var imgSrc = this.$refs.userimgs.getAttribute('src');
                 this.$refs.userimgs.style.opacity = 0;
             }
             this.$center.$emit('ChangeMarkshow',true,imgSrc);
         },
         ShowImgAction(){
-            console.log('执行了');
             if(this.$refs.userimg){
                 this.$refs.userimg.forEach((item,index)=>{
                     item.style.opacity = '';
@@ -92,6 +98,12 @@ export default {
     },
     created(){
         this.$center.$on('showAction',this.ShowImgAction);
+    },
+    mounted(){
+        this.$nextTick(()=>{
+            this.$center.$emit('ChangeLoading');
+            this.$center.$emit('ChangeLoadmore');
+        })
     }
 }
 </script>

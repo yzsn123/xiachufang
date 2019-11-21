@@ -1,7 +1,7 @@
 <template>
 <div class="MenuList" title="more">
     <ul class="list">
-        <li class="item" v-for="(item,index) in MoreDetailList" :key="index">
+        <li class="item" v-for="(item,index) in MoreDetailList" @click="MenuDetail(index)" :key="index">
             <img :src="item.picUrl" alt="">
             <div class="menu-content">
                 <div class="desc-title ellipse">
@@ -26,8 +26,13 @@ export default {
     computed:{
         MoreDetailList(){
             return this.$store.state.search.MoreDetailList;
-        },
+        }
     },
+    methods:{
+        MenuDetail(index){
+            this.$center.$emit('LinkToDetail',index);
+        }
+    }
 }
 </script>
 

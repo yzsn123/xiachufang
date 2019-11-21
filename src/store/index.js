@@ -5,6 +5,7 @@ import attention from './attention/attention'
 import interest from './attention/interest'
 import story from './story/story'
 import search from './search/searchDetail'
+import detail from './detail/detail'
 import Class from './class/index'
 import mine from './mine/index'
 import marketOrder from './marketOrder'
@@ -53,6 +54,7 @@ export default new Vuex.Store({
     interest,
     story,
     search,
+    detail,
     mine,
     marketOrder,
     Class

@@ -30,7 +30,6 @@ const actions = {
         const {data:result} = await Http.get(api.KITCHEN_SEARCH_API,{id:value});
         // console.log(result);
         const data = result.data.data;
-        console.log(data);
         const DetailData = JSON.parse(JSON.stringify(data));
 
 
@@ -40,17 +39,14 @@ const actions = {
 
         const MoreData = JSON.parse(JSON.stringify(data.sort(
            function(a,b){
-            return a["done"] - b["done"];
+            return b["done"] - a["done"];
         })));
 
         const ScoreData = JSON.parse(JSON.stringify(data.sort(
             function(a,b){
-                return a["grad"] - b["grad"];
+                return b["grad"] - a["grad"];
             }
         )));
-
-        console.log(MoreData);
-        console.log(ScoreData);
         context.commit('setDetailList',DetailData);
         context.commit('setScoreDetail',ScoreData);
         context.commit('setMoreDetail',MoreData);

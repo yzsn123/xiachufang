@@ -20,7 +20,6 @@ export default {
     canLoad: Boolean
   },
   mounted() {
-    // console.log(this.name,this.$refs[this.name],this.$refs)
     let myScroll = new IScroll(this.$refs[this.name], {
       bounce: true,
       tap: true,

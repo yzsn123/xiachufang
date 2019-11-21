@@ -42,12 +42,23 @@ export default{
                     path:'detail/:name',
                     props:true,
                     component:()=>import('../pages/kitchen/search/children/detail.vue'),
+                    children:[
+                        {
+                            path:'detailInfo/:index',
+                            props:true,
+                            component:()=>import('../pages/kitchen/detail/detail.vue')
+                        }
+                    ]
                 },
             ]
         },
         {
             path:'classify',
             component:()=>import('../pages/kitchen/discover/children/classify.vue')
+        },
+        {
+            path:'detail/:id',
+            component:()=>import('../pages/kitchen/detail/detail.vue')
         }
     ]
 }

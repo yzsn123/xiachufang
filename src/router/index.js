@@ -20,6 +20,7 @@ const routes = [{
   classRouter,
   mineRouter,
   marketRouter,
+  collectRouter,
   {
     path: '/mine/login',
     component: () => import('../pages/mine/root/children/Login.vue'),

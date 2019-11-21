@@ -1,7 +1,7 @@
 <template>
 <div class="swiper-container dinner" ref="swipers">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item in dinnerList" :key="item">
+        <div class="swiper-slide" v-for="item in dinnerList" :key="item" @click="LinkSearch(item)">
             {{item}}
         </div>
     </div>
@@ -23,6 +23,9 @@ export default {
                 slidesPerView: "auto",
                 freeMode: true
             });
+        },
+        LinkSearch(item){
+            this.$router.push(`/kitchen/search/detail/${item}`);
         }
     },
     mounted(){

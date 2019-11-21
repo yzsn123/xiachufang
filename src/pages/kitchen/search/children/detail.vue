@@ -15,9 +15,10 @@
                 <components :is="pageName"></components>
             </Appscroll>
         </div>
-
-        
     </div>
+    <transition enter-active-class="slideInRight" leave-active-class="slideOutRight">
+        <router-view></router-view>
+    </transition>
 </div>
 </template>
 
@@ -67,11 +68,15 @@ export default {
         },
         BackAction(){
             this.$router.back();
+        },
+        LinkToDetail(index){
+            // console.log(index);
+            this.$router.push(`/kitchen/search/detail/${this.InputValue}/detailInfo/${index}`);
         }
     },
     created(){
-        console.log(1);
         this.$store.dispatch('search/requestSearchData',this.InputValue);
+        this.$center.$on('LinkToDetail',this.LinkToDetail);
     },
     mounted(){
         this.$refs.input.value = this.InputValue;

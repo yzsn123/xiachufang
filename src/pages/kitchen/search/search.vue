@@ -45,7 +45,6 @@ export default {
                 this.$router.push(`/kitchen/search/detail/${name}`);
             } else{
                 var name = this.$refs.input.value;
-                console.log(name);
                 if(!name){
                     return;
                 } else{

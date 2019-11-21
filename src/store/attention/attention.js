@@ -18,7 +18,6 @@ const actions = {
       async requestAttentionData(context,value){
         const {data:result} = await Http.get(api.KITCHEN_ATTENTION_API);
         let List = result.data.list;
-        console.log(List);
         let attentionList = context.state.attentionList;
         if(value===0){
             context.commit('setAttentionList',List);

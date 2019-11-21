@@ -11,7 +11,7 @@
         <div class="imgwall">
             <ul ref="leftData" class="left-ul">
                 <li v-for="(item,index) in LeftStoryData" :key="index">
-                    <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}">
+                    <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}"  @click="MenuDetail(index)">
                         <img :src="item.picUrl" alt="" v-lazy="item.picUrl">
                     </div>
                     <div class="imgdesc" ref="imgvessel">
@@ -25,7 +25,7 @@
                             <div class="userdesc">{{item.username}}</div>
                         </div>
                         <div class="thumbs">
-                            <div class="thumbs-num">
+                            <div class="thumbs-num" @click="thumbsAction">
                                 <van-icon name="like-o"/>
                                 <span>{{GetNum(item.num)}}</span>
                             </div>
@@ -35,7 +35,7 @@
             </ul>
             <ul ref="rightData" class="right-ul">
                 <li v-for="(item,index) in RightStoryData" :key="index">
-                    <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}">
+                    <div class="imgvessel" :style="{height:GetWidth(item.imageHeight)}" @click="MenuDetail(index)">
                         <img :src="item.picUrl" alt="" v-lazy="item.picUrl">
                     </div>
                     <div class="imgdesc" ref="imgvessel">
@@ -49,7 +49,7 @@
                             <div class="userdesc">{{item.username}}</div>
                         </div>
                         <div class="thumbs">
-                            <div class="thumbs-num">
+                            <div class="thumbs-num" @click="thumbsAction">
                                 <van-icon name="like-o"/>
                                 <span>{{GetNum(item.num)}}</span>
                             </div>
@@ -71,6 +71,7 @@ export default {
     data(){
         return{
             SwiperShow:true,
+            thumbsIndex:1,
         }
     },
     computed:{
@@ -84,6 +85,14 @@ export default {
             return this.$store.state.story.BannerList;
         }
     },  
+    watch:{
+        LeftStoryData:function(newVal,oldVal){
+            this.$nextTick(()=>{
+                this.$center.$emit('ChangeLoading');
+                this.$center.$emit('ChangeLoadmore');
+            })
+        }
+    },
     methods:{
         SwiperInit(){
             this.$mySwiper = new Swiper(this.$refs.swiper, {
@@ -113,6 +122,20 @@ export default {
                 return item;
             }
         },
+        MenuDetail(index){
+            this.$router.push(`/kitchen/detail/${index}`);
+        },
+        thumbsAction(ev){
+            // console.log(ev);
+            this.thumbsIndex = this.thumbsIndex + 1;
+            if(this.thumbsIndex % 2){
+                ev.path[1].lastChild.style.color="#999999";
+                ev.path[1].firstChild.style.color="#999999";
+            } else{
+                ev.path[1].lastChild.style.color="#f8664f";
+                ev.path[1].firstChild.style.color="#f8664f";
+            }
+        }
     },
     created(){
         this.GetStoryData();
@@ -147,6 +170,9 @@ export default {
             }
         }
     }
+}
+.active{
+    color: #f8664f !important;
 }
 .imgwall {
   width: 100%;

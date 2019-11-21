@@ -15,7 +15,8 @@
       </div>
     </keep-alive>
     <van-popup v-model="show" position="bottom">
-      <Dialog></Dialog>
+        <Dialog>
+        </Dialog>
     </van-popup>
   </div>
 </template>
