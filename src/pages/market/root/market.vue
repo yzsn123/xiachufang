@@ -100,8 +100,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    margin: 0 40px;
     margin-bottom: 40px;
+    padding-top: 60px;
+    border-top: 1px #eee solid;
     .title-box {
       h1 {
         font-size: 63px;

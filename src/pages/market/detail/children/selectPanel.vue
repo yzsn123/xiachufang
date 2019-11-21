@@ -8,7 +8,7 @@
             <img :src="selectImg" alt ref="goodspic" />
           </div>
           <div class="contect-box">
-            <h3 class="title">{{data.title}}</h3>
+            <h3 class="title multiline">{{data.title}}</h3>
             <div class="price-box">
               <span>价格:￥{{data.currentPrice}}</span>
               <!-- <span class="origin">￥165</span> -->
@@ -93,12 +93,6 @@ export default {
     })
   },
   methods: {
-    // 监听购物车的状态
-    // listenerAddCart(data) {
-    //   this.addCart = data;
-    //   console.log(this.addCart);
-
-    // },
     hideAction() {
       this.$emit("input", false);
     },
@@ -205,7 +199,7 @@ export default {
           }
         }
         .contect-box {
-          flex: 1;
+          // flex: 1;
           font-size: 35px;
           .title {
             margin-bottom: 10px;

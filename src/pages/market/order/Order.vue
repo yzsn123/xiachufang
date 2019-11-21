@@ -2,130 +2,153 @@
   <div class="order-market">
     <Header title="订单" :hasLocation="false" />
     <div class="content">
-    <myScroll :name="myScroll">
-      <div class="address">
-        <ul>
-          <li>
-            <span>王经财</span>
-            <span>收货地址收货地址收货地址收货地址收货地址</span>
-          </li>
-          <li>
-            <span class="tel">1557598294</span>
-          </li>
-        </ul>
-      </div>
-      <!-- 产品 -->
-      <div class="group-box" v-for="(item,index) in buyNowList" :key='index'>
-        <div class="group order-product">
-          <div class="name border-bottom">
-            <van-icon name="shop-o" />
-            <p>店铺标题</p>
-          </div>
+      <myScroll :name="myScroll">
+        <div class="address">
+          <ul>
+            <li>
+              <span>王经财</span>
+              <span>收货地址收货地址收货地址收货地址收货地址</span>
+            </li>
+            <li>
+              <span class="tel">1557598294</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 产品 -->
+        <div class="group-box" v-for="(item,index) in buyNowList" :key="index">
+          <div class="group order-product">
+            <div class="name border-bottom">
+              <van-icon name="shop-o" />
+              <p>店铺标题</p>
+            </div>
 
-          <div class="product">
-            <div class="pic">
-              <img :src="item.selectPic" alt />
+            <div class="product">
+              <div class="pic">
+                <img :src="item.selectPic" alt />
+              </div>
+              <div class="contect-box">
+                <h3 class="title multiline">{{item.selectTit}}</h3>
+                <div class="num">{{item.selectInfo.join(' , ')}}</div>
+              </div>
+              <div class="price-box">
+                <span>￥{{item.currentPrice}}</span>
+                <span>{{item.selectNum}}</span>
+              </div>
             </div>
-            <div class="contect-box">
-              <h3 class="title multiline">{{item.selectTit}}</h3>
-              <div class="num">{{item.selectInfo}}</div>
-            </div>
-            <div class="price-box">
-              <span>￥{{item.currentPrice}}</span>
+          </div>
+          <div class="group cell border-bottom">
+            <span>购买数量 :</span>
+            <!-- <van-stepper v-model="value" /> -->
+            <div class="step">
+              <span :class="{disabled:item.selectNum<=1}" @click="handleCount(index,-1)">-</span>
               <span>{{item.selectNum}}</span>
+              <span @click="handleCount(index,+1)">+</span>
+            </div>
+          </div>
+          <div class="group cell border-bottom">
+            <span>运费 :</span>
+            <span>包邮</span>
+          </div>
+          <div class="group cell border-bottom">
+            <span>合计 :</span>
+            <span>￥{{unitPrice.toFixed(2)}}</span>
+          </div>
+          <div class="group cell">
+            <textarea class="textarea" name placeholder="写留言"></textarea>
+          </div>
+        </div>
+
+        <div class="payment">
+          <div class="sale distance">
+            <div class="left">
+              <van-icon name="coupon-o" />
+              <p class="tit">优惠</p>
+              <span class="tips">无可用</span>
+            </div>
+          </div>
+          <h3 class="pay-title">支付方式</h3>
+          <div class="sale border-bottom">
+            <div class="left">
+              <van-icon name="alipay" />
+              <p class="tit">支付宝</p>
+            </div>
+            <div class="select"></div>
+          </div>
+          <div class="sale">
+            <div class="left">
+              <van-icon name="wechat" />
+              <p class="tit">微信</p>
             </div>
           </div>
         </div>
-        <div class="group cell border-bottom">
-          <span>购买数量 :</span>
-          <van-stepper v-model="value" />
-        </div>
-        <div class="group cell border-bottom">
-          <span>运费 :</span>
-          <span>包邮</span>
-        </div>
-        <div class="group cell border-bottom">
-          <span>合计 :</span>
-          <span>￥{{totalPrice}}</span>
-        </div>
-        <div class="group cell">
-          <textarea class="textarea" name placeholder="写留言"></textarea>
-        </div>
-      </div>
-
-      <div class="payment">
-        <div class="sale distance">
-          <div class="left">
-            <van-icon name="coupon-o" />
-            <p class="tit">优惠</p>
-            <span class="tips">无可用</span>
-          </div>
-        </div>
-        <h3 class="pay-title">支付方式</h3>
-        <div class="sale border-bottom">
-          <div class="left">
-            <van-icon name="alipay" />
-            <p class="tit">支付宝</p>
-          </div>
-          <div class="select"></div>
-        </div>
-        <div class="sale">
-          <div class="left">
-            <van-icon name="wechat" />
-            <p class="tit">微信</p>
-          </div>
-        </div>
-      </div>
-    </myScroll>
-  </div>
+      </myScroll>
+    </div>
     <div class="settlement border-top">
-      <span class="money">实付款:￥{{totalPrice}}</span>
+      <span class="money">实付款:￥{{totalPrice.toFixed(2)}}</span>
       <button class="payBtn">付款</button>
     </div>
   </div>
 </template>
 
 <script>
-import { Stepper } from "vant";
+import { Stepper,Toast } from "vant";
 import Header from "../../market/root/children/Header";
 import { mapState } from "vuex";
 export default {
   components: {
     Header,
-    [Stepper.name]: Stepper
+    [Stepper.name]: Stepper,
+    [Toast.name]: Toast,
   },
   data() {
     return {
       value: "",
-      myScroll:'myScroll'
+      myScroll: "myScroll",
+      count: 0,
     };
   },
   computed: {
     ...mapState({
       buyNowList: state => state.marketOrder.buyNowList
-      // selectId: state => state.marketOrder.selectId,
-      // selectPic: state => state.marketOrder.selectPic,
-      // selectTit: state => state.marketOrder.selectTit,
-      // selectNum: state => state.marketOrder.selectNum,
-      // selectInfo: state => state.marketOrder.selectInfo,
-      // currentPrice: state => state.marketOrder.currentPrice,
     }),
-    totalPrice(){
-      return this.selectNum*this.currentPrice;
+    // 计算单价
+    unitPrice(){
+      let unitMoney = 0;
+      this.buyNowList.forEach(item =>{
+        unitMoney = item.currentPrice * item.selectNum;
+      })
+      return unitMoney;
     },
-    selectDetail(){
-      // return this.selectInfo.join(','); 
+    //总价
+    totalPrice() {
+      let totalMoney = 0;
+      this.buyNowList.forEach(item => {
+        totalMoney += item.currentPrice * item.selectNum;
+      });
+      return totalMoney;
+    },
+    countProduct(){
+      this.buyNowList.forEach(item=>{
+        this.count = item.selectNum;
+      })
     }
-   
   },
   methods:{
-    
+     //获取下标,找到相对应的数组进行加减
+     handleCount(index,num) {
+      if (this.buyNowList[index].selectNum + num < 1) {
+        Toast("不能再减少了，只有一件了");
+      } else {
+        this.buyNowList[index].selectNum += num;        
+      }
+    },
   }
 };
 </script>
 <style lang="scss" scoped>
 .content {
   background: #fafaf8;
+  bottom:70px;
 }
 .order-market {
   position: absolute;
@@ -175,11 +198,11 @@ export default {
   .group-box {
     background: #fff;
     .cell {
-      line-height: 110px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 34px;
+      padding: 40px 0;
       span {
         &:nth-of-type(1) {
           color: #323232;
@@ -191,6 +214,7 @@ export default {
         border: none;
         margin: 30px 0;
         height: 120px;
+        line-height: 60px;
         padding: 0 10px;
         box-sizing: border-box;
         width: 100%;
@@ -379,6 +403,20 @@ export default {
     outline: none;
     font-size: 36px;
     color: #fff;
+  }
+}
+.step {
+  span {
+    padding: 8px 20px;
+    font-size: 50px;
+    color: #666;
+    border: 1px #dedede solid;
+    text-align: center;
+    display: inline-block;
+    &.disabled {
+      color: #dedede!important;
+      border: 1px #dedede solid;
+    }
   }
 }
 </style>

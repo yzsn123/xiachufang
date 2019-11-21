@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss" scoped>
 .product-box{
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 </style>
