@@ -11,7 +11,7 @@
             <span>手机用户</span>
             <em>手机号登录：{{tel}}</em>
           </div>
-          <span class="editbtn">编辑</span>
+          <span class="editbtn" @click="editAction">编辑</span>
         </ul>
         <ul>
           <li>
@@ -94,7 +94,9 @@ export default {
   },
   methods: {
    
-    editAction() {},
+    editAction() {
+      this.$router.push('/mine/edit');
+    },
     async logoutAction(){
        let result = await this.$store.dispatch('mine/requestLogout');
        if(result == 0){

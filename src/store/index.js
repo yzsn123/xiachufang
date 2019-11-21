@@ -34,18 +34,15 @@ export default new Vuex.Store({
     //检查是否登录
     async requestCheckLogin(context) {
       let result = await Http.get(api.CHECK_LOGIN);
-      // console.log(result.data);
       //如果登录了
       if (result.data.code == 0) {
         localStorage.setItem('user', true);
         context.commit('setIsLogin', true);
         context.commit('setTel',result.data.tel);
-        console.log('登录了');
       } else {
          //如果没有登录，或者登录过期了
         localStorage.setItem('user', false);
         context.commit('setIsLogin', false);
-        console.log('请重新登录');
       }
       return result.data.code;
     }
