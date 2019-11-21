@@ -39,7 +39,6 @@
                 </div>
             </div>
         </div>
-        
         <transition enter-active-class="slideInRight" leave-active-class="slideOutRight">
             <router-view></router-view>
         </transition>
@@ -77,6 +76,9 @@ export default {
   },
   methods: {
     clickAction(index) {
+      if(this.selectIndex != index){
+         this.Swipershow = false;
+      }
       this.selectIndex = index;
       this.$mySwiper.slideTo(index, 500, false);
     },
@@ -106,17 +108,26 @@ export default {
       // console.log(1);
       this.$router.push('/kitchen/search');
     },
-
+    ChangeSelectIndex(val){
+      this.selectIndex = val;
+      this.$mySwiper.slideTo(this.selectIndex, 500, false);
+    }
   },
   created(){
     this.$center.$on('ChangeSwipershow',this.ChangeSwipershow);
     this.$center.$on('NoneSwipershow',this.NoneSwipershow);
+    this.$center.$on('ChangeSelectIndex',this.ChangeSelectIndex);
   },
   mounted(){
     this.SwiperMove();
     this.SwiperInit();
     this.$mySwiper.slideTo(this.selectIndex,500,false);
-  }
+  },
+/*   beforeDestroy(){
+    this.$center.$off('ChangeSwipershow',this.ChangeSwipershow);
+    this.$center.$off('NoneSwipershow',this.NoneSwipershow);
+    this.$center.$off('ChangeSelectIndex',this.ChangeSelectIndex);
+  } */
 }
 </script>
 

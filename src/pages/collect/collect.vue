@@ -17,21 +17,21 @@
           <div class="detail-content">
             <div class="title-name">你好像还未收藏过</div>
             <div class="title-desc">如果你需要某个故事,你只需要将它收藏,以后就可以在这里找到</div>
-            <div class="link">去逛逛课程</div>
+            <div class="link" @click="LinkToCourse">去逛逛课程</div>
           </div>
         </van-tab>
         <van-tab title="故事">
           <div class="detail-content">
             <div class="title-name">你好像还未收藏过</div>
             <div class="title-desc">如果你需要某个故事,你只需要将它收藏,以后就可以在这里找到</div>
-            <div class="link">去逛逛故事</div>
+            <div class="link" @click="LinkToStory">去逛逛故事</div>
           </div>
         </van-tab>
         <van-tab title="作品">
           <div class="detail-content">
             <div class="title-name">你好像还未收藏过</div>
             <div class="title-desc">如果你需要某个作品,你只需要将它收藏,以后就可以在这里找到</div>
-            <div class="link">去逛逛作品</div>
+            <div class="link" @click="LinkToproduction">去逛逛作品</div>
           </div>
         </van-tab>
       </van-tabs>
@@ -49,6 +49,18 @@ export default {
   data(){
     return{
       active: 2
+    }
+  },
+  methods:{
+    LinkToCourse(){
+      this.$router.push('/classroom');
+    },
+    LinkToStory(){
+      this.$center.$emit('ChangeSelectIndex',2);
+      this.$router.push('/kitchen');
+    },
+    LinkToproduction(){
+      
     }
   }
 }

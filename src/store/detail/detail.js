@@ -17,9 +17,7 @@ const mutations = {
 const actions = {
       async requestDetailData(context,value){
         const result = await Http.get(api.KITCHEN_DISCOVER_DETAI_API,{id:value});
-        console.log(result.data);
         let detailList = result.data.data.data[0];
-        console.log(detailList);
         context.commit('setDetailList',detailList);
       }
 }

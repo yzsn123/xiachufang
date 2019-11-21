@@ -48,11 +48,9 @@ export default {
       }
     },
     ChangeLoading(){
-      console.log(1);
       this.loading = true;
     },
     ChangeLoadmore(){
-      console.log(2);
       this.loadmore = true;
     },
     ChangeSwiper(){
@@ -101,7 +99,6 @@ export default {
         let minY = maxY + 90;
         if(y>=0){
           if(this.loading){
-            console.log(this.loading);
             this.loading = false;
             this.refreshData();
             this.scroll.refresh();

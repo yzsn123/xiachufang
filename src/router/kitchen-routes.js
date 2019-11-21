@@ -42,6 +42,13 @@ export default{
                     path:'detail/:name',
                     props:true,
                     component:()=>import('../pages/kitchen/search/children/detail.vue'),
+                    children:[
+                        {
+                            path:'detailInfo/:index',
+                            props:true,
+                            component:()=>import('../pages/kitchen/detail/detail.vue')
+                        }
+                    ]
                 },
             ]
         },

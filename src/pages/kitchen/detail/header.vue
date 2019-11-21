@@ -3,13 +3,13 @@
     <div class="icon" @click="BackAction">
         <van-icon name="arrow-left" size="20px" />
     </div>
-    <div class="icon" @click="BackAction">
+    <div class="icon">
         <van-icon name="chat-o" size="20px"/>
     </div>
-    <div class="icon" @click="BackAction">
+    <div class="icon">
         <van-icon name="vip-card-o" size="20px"/>
     </div>
-    <div class="icon" @click="BackAction">
+    <div class="icon" @click="operate">
         <van-icon name="ellipsis" size="20px"/>
     </div>
 </div>
@@ -20,6 +20,9 @@ export default {
     methods:{
         BackAction(){
             this.$router.back();
+        },
+        operate(){
+            this.$center.$emit('ChangeOpacityMark');
         }
     }
 }

@@ -30,7 +30,7 @@ export default {
     },
     methods:{
         MenuDetail(index){
-            this.$router.push(`/kitchen/detail/${index}`);
+            this.$center.$emit('LinkToDetail',index);
         }
     }
 }

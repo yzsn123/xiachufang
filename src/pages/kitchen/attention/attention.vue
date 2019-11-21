@@ -76,14 +76,12 @@ export default {
                 var imgSrc = this.$refs.userimg[index].getAttribute('src');
                 this.$refs.userimg[index].style.opacity = 0;
             } else{
-                console.log(this.$refs.userimgs);
                 var imgSrc = this.$refs.userimgs.getAttribute('src');
                 this.$refs.userimgs.style.opacity = 0;
             }
             this.$center.$emit('ChangeMarkshow',true,imgSrc);
         },
         ShowImgAction(){
-            console.log('执行了');
             if(this.$refs.userimg){
                 this.$refs.userimg.forEach((item,index)=>{
                     item.style.opacity = '';

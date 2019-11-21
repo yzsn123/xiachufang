@@ -18,7 +18,6 @@ const actions = {
       async requestInterestData(context){
         const {data:result} = await Http.get(api.KITCHEN_ATTENTION_INTEREST_APi);
         let List = result.data.list;
-        console.log(List);
         context.commit('setInterestList',List);
       }
 }

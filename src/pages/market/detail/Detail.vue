@@ -116,8 +116,6 @@ export default {
     showAddCartAction(ev,type) {
       // this.flag='add';
       this.showAddCart = true;     
-      console.log(type);
-
     },
   },
   created() {

@@ -67,9 +67,11 @@ export default {
         },
         detailTime(){
             let Time = this.$store.state.detail.detailList.publishTime;
-            let Month = Time.substring(5,7);
-            let Day = Time.substring(8,10);
-            return Month + '/' + Day;
+            if(Time){
+                let Month = Time.substring(5,7);
+                let Day = Time.substring(8,10);
+                return Month + '/' + Day;
+            }
         },
         detailIsAttention(){
             let attention = this.$store.state.detail.detailList.isAttention;
