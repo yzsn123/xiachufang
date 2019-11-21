@@ -25,7 +25,8 @@ export default {
       bounce: true,
       tap: true,
       mouseWheel: true,
-      probeType: 3
+      probeType: 3,
+      bounce:false
     });
     myScroll.on("beforeScrollStart", function() {
       myScroll.refresh();

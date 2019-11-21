@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import store from '../../../../store/index';
 export default {
   data() {
     return {
@@ -32,6 +33,16 @@ export default {
       title:null
     };
   },
+  beforeRouteEnter(to, from, next) {
+      // console.log(store.state.isLogin)
+      if (store.state.isLogin) {
+        next({
+          path: '/mine'
+        })
+      } else {
+        next();
+      }
+    },
   methods:{
     loginAction(){
       this.$router.push('/login')

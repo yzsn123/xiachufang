@@ -4,11 +4,11 @@
 
     <myScroll class="content" :name="myScroll">
       <div class="userImg box-size">
-        <h3>手机用户{{phone}}</h3>
+        <h3>{{username}}</h3>
         <img src="http://img2.imgtn.bdimg.com/it/u=1858160002,4087061516&fm=26&gp=0.jpg" alt />
       </div>
       <h4 class="box-size">2019-11-07加入</h4>
-      <h4 class="box-size">添加个人简介，让厨友更了解你</h4>
+      <h4 class="box-size">{{signature}}</h4>
       <div class="edit">
         <div>
           <p>
@@ -20,7 +20,7 @@
             <span>粉丝</span>
           </p>
         </div>
-        <button>编辑资料</button>
+        <button @click="editAction">编辑资料</button>
       </div>
       <div class="favorite">
         <p>
@@ -43,12 +43,17 @@
 
       <myContent></myContent>
     </myScroll>
+
+    <transition enter-active-class="slideInRight" leave-active-class="slideOutRight">
+      <router-view :onUpdate="updateInfo"></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
 import Header from "./children/Header";
 import myContent from "./children/mycontent";
+import "../../../style/market.scss";
 export default {
   components: {
     Header,
@@ -56,10 +61,45 @@ export default {
   },
   data() {
     return {
-      phone: null,
+      username: null,
       active: 0,
-      myScroll: "myScroll"
+      myScroll: "myScroll",
+      signature: null,
+      info: null
     };
+  },
+  methods: {
+    editAction() {
+      this.$router.push("/mine/edit");
+    },
+    //请求个人资料
+    async reqInfo() {
+      //请求
+      let result = await this.$store.dispatch("mine/requestSearchInfo");
+      let info = result.data.data[0];
+      this.$store.commit("mine/setUserInfo", info);
+      //改变信息
+      if (info.signature != null) {
+        this.signature = info.signature;
+      } else {
+        this.signature = "添加个人简介，让厨友了解你";
+      }
+
+      if(info.username != null){
+        this.username = info.username;
+      }else{
+        this.username = '手机用户';
+      }
+    },
+    //更新
+    updateInfo(val){
+      if (val) {
+        this.reqInfo();
+      }
+    }
+  },
+  created() {
+    this.reqInfo();
   }
 };
 </script>
@@ -67,12 +107,17 @@ export default {
 <style lang="scss" scoped>
 #mine {
   width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
   .content {
     width: 100%;
     position: absolute;
     left: 0;
     top: 45px;
-    bottom: 0;
+    bottom: 49px;
   }
   .box-size {
     box-sizing: border-box;

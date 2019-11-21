@@ -5,6 +5,7 @@ import classRouter from './class-router'
 import mineRouter from './mine-routes'
 import marketRouter from './market-routes'
 import collectRouter from './collect-routes'
+import store from '../store/index'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -22,15 +23,7 @@ const routes = [{
   {
     path: '/mine/login',
     component: () => import('../pages/mine/root/children/Login.vue'),
-    beforeEnter(to, from, next) {
-      if (localStorage.getItem('user')) {
-        next({
-          path: '/mine'
-        })
-      } else {
-        next();
-      }
-    }
+    
   },
   {
     path: '/404',

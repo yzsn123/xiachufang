@@ -63,9 +63,10 @@ export default {
           let result = await this.$store.dispatch('mine/requestLogin',this.tel);
           if(result.code == 0){
             // console.log(this.$store.state.path);
-            
             await localStorage.setItem('user',true);
-            // this.$router.push('/mine');
+
+            this.$store.commit('setLogin',true);
+            this.$store.commit('setTel',result.tel);
             this.$router.push(`${this.$store.state.path}`)
           }
           // console.log(result);

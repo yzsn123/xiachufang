@@ -6,13 +6,18 @@
         <input type="text" placeholder="搜索我的菜谱" />
       </div>
       <span class="iconfont icon-xinyonghu"> </span>
-      <span class="iconfont icon-shezhi"> </span>
+      <span class="iconfont icon-shezhi" @click="setAction"> </span>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods:{
+    //跳转到设置
+    setAction(){
+      this.$router.push('/mine/set');
+    }
+  }
 }
 </script>
 

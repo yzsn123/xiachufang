@@ -3,11 +3,13 @@ import Http from '../../utils/Http'
 import { request } from 'http'
 
 const state = {
-    
+    userInfo:null
 }
 
 const mutations = {
-   
+   setUserInfo(state,val){
+    state.userInfo = val;
+   }
 }
 
 const actions = {
@@ -24,24 +26,35 @@ const actions = {
     },
     //验证码登录
     async requestLogin(state,tel){
-        console.log(tel);
+        
         let result = await Http.get(api.LOGIN_API,{tel});
+        console.log(result.data);
         if(result.data.code == 0){
             return result.data;
         }else{
             return result.data.message;
         }
     },
-    //检查是否登录
-    async requestCheckLogin(){
-        let result = await Http.get(api.CHECK_LOGIN);
-        return result.data.code;
-    },
+
 
     //退出
     async requestLogout(){
-        let result = await Http(api.LOGOUT_API);
+        // console.log('注销发送');
+        let result = await Http.get(api.LOGOUT_API);
+        // console.log(result);
         return result.data.code;
+    },
+
+    //添加信息
+    async requestAddInfo(state,info){
+        let result = await Http.get(api.ADDINFO_API,{info})
+        // console.log(info);
+        return result;
+    },
+    //查询信息
+    async requestSearchInfo(){
+        let result = await Http.get(api.SEARCHINFO_API);
+        return result;
     }
 
 }

@@ -4,7 +4,7 @@ import qs from 'qs';
 export default class Http{
 
   static async request(method, url, data){
-    // console.log(data);
+    // console.log(url);
     const response = await axios.request({
       method,
       url,

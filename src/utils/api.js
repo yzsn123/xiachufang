@@ -36,6 +36,16 @@ const CHECK_LOGIN = '/api/user/check_login'
 */
 const LOGOUT_API = '/api/user/logout';
 
+/*
+添加个人信息
+*/
+const ADDINFO_API = '/api/user/addInfo'
+
+//修改个人信息
+const UPDATEINFO_API = '/api/user/updateInfo'
+
+//查询个人信息
+const SEARCHINFO_API = '/api/user/searchInfo'
 
 /*
 市集列表接口
@@ -140,5 +150,8 @@ export default {
   MARKET_SUGGEST_GUESS_API,
   CLASS_KIND_API,
   CLASS_KIND_GOODLIST_API,
-  CLASS_DETAIL_API
+  CLASS_DETAIL_API,
+  ADDINFO_API,
+  UPDATEINFO_API,
+  SEARCHINFO_API
 }
