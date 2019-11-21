@@ -20,13 +20,12 @@
               </div>
               <div class="right">
                 <h1 class="name multiline">{{item.selectTit}}</h1>
-                <p class="desc">{{item.selectInfo}}</p>
+                <p class="desc">{{item.selectInfo.join(' , ')}}</p>
                 <p class="price-box">
                   <span class="price">
                     ￥{{item.currentPrice}}
                     <span class="origin">￥{{item.currentPrice+50}}</span>
                   </span>
-
                   <input type="text" :value="item.selectNum" class="ipt" />
                 </p>
               </div>
@@ -84,7 +83,7 @@ export default {
     selectProduct(item) {
       //点击选中
       let len = this.addCartList.length;
-        if (typeof item.checked == "undefined") {
+        if (!item.checked) {
           this.$set(item, "checked", true);
           this.count += 1;
         } else {
@@ -96,7 +95,7 @@ export default {
         }else{
           this.checkAllFlag = false;
         }
-      this.calcTotalPrice();
+        this.calcTotalPrice();
     },
     // 全选
     checkAllAction() {
@@ -112,7 +111,6 @@ export default {
       });
       this.calcTotalPrice();
     }
-    //单个商品全部选中，在选所有的
   }
 };
 </script>

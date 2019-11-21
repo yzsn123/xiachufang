@@ -136,17 +136,11 @@ export default {
           selectNum: this.count,
           selectInfo: this.tip,
           currentPrice: this.data.currentPrice,
-          selectInput:false
+          selectInput:false,
+          checked:false,
+
         };     
-        //  const Info = {
-        //    selectId: id++,
-        //   selectPic: info.selectImg,
-        //   selectTit: info.data.title,
-        //   selectNum: info.count,
-        //   selectInfo: info.tip,
-        //   currentPrice: info.data.currentPrice
-        //  }
-        // console.log(Info);
+        
         if (this.addCartStatus == 'add') {
             //添加到购物车
             this.$emit("input", false);
