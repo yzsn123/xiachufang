@@ -138,39 +138,24 @@ export default {
           currentPrice: this.data.currentPrice,
           selectInput:false,
           checked:false,
-
         };     
-        
         if (this.addCartStatus == 'add') {
             //添加到购物车
             this.$emit("input", false);
             //添加购物车数据到仓库
             this.$store.commit('marketOrder/addCartList',info);
-           
         }else{
          //立即购买
+         var arr = [];
          this.$router.push({ name: "order" });
-         this.$store.commit("marketOrder/selectProduct", info);
-         this.$emit("input", false);
-        
+         arr.push(info);
+         this.$store.commit("marketOrder/selectProduct", arr);
+         console.log(arr);
+         this.$emit("input", false);  
         }
       }
     }
   },  
-
-  // created(){
-  //   //订阅购物车的状态
-  //   console.log(111);
-  //   console.log(this.listenerAddCart);
-  // },
-  // beforeDestroy(){
-  //   //移除购物车的状态
-  //   this.$center.$off('addCart',this.listenerAddCart);
-  // },
-  // mounted(){
-  //   this.$center.$on('addCart',this.listenerAddCart);
-  // }
-  
 };
 </script>
 

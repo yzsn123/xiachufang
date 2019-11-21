@@ -44,7 +44,7 @@
       </div>
       <div class="right-box">
         <span class="money">实付款:￥{{totalMoney.toFixed(2)}}</span>
-        <button class="payBtn">结算</button>
+        <button class="payBtn" @click="settlementAction">结算</button>
       </div>
     </div>
   </div>
@@ -110,6 +110,17 @@ export default {
         }
       });
       this.calcTotalPrice();
+    },
+    //结算
+    settlementAction(){
+      this.$router.push({name:'order'});
+      var arrlist = [];
+      this.addCartList.forEach(item=>{
+        if (item.checked) {
+          arrlist.push(item)
+        }
+      })
+      this.$store.commit('marketOrder/selectProduct',arrlist);
     }
   }
 };

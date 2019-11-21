@@ -9,16 +9,15 @@ export default {
     currentPrice:Number,
     title:null,
     status:null,
-    addCartList:[]
+    buyNowList:[],
+    addCartList:[],
+
   },
   mutations: {
+    //立即购买
     selectProduct(state,value){
-      state.selectId=value.selectId,
-      state.selectPic=value.selectPic,
-      state.selectTit=value.selectTit,
-      state.selectNum=value.selectNum,
-      state.selectInfo=value.selectInfo,
-      state.currentPrice=value.currentPrice
+      //数组等于当前数组
+      state.buyNowList = value;
     },
     titleInfo(state,value){
       state.title = value;
@@ -26,10 +25,9 @@ export default {
     addCartStatus(state,value){
       state.status = value;
     },
+    //购物车
     addCartList(state,value){
-      state.addCartList.push(value);
-      console.log(state.addCartList);
-      
+      state.addCartList.push(value);      
     }
   },
   actions: {

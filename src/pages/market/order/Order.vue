@@ -15,7 +15,7 @@
         </ul>
       </div>
       <!-- 产品 -->
-      <div class="group-box">
+      <div class="group-box" v-for="(item,index) in buyNowList" :key='index'>
         <div class="group order-product">
           <div class="name border-bottom">
             <van-icon name="shop-o" />
@@ -24,15 +24,15 @@
 
           <div class="product">
             <div class="pic">
-              <img :src="selectPic" alt />
+              <img :src="item.selectPic" alt />
             </div>
             <div class="contect-box">
-              <h3 class="title multiline">{{selectTit}}</h3>
-              <!-- <div class="num">{{selectInfo.join(',')}}</div> -->
+              <h3 class="title multiline">{{item.selectTit}}</h3>
+              <div class="num">{{item.selectInfo}}</div>
             </div>
             <div class="price-box">
-              <span>￥{{totalPrice}}</span>
-              <span>{{selectNum}}</span>
+              <span>￥{{item.currentPrice}}</span>
+              <span>{{item.selectNum}}</span>
             </div>
           </div>
         </div>
@@ -52,6 +52,7 @@
           <textarea class="textarea" name placeholder="写留言"></textarea>
         </div>
       </div>
+
       <div class="payment">
         <div class="sale distance">
           <div class="left">
@@ -101,12 +102,13 @@ export default {
   },
   computed: {
     ...mapState({
-      selectId: state => state.marketOrder.selectId,
-      selectPic: state => state.marketOrder.selectPic,
-      selectTit: state => state.marketOrder.selectTit,
-      selectNum: state => state.marketOrder.selectNum,
-      selectInfo: state => state.marketOrder.selectInfo,
-      currentPrice: state => state.marketOrder.currentPrice,
+      buyNowList: state => state.marketOrder.buyNowList
+      // selectId: state => state.marketOrder.selectId,
+      // selectPic: state => state.marketOrder.selectPic,
+      // selectTit: state => state.marketOrder.selectTit,
+      // selectNum: state => state.marketOrder.selectNum,
+      // selectInfo: state => state.marketOrder.selectInfo,
+      // currentPrice: state => state.marketOrder.currentPrice,
     }),
     totalPrice(){
       return this.selectNum*this.currentPrice;
