@@ -188,6 +188,7 @@ export default {
         border-bottom: 1px #eee solid;
         padding: 0 0 24px 0;
         width: 100%;
+        box-sizing: border-box;
         .pic {
           width: 200px;
           height: 200px;
@@ -199,8 +200,11 @@ export default {
           }
         }
         .contect-box {
-          // flex: 1;
+          flex: 1;
           font-size: 35px;
+          display: flex;
+          overflow: hidden;
+          flex-direction: column;
           .title {
             margin-bottom: 10px;
             color: #333;

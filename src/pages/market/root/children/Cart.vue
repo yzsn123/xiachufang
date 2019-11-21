@@ -4,6 +4,10 @@
     <div class="content">
       <myScroll :name="myScroll">
         <div class="shopping-wrap">
+          <div class="tips-box" v-if="addCartList.length==0">
+            <van-icon name="shopping-cart-o" />
+            <p>购物车空空如也，赶紧去购物吧！</p>
+          </div>
           <div class="group" v-for="(item, index) in addCartList" :key="index">
             <div class="title-box">
               <div class="left" @click="selectProduct(item)">
@@ -288,6 +292,21 @@ export default {
     position: absolute;
     left: 0;
     top: 50%;
+  }
+}
+.tips-box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 46px;
+  color: #94958f;
+  margin-top: 450px;
+  .van-icon{
+    font-size: 100px;
+    padding: 0 0 30px 0;
   }
 }
 </style>
