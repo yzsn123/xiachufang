@@ -1,5 +1,5 @@
 <template>
-<div class="collect">
+<div class="collects">
     <header class="header">
         <input type="text" class="input" placeholder="搜索我的收藏">
         <span class="ring-Icon"><van-icon name="bag-o" size="27px" /></span>
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style lang="scss">
-.collect{
+.collects{
     width: 100%;
     height: 100%;
 }
