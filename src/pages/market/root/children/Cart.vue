@@ -2,53 +2,49 @@
   <div class="shopping-cart">
     <Header title="购物车" :hasLocation="false" />
     <div class="content">
-    <myScroll :name="myScroll">
-      <div class="shopping-wrap">
-        <div class="group" v-for="(item, index) in addCartList" :key="index">
-          <div class="title-box">
-            <div class='left' @click='selectProduct(item)'>
-              <span class="checkbox  " :class='{checked:item.checked}' ></span>
+      <myScroll :name="myScroll">
+        <div class="shopping-wrap">
+          <div class="group" v-for="(item, index) in addCartList" :key="index">
+            <div class="title-box">
+              <div class="left" @click="selectProduct(item)">
+                <span class="checkbox" :class="{checked:item.checked}"></span>
+              </div>
+              <h3 class="name">下厨房精选</h3>
             </div>
-            <h3 class="name">下厨房精选</h3>
-          </div>
-          <div class="product">
-            <div class="left" @click='selectProduct(item)'>
-              <span class="checkbox" :class='{checked:item.checked}' ></span>
-            </div>
-            <div class="center">
-              <img
-                :src="item.selectPic"
-                alt
-              />
-            </div>
-            <div class="right">
-              <h1 class="name multiline">{{item.selectTit}}</h1>
-              <p class="desc">{{item.selectInfo}}</p>
-              <p class="price-box">
-                <span class="price">
-                  ￥{{item.currentPrice}}
-                  <span class="origin">￥{{item.currentPrice+50}}</span>
-                </span>
+            <div class="product">
+              <div class="left" @click="selectProduct(item)">
+                <span class="checkbox" :class="{checked:item.checked}"></span>
+              </div>
+              <div class="center">
+                <img :src="item.selectPic" alt />
+              </div>
+              <div class="right">
+                <h1 class="name multiline">{{item.selectTit}}</h1>
+                <p class="desc">{{item.selectInfo}}</p>
+                <p class="price-box">
+                  <span class="price">
+                    ￥{{item.currentPrice}}
+                    <span class="origin">￥{{item.currentPrice+50}}</span>
+                  </span>
 
-                <input type="text" :value="item.selectNum" class="ipt" />
-              </p>
+                  <input type="text" :value="item.selectNum" class="ipt" />
+                </p>
+              </div>
             </div>
+            <div class="free">已享包邮</div>
           </div>
-          <div class="free">已享包邮</div>
         </div>
-
-      </div>
-    </myScroll>
+      </myScroll>
     </div>
     <div class="settlement border-top">
-      <div class="all-box" @click='checkAllAction' >
-         <div class='left'>
-              <span class="checkbox" :class='{checked:this.checkAllFlag}' ></span>
-         </div>
-        <label >全选</label>
+      <div class="all-box" @click="checkAllAction">
+        <div class="left">
+          <span class="checkbox" :class="{checked:this.checkAllFlag}"></span>
+        </div>
+        <label>全选</label>
       </div>
       <div class="right-box">
-        <span class="money" >实付款:￥{{totalMoney}}</span>
+        <span class="money">实付款:￥{{totalMoney.toFixed(2)}}</span>
         <button class="payBtn">结算</button>
       </div>
     </div>
@@ -57,64 +53,67 @@
 
 <script>
 import Header from "./Header";
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 export default {
   components: {
     Header
   },
-  data(){
-    return{
-      myScroll:'myScroll',
-      totalMoney:0,
-      checkAllFlag:false
-
-    }
+  data() {
+    return {
+      myScroll: "myScroll",
+      totalMoney: 0,
+      checkAllFlag: false,
+      count:0
+    };
   },
-  computed:{
+  computed: {
     ...mapState({
-      addCartList:state =>state.marketOrder.addCartList
-    }),
-    
+      addCartList: state => state.marketOrder.addCartList
+    })
   },
-  methods:{
-    calcTotalPrice(){
+  methods: {
+    calcTotalPrice() {
       var _this = this;
       this.totalMoney = 0;
-      this.addCartList.forEach(item =>{
+      this.addCartList.forEach(item => {
         if (item.checked) {
-           _this.totalMoney += item.currentPrice * item.selectNum; 
+          _this.totalMoney += item.currentPrice * item.selectNum;
         }
-      })
+      });
     },
-    selectProduct(item){
+    selectProduct(item) {
       //点击选中
-      if (typeof item.checked == 'undefined') {
-        this.$set(item,'checked',true);
-      // 再点击取消
-      }else {
-        item.checked = !item.checked;
-      }
-      //计算价格
+      let len = this.addCartList.length;
+        if (typeof item.checked == "undefined") {
+          this.$set(item, "checked", true);
+          this.count += 1;
+        } else {
+          item.checked = !item.checked;
+          this.count -= 1;
+        }
+        if (len == this.count) {
+          this.checkAllFlag = true;
+        }else{
+          this.checkAllFlag = false;
+        }
       this.calcTotalPrice();
     },
     // 全选
-    checkAllAction(){
-       this.checkAllFlag = !this.checkAllFlag;
-       this.addCartList.forEach(item=>{
-         //筛选没有选中的全部选中
-         if (typeof item.checked == 'undefined' ) {
-           this.$set(item,'checked', this.checkAllFlag)
-         }else{
+    checkAllAction() {
+      this.checkAllFlag = !this.checkAllFlag;
+      this.addCartList.forEach(item => {
+        //筛选没有选中的全部选中
+        if (typeof item.checked == "undefined") {
+          this.$set(item, "checked", this.checkAllFlag);
+        } else {
           //  取消全选就反选
-           item.checked = this.checkAllFlag;
-         }
-       })
+          item.checked = this.checkAllFlag;
+        }
+      });
       this.calcTotalPrice();
-    },  
+    }
     //单个商品全部选中，在选所有的
-   
   }
-  
 };
 </script>
 
@@ -143,19 +142,18 @@ export default {
       font-size: 34px;
       color: #383934;
       padding: 0 45px;
-     .left{
-       width:50px;
-       position:relative;
-
-     }
+      .left {
+        width: 50px;
+        position: relative;
+      }
     }
     .product {
       display: flex;
       justify-content: flex-start;
       padding: 25px 45px;
-      .left{
-        position:relative;
-        width:50px;
+      .left {
+        position: relative;
+        width: 50px;
       }
       .center {
         width: 236px;
@@ -227,23 +225,23 @@ export default {
   box-sizing: border-box;
   .all-box {
     display: flex;
-    line-height:160px;
-    .left{
-      width:50px;
-      position:relative;
+    line-height: 160px;
+    .left {
+      width: 50px;
+      position: relative;
     }
     .all {
       width: 48px;
       height: 48px;
     }
-    label{
+    label {
       color: #333;
-      font-size:50px;
+      font-size: 50px;
     }
   }
-  .right-box{
-    display:flex;
-    align-items:center;
+  .right-box {
+    display: flex;
+    align-items: center;
   }
   .payBtn {
     width: 214px;
@@ -258,30 +256,30 @@ export default {
   }
 }
 .checkbox {
-      width: 48px;
-      height: 48px;
-      border:2px #eee solid;
-      border-radius:50%;
-      display: inline-block;
-      position:absolute;
-      top:32%;
-      left:0;
-      transform:translate(-32%,0);
-    }
-.checked{
-  background:#f8664f;
-     &::before {
-          width: 24px;
-          height: 10px;
-          border: 4px #fff solid;
-          border-left: none;
-          border-bottom: none;
-          transform: rotate(130deg) translate(-50%, 0);
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 50%;
-        }
+  width: 48px;
+  height: 48px;
+  border: 2px #eee solid;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 32%;
+  left: 0;
+  transform: translate(-32%, 0);
+}
+.checked {
+  background: #f8664f;
+  &::before {
+    width: 24px;
+    height: 10px;
+    border: 4px #fff solid;
+    border-left: none;
+    border-bottom: none;
+    transform: rotate(130deg) translate(-50%, 0);
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+  }
 }
 </style>
 
