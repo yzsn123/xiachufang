@@ -14,7 +14,7 @@ const routes = [{
   },
   {
     path: '/login',
-    component: () => import('../pages/mine/login/login')
+    component: () => import('../pages/mine/login/Login')
   },
   kitchenRouter,
   classRouter,
