@@ -8,13 +8,16 @@
             <img :src="selectImg" alt ref="goodspic" />
           </div>
           <div class="contect-box">
-            <h3 class="title">{{data.title}}</h3>
+            <h3 class="title multiline">{{data.title}}</h3>
             <div class="price-box">
               <span>价格:￥{{data.currentPrice}}</span>
               <!-- <span class="origin">￥165</span> -->
             </div>
             <!-- 因为是数组需要用join来拼接 有规格才显示-->
-            <div class="num text-overflow" v-if="this.data.sku.tree.length>0">已选择 : {{tip.join(',')}}</div>
+            <div
+              class="num text-overflow"
+              v-if="this.data.sku.tree.length>0"
+            >已选择 : {{tip.join(',')}}</div>
           </div>
           <div @click="hideAction">
             <van-icon name="clear" />
@@ -44,6 +47,7 @@
 <script>
 import selectItem from "./select-item";
 import { Toast } from "vant";
+import {mapState} from 'vuex';
 export default {
   props: {
     data: {
@@ -59,7 +63,7 @@ export default {
     return {
       count: 1,
       selectMap: {},
-      selectImg: this.data.bannerList[0].picUrl
+      selectImg: this.data.bannerList[0].picUrl,
     };
   },
   computed: {
@@ -83,7 +87,10 @@ export default {
         // 返回数组
         return tmp;
       }
-    }
+    },
+    ...mapState({
+         addCartStatus:state =>state.marketOrder.status
+    })
   },
   methods: {
     hideAction() {
@@ -108,28 +115,41 @@ export default {
         this.selectImg = item.picUrl;
       }
     },
+    
     buyAction() {
       // 取数组的长度
-      // console.log(Object.entries(this.selectMap).length);
       if (this.data.sku.tree.length > Object.entries(this.selectMap).length) {
         //  没有选择完整
-        Toast('请选择规格数量');
+        Toast("请选择规格数量");
       } else {
-        this.$router.push({name:'order'});
         let id = 0;
-        const info ={
-          selectId:id++,
-          selectPic:this.selectImg,
-          selectTit:this.data.title,
-          selectNum:this.count,
-          selectInfo:this.tip,
-          currentPrice:this.data.currentPrice
-        }   
-        this.$store.commit('marketOrder/selectProduct',info);  
-        this.$emit('input',false);
+        const info = {
+          selectId: id++,
+          selectPic: this.selectImg,
+          selectTit: this.data.title,
+          selectNum: this.count,
+          selectInfo: this.tip,
+          currentPrice: this.data.currentPrice,
+          selectInput:false,
+          checked:false,
+        };     
+        if (this.addCartStatus == 'add') {
+            //添加到购物车
+            this.$emit("input", false);
+            //添加购物车数据到仓库
+            this.$store.commit('marketOrder/addCartList',info);
+        }else{
+         //立即购买
+         var arr = [];
+         this.$router.push({ name: "order" });
+         arr.push(info);
+         this.$store.commit("marketOrder/selectProduct", arr);
+         console.log(arr);
+         this.$emit("input", false);  
+        }
       }
     }
-  }
+  },  
 };
 </script>
 
@@ -168,6 +188,7 @@ export default {
         border-bottom: 1px #eee solid;
         padding: 0 0 24px 0;
         width: 100%;
+        box-sizing: border-box;
         .pic {
           width: 200px;
           height: 200px;
@@ -181,6 +202,9 @@ export default {
         .contect-box {
           flex: 1;
           font-size: 35px;
+          display: flex;
+          overflow: hidden;
+          flex-direction: column;
           .title {
             margin-bottom: 10px;
             color: #333;

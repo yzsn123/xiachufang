@@ -72,8 +72,7 @@ export default {
   overflow: hidden;
   box-sizing: border-box;
   margin-bottom: 60px;
-  padding-bottom: 80px;
-  border-bottom:1px #eee solid;
+  padding-bottom: 20px;
   .tabs-list {
     li {
       width: 25%;

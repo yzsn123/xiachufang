@@ -41,7 +41,7 @@
     </div>
     <div class="footer">
         <span class="iconfont icon-ganxingqu"> 收藏</span>
-        <div class="btn">￥{{detailInfo.price}}.9购买课程</div>
+        <div class="btn" @click="buyClass">￥{{detailInfo.price}}.9购买课程</div>
     </div>
   </div>
 </template>
@@ -63,19 +63,33 @@ export default {
       detailInfo: {},
       myScroll: "detailScroll",
       value: null,
-      bannerList:[]
     };
   },
   methods: {
     async getDetail() {
       await this.$store.dispatch("Class/getDetail", this.id);
       this.detailInfo = this.$store.state.Class.detailInfo.data.data;
-    //   this.bannerList = this.detailInfo.bannerList;
       this.value = (this.detailInfo.grade) / 2;
-    //   console.log(this.detailInfo);
     },
     backAction(){
         this.$router.back();
+    },
+    buyClass(){
+      console.log(this.detailInfo);
+        var arr = [];
+        let info = {
+          selectId:this.detailInfo.id,
+          selectPic: this.detailInfo.bannerList[0].picUrl,
+          selectTit: this.detailInfo.title,
+          selectNum: 1,
+          selectInfo: [],
+          currentPrice: `${this.detailInfo.price}.9`,
+          selectInput:false,
+          checked:false,
+        }
+         arr.push(info);
+         this.$store.commit("marketOrder/selectProduct", arr);
+         this.$router.push(`/market/detail/${this.detailInfo.id}/order`);
     }
   },
   created() {

@@ -1,27 +1,6 @@
 <template>
 <div class="item-list">
-  <!-- <div class="item" v-for="item in itemList" :key="item.id" @click="goDetail(item.id,item.title)">
-    <div class="pic-box">
-      <img :src="item.picUrl"  :alt='item.title' />
-      <p class="tips">限时特价</p>
-    </div>
-    <div class="item-content">
-      <h3 class="name multiline">{{item.title}}</h3>
-      <p class="des text-overflow">{{item.desc}}</p>
-      <div class="info">
-        <span class="status">
-          已售:
-          <span class="sale">{{item.num}}</span>
-        </span>
-        <span class="mail">包邮</span>
-      </div>
-      <div class="price-box">
-        <div class="currentPrice">￥{{item.currentPrice}}</div>
-        <div class="originPrice">￥{{item.prePrice}}</div>
-      </div>
-    </div>
-  </div> -->
-  <div class="item" v-for="item in GoodList" :key="item.id" @click="goDetail(item.id,item.title)">
+  <div class="item" v-for="(item,index) in GoodList" :key="index" @click="goDetail(item.index,item.title)">
     <div class="pic-box">
       <img :src="item.picUrl"  :alt='item.title' />
       <p class="tips">限时特价</p>
@@ -92,6 +71,9 @@ export default {
       this.$router.push(`/market/detail/${id}`);
     }
   },
+  created(){
+    // console.log(this.GoodList);
+  }
 
 };
 </script>
@@ -106,6 +88,8 @@ export default {
     width: 100%;
     position: relative;
     overflow: hidden;
+    width: 500px;
+    height: 500px;
     img {
       width: 100%;
       border-radius: 10px;

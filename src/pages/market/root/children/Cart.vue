@@ -2,78 +2,53 @@
   <div class="shopping-cart">
     <Header title="购物车" :hasLocation="false" />
     <div class="content">
-    <myScroll :name="myScroll">
-      <div class="shopping-wrap">
-        <div class="group">
-          <div class="title-box">
-            <input type="checkbox" class="checkbox" />
-            <h3 class="name">下厨房精选</h3>
+      <myScroll :name="myScroll">
+        <div class="shopping-wrap">
+          <div class="tips-box" v-if="addCartList.length==0">
+            <van-icon name="shopping-cart-o" />
+            <p>购物车空空如也，赶紧去购物吧！</p>
           </div>
-          <div class="product">
-            <div class="left">
-              <input type="checkbox" class="checkbox" />
+          <div class="group" v-for="(item, index) in addCartList" :key="index">
+            <div class="title-box">
+              <div class="left" @click="selectProduct(item)">
+                <span class="checkbox" :class="{checked:item.checked}"></span>
+              </div>
+              <h3 class="name">下厨房精选</h3>
             </div>
-            <div class="center">
-              <img
-                src="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=1745834138,3604086340&fm=85&s=599C679E5C43EAC25AAAC06B0300B06B"
-                alt
-              />
+            <div class="product">
+              <div class="left" @click="selectProduct(item)">
+                <span class="checkbox" :class="{checked:item.checked}"></span>
+              </div>
+              <div class="center">
+                <img :src="item.selectPic" alt />
+              </div>
+              <div class="right">
+                <h1 class="name multiline">{{item.selectTit}}</h1>
+                <p class="desc">{{item.selectInfo.join(' , ')}}</p>
+                <p class="price-box">
+                  <span class="price">
+                    ￥{{item.currentPrice}}
+                    <span class="origin">￥{{item.currentPrice+50}}</span>
+                  </span>
+                  <input type="text" :value="item.selectNum" class="ipt" />
+                </p>
+              </div>
             </div>
-            <div class="right">
-              <h1 class="name multiline">标题标题标题标题标题标标题标题标题标标题标题标题标题标题标题标题标题标题标题标题标题标题标题</h1>
-              <p class="desc">选的规格</p>
-              <p class="price-box">
-                <span class="price">
-                  ￥256
-                  <span class="origin">￥300</span>
-                </span>
-
-                <input type="text" value="5" class="ipt" />
-              </p>
-            </div>
+            <div class="free">已享包邮</div>
           </div>
-          <div class="free">已享包邮</div>
         </div>
-        <div class="group">
-          <div class="title-box">
-            <input type="checkbox" class="checkbox" />
-            <h3 class="name">下厨房精选</h3>
-          </div>
-          <div class="product">
-            <div class="left">
-              <input type="checkbox" class="checkbox" />
-            </div>
-            <div class="center">
-              <img
-                src="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=1745834138,3604086340&fm=85&s=599C679E5C43EAC25AAAC06B0300B06B"
-                alt
-              />
-            </div>
-            <div class="right">
-              <h1 class="name multiline">标题标题标题标题标题标标题标题标题标标题标题标题标题标题标题标题标题标题标题标题标题标题标题</h1>
-              <p class="desc">选的规格</p>
-              <p class="price-box">
-                <span class="price">
-                  ￥256
-                  <span class="origin">￥300</span>
-                </span>
-                <input type="text" value="5" class="ipt" />
-              </p>
-            </div>
-          </div>
-          <div class="free">已享包邮</div>
-        </div>
-      </div>
-    </myScroll>
+      </myScroll>
     </div>
     <div class="settlement border-top">
-      <div class="all-box">
-        <input type="checkbox" class="all" id="all" />
-        <label for='all'>全选</label>
+      <div class="all-box" @click="checkAllAction">
+        <div class="left">
+          <span class="checkbox" :class="{checked:this.checkAllFlag}"></span>
+        </div>
+        <label>全选</label>
       </div>
-      <div>
-        <span class="money">实付款:￥621.8</span>
-        <button class="payBtn">结算</button>
+      <div class="right-box">
+        <span class="money">实付款:￥{{totalMoney.toFixed(2)}}</span>
+        <button class="payBtn" @click="settlementAction">结算</button>
       </div>
     </div>
   </div>
@@ -81,13 +56,75 @@
 
 <script>
 import Header from "./Header";
+import { mapState } from "vuex";
 export default {
   components: {
     Header
   },
-  data(){
-    return{
-      myScroll:'myScroll'
+  data() {
+    return {
+      myScroll: "myScroll",
+      totalMoney: 0,
+      checkAllFlag: false,
+      count:0
+    };
+  },
+  computed: {
+    ...mapState({
+      addCartList: state => state.marketOrder.addCartList
+    })
+  },
+  methods: {
+    calcTotalPrice() {
+      var _this = this;
+      this.totalMoney = 0;
+      this.addCartList.forEach(item => {
+        if (item.checked) {
+          _this.totalMoney += item.currentPrice * item.selectNum;
+        }
+      });
+    },
+    selectProduct(item) {
+      //点击选中
+      let len = this.addCartList.length;
+        if (!item.checked) {
+          this.$set(item, "checked", true);
+          this.count += 1;
+        } else {
+          item.checked = !item.checked;
+          this.count -= 1;
+        }
+        if (len == this.count) {
+          this.checkAllFlag = true;
+        }else{
+          this.checkAllFlag = false;
+        }
+        this.calcTotalPrice();
+    },
+    // 全选
+    checkAllAction() {
+      this.checkAllFlag = !this.checkAllFlag;
+      this.addCartList.forEach(item => {
+        //筛选没有选中的全部选中
+        if (typeof item.checked == "undefined") {
+          this.$set(item, "checked", this.checkAllFlag);
+        } else {
+          //  取消全选就反选
+          item.checked = this.checkAllFlag;
+        }
+      });
+      this.calcTotalPrice();
+    },
+    //结算
+    settlementAction(){
+      this.$router.push({name:'order'});
+      var arrlist = [];
+      this.addCartList.forEach(item=>{
+        if (item.checked) {
+          arrlist.push(item)
+        }
+      })
+      this.$store.commit('marketOrder/selectProduct',arrlist);
     }
   }
 };
@@ -109,27 +146,28 @@ export default {
   .group {
     background: #fff;
     margin-bottom: 12px;
-    .checkbox {
-      width: 48px;
-      height: 48px;
-      margin-right: 40px;
-    }
     .title-box {
       display: flex;
       justify-content: flex-start;
-      align-items: center;
       border-bottom: 1px #eae9e4 solid;
       height: 110px;
       line-height: 110px;
       font-size: 34px;
       color: #383934;
-      padding: 0 34px;
+      padding: 0 45px;
+      .left {
+        width: 50px;
+        position: relative;
+      }
     }
     .product {
       display: flex;
       justify-content: flex-start;
-      padding: 25px 36px;
-
+      padding: 25px 45px;
+      .left {
+        position: relative;
+        width: 50px;
+      }
       .center {
         width: 236px;
         height: 236px;
@@ -193,23 +231,30 @@ export default {
   width: 100%;
   height: 160px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   color: #f8664f;
   background: #fff;
-  padding: 0 26px 0 35px;
+  padding: 0 26px 0 45px;
   box-sizing: border-box;
   .all-box {
-    align-items: center;
     display: flex;
+    line-height: 160px;
+    .left {
+      width: 50px;
+      position: relative;
+    }
     .all {
       width: 48px;
       height: 48px;
     }
-    label{
+    label {
       color: #333;
-      font-size:50px;
+      font-size: 50px;
     }
+  }
+  .right-box {
+    display: flex;
+    align-items: center;
   }
   .payBtn {
     width: 214px;
@@ -221,6 +266,47 @@ export default {
     outline: none;
     font-size: 36px;
     color: #fff;
+  }
+}
+.checkbox {
+  width: 48px;
+  height: 48px;
+  border: 2px #eee solid;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 32%;
+  left: 0;
+  transform: translate(-32%, 0);
+}
+.checked {
+  background: #f8664f;
+  &::before {
+    width: 24px;
+    height: 10px;
+    border: 4px #fff solid;
+    border-left: none;
+    border-bottom: none;
+    transform: rotate(130deg) translate(-50%, 0);
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+  }
+}
+.tips-box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 46px;
+  color: #94958f;
+  margin-top: 450px;
+  .van-icon{
+    font-size: 100px;
+    padding: 0 0 30px 0;
   }
 }
 </style>
