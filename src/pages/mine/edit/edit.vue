@@ -157,13 +157,15 @@ export default {
     async reqInfo() {
       let result = await this.$store.dispatch("mine/requestSearchInfo");
       let info = result.data.data[0];
-      this.birdth = info.birdth;
-      this.area = info.hometown;
-      this.job = info.job;
-      this.oftenLive = info.oftenLive;
-      this.sex = info.sex;
-      this.signature = info.signature;
-      this.tel = info.username;
+      if (info) {
+        this.birdth = info.birdth;
+        this.area = info.hometown;
+        this.job = info.job;
+        this.oftenLive = info.oftenLive;
+        this.sex = info.sex;
+        this.signature = info.signature;
+        this.tel = info.username;
+      }
     }
   },
   created() {
