@@ -1,38 +1,40 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import kitchenRouter from './kitchen-routes'
-import collectRouter from './collect-routes'
-import marketRouter from './market-routes'
-import classroomRouter from './classroom-routes'
+import classRouter from './class-router'
 import mineRouter from './mine-routes'
+import marketRouter from './market-routes'
+import collectRouter from './collect-routes'
+import store from '../store/index'
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
-    redirect: '/market'
+    redirect: '/kitchen'
   },
-  kitchenRouter,
-  collectRouter,
-  marketRouter,
-  classroomRouter,
-  mineRouter,
   {
     path: '/login',
-    component: ()=>import('../pages/mine/login/Login')
+    component: () => import('../pages/mine/login/Login')
   },
+  kitchenRouter,
+  classRouter,
+  mineRouter,
+  marketRouter,
+  collectRouter,
   {
-    path: '/regiester',
-    component: ()=>import('../pages/mine/regiester/Regiester')
+    path: '/mine/login',
+    component: () => import('../pages/mine/root/children/Login.vue'),
+    
   },
   {
     path: '/404',
-    component: ()=>import('../pages/common/not-find/NotFind')
+    component: () => import('../pages/common/not-find/NotFind')
   },
   {
     path: '**',
     redirect: '/404'
-  }
+  },
+
 ]
 
 const router = new VueRouter({

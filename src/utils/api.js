@@ -1,7 +1,5 @@
-
-
 // 管理api
-// export const HOST = 'http://localhost:9000';
+export const HOST = 'http://localhost:8081';
 
 
 /* 
@@ -38,6 +36,16 @@ const CHECK_LOGIN = '/api/user/check_login'
 */
 const LOGOUT_API = '/api/user/logout';
 
+/*
+添加个人信息
+*/
+const ADDINFO_API = '/api/user/addInfo'
+
+//修改个人信息
+const UPDATEINFO_API = '/api/user/updateInfo'
+
+//查询个人信息
+const SEARCHINFO_API = '/api/user/searchInfo'
 
 /*
 市集列表接口
@@ -54,6 +62,8 @@ const MARKET_GOODLIST_API = '/api/market/goodList';
 //市集商品详情接口
 const MARKET_DETAIL_API = 'api/market/detail';
 
+//市集猜你喜欢的接口
+const MARKET_SUGGEST_GUESS_API = '/api/market/suggest/guess'
 
 /**
  * 下厨房接口
@@ -71,12 +81,24 @@ const KITCHEN_ATTENTION_API = '/api/kitchen/attention';
 const KITCHEN_STORY_API = '/api/kitchen/story';
 
 //下厨房搜索接口
-const KITCHEN_SEARCH_API = 'api/kitchen/search'
+const KITCHEN_SEARCH_API = '/api/kitchen/search'
+
+//下厨房关注感兴趣接口
+const KITCHEN_ATTENTION_INTEREST_APi = '/api/kitchen/attention/interest';
 
 /*
 课堂接口
 */
-
+//课堂所有内容的接口
+const CLASS_ALL_API = '/api/class/all'
+//猜你喜欢接口
+const CLASS_GUESS_API = 'api/class/all/guess'
+//课程分类点开的列表
+const CLASS_KIND_API = '/api/class/kind'
+//课程分类刷新重新加载的列表
+const CLASS_KIND_GOODLIST_API = '/api/class/kind/goodList'
+//课程商品详情
+const CLASS_DETAIL_API = '/api/class/detail'
 
 /*
 收藏接口
@@ -121,5 +143,15 @@ export default {
   COLLECT_CLASS_API,
   COLLECT_STORY_API,
   COLLECT_HISTORY_API,
-  ORDER_API
+  ORDER_API,
+  CLASS_ALL_API,
+  CLASS_GUESS_API,
+  KITCHEN_ATTENTION_INTEREST_APi,
+  MARKET_SUGGEST_GUESS_API,
+  CLASS_KIND_API,
+  CLASS_KIND_GOODLIST_API,
+  CLASS_DETAIL_API,
+  ADDINFO_API,
+  UPDATEINFO_API,
+  SEARCHINFO_API
 }

@@ -1,31 +1,160 @@
 <template>
 <div class="app-scroll" ref="scroll">
-  <div class="scoll-wrap">
-    <slot/>
+  <div class="scoll-wrap" ref="scrollwrap">
+    <div class="loading"></div>
+      <slot/>
+    <div class="loadmore">
+      <van-loading size="40px"></van-loading>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
-import BScroll from 'better-scroll'
+import { Loading } from 'vant';
+import '../lib/iscroll-probe.js'
 export default {
   name: 'app-scroll',
+  components:{
+    [Loading.name]:Loading
+  },
+  data(){
+    return{
+      loading:true,
+      loadmore:true,
+    }
+  },
+  methods:{
+    async refreshData(){
+      if(this.$children[0].GetDiscoverData){
+        await this.$children[0].GetDiscoverData();
+      }
+      if(this.$children[0].GetAttentionData){
+        await this.$children[0].GetAttentionData();
+      }
+      if(this.$children[0].GetStoryData){
+        await this.$children[0].GetStoryData();
+      }
+    },
+    async loadMoreData(){
+      if(this.$children[0].GetMoreDiscoverData){
+        await this.$children[0].GetMoreDiscoverData();
+      }
+      if(this.$children[0].GetMoreAttentionData){
+        await this.$children[0].GetMoreAttentionData();
+      }
+      if(this.$children[0].GetMoreStoryData){
+        await this.$children[0].GetMoreStoryData();
+      }
+    },
+    ChangeLoading(){
+      this.loading = true;
+    },
+    ChangeLoadmore(){
+      this.loadmore = true;
+    },
+    ChangeSwiper(){
+        // 当滑动到某个位置时，设置粘性定位
+        if(this.$children[0].$refs.swipers){
+          let Swipers = this.$children[0].$refs.swipers.$refs.swipers;
+          if(Swipers.getBoundingClientRect().top<=93){
+            Swipers.style.opacity = 0;
+            this.$center.$emit('ChangeSwipershow');
+          } else{
+            Swipers.style.opacity = 1;
+            this.$center.$emit('NoneSwipershow');
+          }
+        }
+    }
+  },
+  created(){
+      this.$center.$on('ChangeLoading',this.ChangeLoading);
+      this.$center.$on('ChangeLoadmore',this.ChangeLoadmore);
+  },
   mounted(){
-    // 创建滚动视图
-    this.scroll = new BScroll(this.$refs.scroll, {
-      tap: true,
-      click: true
-    });
-    // 如果需要滚动，先刷新滚动视图，就可以在可滚动范围内滚动
-    this.scroll.on('beforeScrollStart', ()=>{
-      this.scroll.refresh();
-    });
+    this.$nextTick(()=>{
+      this.scroll = new IScroll(this.$refs.scroll, {
+        probeType: 3,
+      })
+
+      this.scroll.scrollTo(0,-90,0);
+      
+      this.scroll.on('beforeScrollStart', ()=>{
+        this.scroll.refresh();
+        this.ChangeSwiper();
+      });
+      
+     this.scroll.on('scroll',()=>{
+        if(this.scroll.y>-10){
+            this.$parent.$mySwiper.lockSwipes();
+        }
+        this.ChangeSwiper();
+     })
+
+      this.scroll.on('scrollEnd',()=>{
+        this.$parent.$mySwiper.unlockSwipes();
+        this.ChangeSwiper();
+        let y = this.scroll.y;
+        let maxY = this.scroll.maxScrollY;
+        let minY = maxY + 90;
+        if(y>=0){
+          if(this.loading){
+            this.loading = false;
+            this.refreshData();
+            this.scroll.refresh();
+            this.scroll.scrollTo(0,-90,300);
+          } else{
+            this.scroll.scrollTo(0,-90,300);
+          }
+        } else if(y<0 && y>-90){
+          this.scroll.scrollTo(0,-90,300);
+        }
+        let MmaxY = Math.abs(maxY);
+        let MY = Math.abs(y);
+        let MinY = Math.abs(minY);
+
+        if(MY >= MmaxY - 70){
+          if(this.loadmore){
+             this.loadmore = false;
+             this.loadMoreData();
+             this.scroll.refresh();
+             this.scroll.scrollTo(0,minY,300);
+          } else{
+            this.scroll.scrollTo(0,minY,300);
+          }
+        } else if(MY > MinY && MY < MmaxY){
+          this.scroll.scrollTo(0,minY,300);
+        } else{
+        }
+      })
+    })
+  },
+  beforeDestroy(){
+      this.$center.$off('ChangeLoading',this.ChangeLoading);
+      this.$center.$off('ChangeLoadmore',this.ChangeLoadmore);
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .app-scroll{
   overflow: hidden;
+}
+.loading{
+  width: 100%;
+  height: 90px;
+  background: url(../assets/home/loading.png);
+  background-size: contain;
+  background-position: center;
+}
+.loadmore{
+  width:100%;
+  height: 70px;
+  .van-loading{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 70px;
+  }
 }
 </style>
