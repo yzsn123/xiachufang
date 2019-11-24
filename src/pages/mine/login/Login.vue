@@ -4,28 +4,29 @@
       <span @click="backAction">取消</span>
       手机登录注册
     </div>
+    <div class="content">
+      <div class="phone">
+        <label class="phone">
+          手机号
+          <input type="text" v-model="tel" />
+        </label>
+        <label class="psd">
+          验证码
+          <input type="text" v-model="code" />
+          <button @click="codeAction" ref="code" :class="{red:codeFlag}">{{codeText}}</button>
+        </label>
+      </div>
 
-    <div class="phone">
-      <label class="phone">
-        手机号
-        <input type="text" v-model="tel" />
-      </label>
-      <label class="psd">
-        验证码
-        <input type="text" v-model="code" />
-        <button @click="codeAction" ref="code" :class="{red:codeFlag}">{{codeText}}</button>
-      </label>
+      <p>
+        登录注册即代表你同意下厨房
+        <em>《用户协议》</em>和
+        <em>《隐私政策》</em>
+      </p>
+
+      <button class="logbtn" @click="loginAction">点击登录</button>
+
+      <p class="no">手机号不再使用？</p>
     </div>
-
-    <p>
-      登录注册即代表你同意下厨房
-      <em>《用户协议》</em>和
-      <em>《隐私政策》</em>
-    </p>
-
-    <button class="logbtn" @click="loginAction">点击登录</button>
-
-    <p class="no">手机号不再使用？</p>
   </div>
 </template>
 
@@ -60,14 +61,17 @@ export default {
         //如果输入了验证码并且验证码正确
         if (this.code && this.code == this.CODE) {
           //登录(注册)
-          let result = await this.$store.dispatch('mine/requestLogin',this.tel);
-          if(result.code == 0){
+          let result = await this.$store.dispatch(
+            "mine/requestLogin",
+            this.tel
+          );
+          if (result.code == 0) {
             // console.log(this.$store.state.path);
-            await localStorage.setItem('user',true);
+            await localStorage.setItem("user", true);
 
-            this.$store.commit('setLogin',true);
-            this.$store.commit('setTel',result.tel);
-            this.$router.push(`${this.$store.state.path}`)
+            this.$store.commit("setLogin", true);
+            this.$store.commit("setTel", result.tel);
+            this.$router.push(`${this.$store.state.path}`);
           }
           // console.log(result);
         } else {
@@ -122,6 +126,12 @@ export default {
   bottom: 0;
   z-index: 10;
   background: white;
+  .content{
+    position: absolute;
+    width: 100%;
+    top: 44px;
+    bottom: 0;
+  }
 }
 #login {
   width: 100%;
@@ -129,6 +139,9 @@ export default {
     width: 100%;
     height: 49px;
     line-height: 49px;
+    position: absolute;
+    top: 0;
+    left: 0;
     font-size: 16px;
     font-weight: bold;
     color: #666;
@@ -175,7 +188,7 @@ export default {
         text-align: center;
         color: white;
       }
-      .red{
+      .red {
         background: #f8664f;
       }
     }

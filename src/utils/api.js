@@ -1,5 +1,7 @@
 // 管理api
-export const HOST = 'http://localhost:8081';
+// export const HOST = 'http://localhost:8080';
+export const HOST = 'http://39.106.60.168:8081';
+
 
 
 /* 

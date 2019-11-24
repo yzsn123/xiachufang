@@ -21,6 +21,10 @@ export default {
         {
             path:'edit',
             component:()=>import('../pages/mine/edit/edit.vue')
+        },
+        {
+            path:'order',
+            component:()=>import('../pages/mine/root/children/order.vue')
         }
     ]
 }

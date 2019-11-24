@@ -31,7 +31,7 @@
           <span class="iconfont icon-shujia"></span>
           <em>课程·书架</em>
         </p>
-        <p>
+        <p  @click="orderAction">
           <span class="iconfont icon-dingdan"></span>
           <em>订单</em>
         </p>
@@ -102,6 +102,9 @@ export default {
       if (val) {
         this.reqInfo();
       }
+    },
+    orderAction(){
+      this.$router.push('/mine/order');
     }
   },
   created() {

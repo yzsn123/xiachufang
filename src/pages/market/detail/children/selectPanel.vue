@@ -144,7 +144,7 @@ export default {
          this.$router.push({ name: "order" });
          arr.push(info);
          this.$store.commit("marketOrder/selectProduct", arr);
-         console.log(arr);
+        //  console.log(arr);
          this.$emit("input", false);  
         }
       }

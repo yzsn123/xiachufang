@@ -85,7 +85,7 @@
     </div>
     <div class="settlement border-top">
       <span class="money">实付款:￥{{totalPrice.toFixed(2)}}</span>
-      <button class="payBtn">付款</button>
+      <button class="payBtn" @click="buyAction">付款</button>
     </div>
   </div>
 </template>
@@ -142,6 +142,11 @@ export default {
         this.buyNowList[index].selectNum += num;        
       }
     },
+    buyAction(){
+      this.$router.push('/mine/order');
+      this.$store.commit("marketOrder/buyed");
+      this.$toast('付款成功');
+    }
   }
 };
 </script>
